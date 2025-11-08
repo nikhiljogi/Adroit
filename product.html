@@ -1,0 +1,1207 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cutting Tools - Sigma Toolings</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        /* === GLOBAL STYLES === */
+        *{margin:0;padding:0;box-sizing:border-box;font-family:'Segoe UI',Tahoma,Geneva,Verdana,sans-serif;}
+        :root{ --primary:#1a365d;--secondary:#2d6bc4;--accent:#e63946;--light:#f8f9fa;--dark:#212529;--gray:#6c757d;--transition:all .3s ease; }
+        body{line-height:1.6;color:var(--dark);background:#fff;overflow-x: hidden;}
+        a{text-decoration:none;color:inherit;}
+        ul{list-style:none;}
+        .container{width:90%;max-width:1200px;margin:0 auto;padding:0 15px;}
+        .btn{display:inline-block;padding:12px 30px;background:var(--secondary);color:white;border:none;border-radius:4px;font-weight:600;cursor:pointer;transition:var(--transition);text-transform:uppercase;font-size:.9rem;letter-spacing:1px;}
+        .btn:hover{background:var(--primary);transform:translateY(-3px);box-shadow:0 5px 15px rgba(0,0,0,.1);}
+        .btn-outline{background:transparent;border:2px solid var(--secondary);color:var(--secondary);}
+        .btn-outline:hover{background:var(--secondary);color:white;}
+        .section{padding:80px 0;}
+        .section-title{text-align:center;margin-bottom:50px;}
+        .section-title h2{font-size:2.5rem;color:var(--primary);margin-bottom:15px;position:relative;display:inline-block;}
+        .section-title h2::after{content:'';position:absolute;width:70px;height:3px;background:var(--accent);bottom:-10px;left:50%;transform:translateX(-50%);}
+        .section-title p{color:var(--gray);max-width:700px;margin:0 auto;}
+        
+        /* === HEADER / NAV MENU === */
+        header{background:white;box-shadow:0 2px 10px rgba(0,0,0,.1);position:fixed;width:100%;top:0;z-index:1000;}
+        .header-container{display:flex;justify-content:space-between;align-items:center;padding:12px 0;}
+        .site-logo{height:55px;width:auto;}
+        .nav-menu{display:flex;align-items:center;gap:25px;}
+        .nav-menu li{position:relative;}
+        .nav-menu a{font-weight:600;color:var(--dark);transition:var(--transition);padding:6px;}
+        .nav-menu a:hover{color:var(--secondary);}
+        .nav-menu a.active{color:var(--secondary);}
+        /* Dropdown */
+        .dropdown-menu{
+            display:none;
+            position:absolute;
+            top:35px;
+            left:0;
+            background:white;
+            box-shadow:0 4px 12px rgba(0,0,0,.1);
+            padding:10px 0;
+            border-radius:5px;
+            width:200px;
+            z-index:9999;
+        }
+        .dropdown-menu li a{padding:10px 15px;display:block;color:#000;}
+        .dropdown-menu li a:hover{background:#f5f5f5;}
+        .nav-menu li:hover > .dropdown-menu{display:block;}
+        .mobile-toggle{display:none;font-size:1.6rem;cursor:pointer;}
+        
+        /* PAGE HERO */
+        .page-hero {
+            background: linear-gradient(rgba(26,54,93,.85), rgba(26,54,93,.85)), 
+                        url('https://images.unsplash.com/photo-1581094794329-c8112a89af12?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80') center/cover no-repeat;
+            color: white;
+            padding: 150px 0 100px;
+            text-align: center;
+            margin-top: 75px;
+        }
+        .page-hero h1 {
+            font-size: 3rem;
+            margin-bottom: 20px;
+        }
+        .page-hero p {
+            font-size: 1.2rem;
+            max-width: 700px;
+            margin: 0 auto;
+            opacity: 0.9;
+        }
+        
+        /* CUTTING TOOLS HERO */
+        .cutting-tools-hero {
+            background: var(--light);
+            padding: 80px 0;
+        }
+        .tools-intro {
+            text-align: center;
+            max-width: 900px;
+            margin: 0 auto 60px;
+        }
+        .tools-intro h2 {
+            font-size: 2.2rem;
+            color: var(--primary);
+            margin-bottom: 20px;
+        }
+        .tools-intro p {
+            font-size: 1.1rem;
+            color: var(--gray);
+            margin-bottom: 30px;
+        }
+        
+        /* TOOLS FILTER */
+        .tools-filter {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin-bottom: 40px;
+            flex-wrap: wrap;
+        }
+        .filter-btn {
+            padding: 10px 20px;
+            background: white;
+            border: 1px solid #ddd;
+            border-radius: 30px;
+            cursor: pointer;
+            transition: var(--transition);
+            font-weight: 500;
+        }
+        .filter-btn.active, .filter-btn:hover {
+            background: var(--secondary);
+            color: white;
+            border-color: var(--secondary);
+        }
+        
+        /* TOOLS GRID */
+        .tools-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 30px;
+            margin-bottom: 60px;
+        }
+        .tool-card {
+            background: white;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.08);
+            transition: var(--transition);
+        }
+        .tool-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(0,0,0,0.15);
+        }
+        .tool-image {
+            height: 250px;
+            background: var(--light);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+            position: relative;
+        }
+        .tool-image img {
+            max-width: 100%;
+            max-height: 100%;
+            object-fit: contain;
+        }
+        .tool-badge {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            background: var(--accent);
+            color: white;
+            padding: 5px 10px;
+            border-radius: 3px;
+            font-size: 0.8rem;
+            font-weight: 600;
+        }
+        .tool-content {
+            padding: 25px;
+        }
+        .tool-content h3 {
+            font-size: 1.4rem;
+            color: var(--primary);
+            margin-bottom: 10px;
+        }
+        .tool-specs {
+            display: flex;
+            gap: 15px;
+            margin-bottom: 15px;
+            font-size: 0.9rem;
+            color: var(--gray);
+        }
+        .tool-specs span {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+        .tool-content p {
+            color: var(--gray);
+            margin-bottom: 20px;
+            font-size: 0.95rem;
+        }
+        .tool-features {
+            margin: 20px 0;
+        }
+        .tool-features li {
+            display: flex;
+            align-items: flex-start;
+            gap: 10px;
+            margin-bottom: 8px;
+            font-size: 0.9rem;
+        }
+        .tool-features i {
+            color: var(--accent);
+            margin-top: 3px;
+            flex-shrink: 0;
+        }
+        .tool-actions {
+            display: flex;
+            gap: 10px;
+            margin-top: 20px;
+        }
+        .tool-actions .btn {
+            flex: 1;
+            text-align: center;
+            padding: 10px 15px;
+            font-size: 0.85rem;
+        }
+        
+        /* TECHNICAL SPECS SECTION */
+        .technical-specs {
+            background: var(--light);
+            padding: 80px 0;
+        }
+        .specs-tabs {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            margin-bottom: 40px;
+            flex-wrap: wrap;
+        }
+        .spec-tab {
+            padding: 12px 25px;
+            background: white;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: var(--transition);
+            font-weight: 500;
+        }
+        .spec-tab.active, .spec-tab:hover {
+            background: var(--secondary);
+            color: white;
+            border-color: var(--secondary);
+        }
+        .specs-content {
+            background: white;
+            border-radius: 10px;
+            padding: 40px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.08);
+        }
+        .specs-table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        .specs-table th {
+            background: var(--primary);
+            color: white;
+            padding: 15px;
+            text-align: left;
+        }
+        .specs-table td {
+            padding: 12px 15px;
+            border-bottom: 1px solid #eee;
+        }
+        .specs-table tr:nth-child(even) {
+            background: #f9f9f9;
+        }
+        .specs-table tr:hover {
+            background: #f0f0f0;
+        }
+        
+        /* APPLICATIONS SECTION */
+        .applications-section {
+            padding: 80px 0;
+        }
+        .applications-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+        }
+        .application-card {
+            background: white;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.08);
+            transition: var(--transition);
+        }
+        .application-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 30px rgba(0,0,0,0.15);
+        }
+        .application-image {
+            height: 200px;
+            overflow: hidden;
+        }
+        .application-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: var(--transition);
+        }
+        .application-card:hover .application-image img {
+            transform: scale(1.05);
+        }
+        .application-content {
+            padding: 25px;
+        }
+        .application-content h3 {
+            font-size: 1.3rem;
+            color: var(--primary);
+            margin-bottom: 15px;
+        }
+        .application-content p {
+            color: var(--gray);
+            margin-bottom: 20px;
+            font-size: 0.95rem;
+        }
+        .application-materials {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-top: 15px;
+        }
+        .material-tag {
+            background: var(--light);
+            padding: 5px 10px;
+            border-radius: 3px;
+            font-size: 0.8rem;
+            color: var(--gray);
+        }
+        
+        /* COMPARISON SECTION */
+        .comparison-section {
+            background: var(--light);
+            padding: 80px 0;
+        }
+        .comparison-table {
+            background: white;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.08);
+        }
+        .comparison-header {
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr 1fr;
+            background: var(--primary);
+            color: white;
+        }
+        .comparison-header div {
+            padding: 20px;
+            font-weight: 600;
+            text-align: center;
+        }
+        .comparison-header div:first-child {
+            text-align: left;
+        }
+        .comparison-row {
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr 1fr;
+            border-bottom: 1px solid #eee;
+        }
+        .comparison-row:nth-child(even) {
+            background: #f9f9f9;
+        }
+        .comparison-row div {
+            padding: 15px 20px;
+            display: flex;
+            align-items: center;
+        }
+        .comparison-row div:first-child {
+            font-weight: 600;
+            color: var(--primary);
+        }
+        .feature-status {
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            margin: 0 auto;
+        }
+        .feature-yes {
+            background: #28a745;
+        }
+        .feature-no {
+            background: #dc3545;
+        }
+        
+        /* INDUSTRY SOLUTIONS */
+        .industry-solutions {
+            padding: 80px 0;
+        }
+        .industry-tabs {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            margin-bottom: 40px;
+            flex-wrap: wrap;
+        }
+        .industry-tab {
+            padding: 12px 25px;
+            background: white;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: var(--transition);
+            font-weight: 500;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .industry-tab.active, .industry-tab:hover {
+            background: var(--secondary);
+            color: white;
+            border-color: var(--secondary);
+        }
+        .industry-content {
+            background: white;
+            border-radius: 10px;
+            padding: 40px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.08);
+        }
+        .industry-solution {
+            display: none;
+        }
+        .industry-solution.active {
+            display: block;
+        }
+        .industry-solution h3 {
+            font-size: 1.5rem;
+            color: var(--primary);
+            margin-bottom: 20px;
+        }
+        .solution-features {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            margin: 25px 0;
+        }
+        .solution-feature {
+            display: flex;
+            align-items: flex-start;
+            gap: 15px;
+        }
+        .solution-feature i {
+            color: var(--accent);
+            font-size: 1.2rem;
+            margin-top: 3px;
+            flex-shrink: 0;
+        }
+        
+        /* CTA SECTION */
+        .cta-section {
+            background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+            color: white;
+            padding: 80px 0;
+            text-align: center;
+        }
+        .cta-content {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        .cta-content h2 {
+            font-size: 2.5rem;
+            margin-bottom: 20px;
+        }
+        .cta-content p {
+            font-size: 1.1rem;
+            margin-bottom: 30px;
+            opacity: 0.9;
+        }
+        .cta-buttons {
+            display: flex;
+            gap: 20px;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+        .cta-buttons .btn {
+            background: white;
+            color: var(--primary);
+        }
+        .cta-buttons .btn:hover {
+            background: var(--accent);
+            color: white;
+        }
+        .cta-buttons .btn-outline {
+            background: transparent;
+            border-color: white;
+            color: white;
+        }
+        .cta-buttons .btn-outline:hover {
+            background: white;
+            color: var(--primary);
+        }
+        
+        /* FOOTER */
+        footer{background:var(--dark);color:white;padding:70px 0 20px;}
+        .footer-content{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:40px;margin-bottom:40px;}
+        .footer-column h3{font-size:1.3rem;margin-bottom:20px;position:relative;padding-bottom:10px;}
+        .footer-column h3::after{content:'';position:absolute;width:40px;height:2px;background:var(--secondary);bottom:0;left:0;}
+        .footer-column ul li{margin-bottom:10px;}
+        .footer-column ul li a{color:#b0b7c3;transition:.3s;}
+        .footer-column ul li a:hover{color:white;}
+        .social-icons{display:flex;gap:12px;margin-top:10px;}
+        .social-icons a{display:flex;align-items:center;justify-content:center;width:38px;height:38px;background:rgba(255,255,255,.1);border-radius:50%;}
+        .social-icons a:hover{background:var(--secondary);}
+        .footer-bottom{text-align:center;padding-top:20px;border-top:1px solid rgba(255,255,255,.1);color:#b0b7c3;font-size:.9rem;}
+        
+        /* RESPONSIVE */
+        @media(max-width:992px){
+            .comparison-header, .comparison-row {
+                grid-template-columns: 1fr;
+            }
+            .comparison-header div, .comparison-row div {
+                text-align: center;
+            }
+            .comparison-header div:first-child, .comparison-row div:first-child {
+                text-align: center;
+                background: var(--primary);
+                color: white;
+                font-weight: 600;
+            }
+        }
+        
+        @media(max-width:768px){
+            .nav-menu{
+                position:fixed;
+                top:75px;
+                left:-100%;
+                width:100%;
+                height:100vh;
+                background:white;
+                flex-direction:column;
+                padding-top:40px;
+                transition:.3s;
+            }
+            .nav-menu.active{left:0;}
+            .nav-menu li{margin-bottom:25px;}
+            .mobile-toggle{display:block;color:var(--primary);}
+            .dropdown-menu{position:relative;box-shadow:none;width:100%;}
+            .page-hero h1{font-size:2.5rem;}
+            .tools-grid, .applications-grid {
+                grid-template-columns: 1fr;
+            }
+            .cta-buttons {
+                flex-direction: column;
+                align-items: center;
+            }
+            .tool-actions {
+                flex-direction: column;
+            }
+            .specs-content {
+                padding: 25px;
+            }
+            .industry-content {
+                padding: 25px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- HEADER -->
+    <header>
+        <div class="container header-container">
+            <div class="logo">
+                <a href="index.html">
+                    <img src="logo.png" alt="Sigma Toolings Logo" class="site-logo">
+                </a>
+            </div>
+            <div class="mobile-toggle"><i class="fas fa-bars"></i></div>
+            <ul class="nav-menu">
+                <li><a href="index.html">Home</a></li>
+                <li>
+                    <a href="#">Company ▼</a>
+                    <ul class="dropdown-menu">
+                        <li><a href="about-us.html">About Us</a></li>
+                        <li><a href="team.html">Our Team</a></li>
+                        <li><a href="careers.html">Careers</a></li>
+                        <li><a href="contact.html">Contact</a></li>
+                    </ul>
+                </li>
+                <li>
+                    <a href="#">Products ▼</a>
+                    <ul class="dropdown-menu">
+                        <li><a href="cutting-tools.html" class="active">Cutting Tools</a></li>
+                        <li><a href="boring-tools.html">Boring Tools</a></li>
+                        <li><a href="measuring-tools.html">Measuring Tools</a></li>
+                    </ul>
+                </li>
+                <li><a href="value-adds.html">Value-Adds</a></li>
+                <li><a href="videos.html">Videos</a></li>
+                <li><a href="downloads.html">Downloads</a></li>
+                <li><a href="news.html">News</a></li>
+                <li><a href="blogs.html">Blogs</a></li>
+            </ul>
+        </div>
+    </header>
+
+    <!-- PAGE HERO -->
+    <section class="page-hero">
+        <div class="container">
+            <h1>Cutting Tools</h1>
+            <p>Precision-engineered cutting solutions for superior performance across all manufacturing applications</p>
+        </div>
+    </section>
+
+    <!-- CUTTING TOOLS HERO -->
+    <section class="cutting-tools-hero">
+        <div class="container">
+            <div class="tools-intro">
+                <h2>Advanced Cutting Solutions</h2>
+                <p>Sigma Toolings offers a comprehensive range of high-performance cutting tools designed to maximize productivity, extend tool life, and deliver exceptional surface finishes across diverse materials and applications.</p>
+                <a href="#contact" class="btn">Request Technical Consultation</a>
+            </div>
+            
+            <div class="tools-filter">
+                <button class="filter-btn active" data-filter="all">All Tools</button>
+                <button class="filter-btn" data-filter="milling">Milling Cutters</button>
+                <button class="filter-btn" data-filter="drilling">Drilling Tools</button>
+                <button class="filter-btn" data-filter="turning">Turning Tools</button>
+                <button class="filter-btn" data-filter="threading">Threading Tools</button>
+                <button class="filter-btn" data-filter="grooving">Grooving Tools</button>
+            </div>
+            
+            <div class="tools-grid">
+                <!-- End Mill -->
+                <div class="tool-card" data-category="milling">
+                    <div class="tool-image">
+                        <img src="https://cdn-icons-png.flaticon.com/512/3521/3521964.png" alt="End Mill">
+                        <div class="tool-badge">BEST SELLER</div>
+                    </div>
+                    <div class="tool-content">
+                        <h3>Premium End Mills</h3>
+                        <div class="tool-specs">
+                            <span><i class="fas fa-ruler"></i> 4-20mm</span>
+                            <span><i class="fas fa-layer-group"></i> 2-6 Flutes</span>
+                            <span><i class="fas fa-temperature-high"></i> Up to 45 HRC</span>
+                        </div>
+                        <p>High-performance end mills for superior milling operations with enhanced chip evacuation and extended tool life.</p>
+                        <ul class="tool-features">
+                            <li><i class="fas fa-check"></i> Micro-grain carbide substrate</li>
+                            <li><i class="fas fa-check"></i> Advanced TiAlN coating</li>
+                            <li><i class="fas fa-check"></i> Optimized helix angles</li>
+                            <li><i class="fas fa-check"></i> Reduced vibration design</li>
+                        </ul>
+                        <div class="tool-actions">
+                            <a href="#" class="btn">View Details</a>
+                            <a href="#" class="btn btn-outline">Get Quote</a>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Drill Bit -->
+                <div class="tool-card" data-category="drilling">
+                    <div class="tool-image">
+                        <img src="https://cdn-icons-png.flaticon.com/512/3521/3521964.png" alt="Drill Bit">
+                        <div class="tool-badge">NEW</div>
+                    </div>
+                    <div class="tool-content">
+                        <h3>Solid Carbide Drills</h3>
+                        <div class="tool-specs">
+                            <span><i class="fas fa-ruler"></i> 3-25mm</span>
+                            <span><i class="fas fa-ruler-combined"></i> 3xD to 12xD</span>
+                            <span><i class="fas fa-temperature-high"></i> Up to 55 HRC</span>
+                        </div>
+                        <p>Precision solid carbide drills offering exceptional hole quality and extended tool life in challenging materials.</p>
+                        <ul class="tool-features">
+                            <li><i class="fas fa-check"></i> Internal coolant channels</li>
+                            <li><i class="fas fa-check"></i> Polished flute surfaces</li>
+                            <li><i class="fas fa-check"></i> Point geometry optimization</li>
+                            <li><i class="fas fa-check"></i> High-pressure capable</li>
+                        </ul>
+                        <div class="tool-actions">
+                            <a href="#" class="btn">View Details</a>
+                            <a href="#" class="btn btn-outline">Get Quote</a>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Turning Insert -->
+                <div class="tool-card" data-category="turning">
+                    <div class="tool-image">
+                        <img src="https://cdn-icons-png.flaticon.com/512/3521/3521964.png" alt="Turning Insert">
+                    </div>
+                    <div class="tool-content">
+                        <h3>CNMG Turning Inserts</h3>
+                        <div class="tool-specs">
+                            <span><i class="fas fa-shapes"></i> CNMG 120408</span>
+                            <span><i class="fas fa-layer-group"></i> Multiple Grades</span>
+                            <span><i class="fas fa-temperature-high"></i> Up to 65 HRC</span>
+                        </div>
+                        <p>Multi-purpose turning inserts with advanced chipbreaker geometry for optimal performance across various materials.</p>
+                        <ul class="tool-features">
+                            <li><i class="fas fa-check"></i> PVD and CVD coatings</li>
+                            <li><i class="fas fa-check"></i> Positive rake geometry</li>
+                            <li><i class="fas fa-check"></i> Enhanced edge preparation</li>
+                            <li><i class="fas fa-check"></i> Thermal barrier coating</li>
+                        </ul>
+                        <div class="tool-actions">
+                            <a href="#" class="btn">View Details</a>
+                            <a href="#" class="btn btn-outline">Get Quote</a>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Thread Mill -->
+                <div class="tool-card" data-category="threading">
+                    <div class="tool-image">
+                        <img src="https://cdn-icons-png.flaticon.com/512/3521/3521964.png" alt="Thread Mill">
+                    </div>
+                    <div class="tool-content">
+                        <h3>Solid Carbide Thread Mills</h3>
+                        <div class="tool-specs">
+                            <span><i class="fas fa-ruler"></i> M3-M24</span>
+                            <span><i class="fas fa-ruler-combined"></i> UNC/UNF/Metric</span>
+                            <span><i class="fas fa-temperature-high"></i> Up to 50 HRC</span>
+                        </div>
+                        <p>Precision thread mills for producing high-quality internal and external threads in various materials.</p>
+                        <ul class="tool-features">
+                            <li><i class="fas fa-check"></i> Full and partial profile options</li>
+                            <li><i class="fas fa-check"></i> Multi-tooth design</li>
+                            <li><i class="fas fa-check"></i> Optimized flute geometry</li>
+                            <li><i class="fas fa-check"></i> TiCN coating for wear resistance</li>
+                        </ul>
+                        <div class="tool-actions">
+                            <a href="#" class="btn">View Details</a>
+                            <a href="#" class="btn btn-outline">Get Quote</a>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Grooving Tool -->
+                <div class="tool-card" data-category="grooving">
+                    <div class="tool-image">
+                        <img src="https://cdn-icons-png.flaticon.com/512/3521/3521964.png" alt="Grooving Tool">
+                    </div>
+                    <div class="tool-content">
+                        <h3>Parting & Grooving Tools</h3>
+                        <div class="tool-specs">
+                            <span><i class="fas fa-ruler"></i> 1-6mm Width</span>
+                            <span><i class="fas fa-ruler-combined"></i> Various Inserts</span>
+                            <span><i class="fas fa-temperature-high"></i> Up to 45 HRC</span>
+                        </div>
+                        <p>Efficient parting and grooving tools for precise cutting operations with minimal vibration and deflection.</p>
+                        <ul class="tool-features">
+                            <li><i class="fas fa-check"></i> Anti-vibration design</li>
+                            <li><i class="fas fa-check"></i> Coolant-through capability</li>
+                            <li><i class="fas fa-check"></i> Multiple insert geometries</li>
+                            <li><i class="fas fa-check"></i> Quick-change systems</li>
+                        </ul>
+                        <div class="tool-actions">
+                            <a href="#" class="btn">View Details</a>
+                            <a href="#" class="btn btn-outline">Get Quote</a>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Face Mill -->
+                <div class="tool-card" data-category="milling">
+                    <div class="tool-image">
+                        <img src="https://cdn-icons-png.flaticon.com/512/3521/3521964.png" alt="Face Mill">
+                    </div>
+                    <div class="tool-content">
+                        <h3>High-Feed Face Mills</h3>
+                        <div class="tool-specs">
+                            <span><i class="fas fa-ruler"></i> 50-125mm Diameter</span>
+                            <span><i class="fas fa-layer-group"></i> 5-10 Inserts</span>
+                            <span><i class="fas fa-temperature-high"></i> Up to 60 HRC</span>
+                        </div>
+                        <p>High-feed face mills for maximum metal removal rates with low cutting forces and excellent surface finish.</p>
+                        <ul class="tool-features">
+                            <li><i class="fas fa-check"></i> High-positive geometry</li>
+                            <li><i class="fas fa-check"></i> Modular design</li>
+                            <li><i class="fas fa-check"></i> Wiper inserts available</li>
+                            <li><i class="fas fa-check"></i> Vibration-dampening body</li>
+                        </ul>
+                        <div class="tool-actions">
+                            <a href="#" class="btn">View Details</a>
+                            <a href="#" class="btn btn-outline">Get Quote</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- TECHNICAL SPECS SECTION -->
+    <section class="technical-specs">
+        <div class="container">
+            <div class="section-title">
+                <h2>Technical Specifications</h2>
+                <p>Detailed specifications for our premium cutting tool ranges</p>
+            </div>
+            
+            <div class="specs-tabs">
+                <button class="spec-tab active" data-tab="endmills">End Mills</button>
+                <button class="spec-tab" data-tab="drills">Drills</button>
+                <button class="spec-tab" data-tab="inserts">Turning Inserts</button>
+                <button class="spec-tab" data-tab="threadmills">Thread Mills</button>
+            </div>
+            
+            <div class="specs-content">
+                <div class="specs-table-container">
+                    <table class="specs-table">
+                        <thead>
+                            <tr>
+                                <th>Parameter</th>
+                                <th>Standard Range</th>
+                                <th>Extended Range</th>
+                                <th>Premium Range</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Diameter Range (mm)</td>
+                                <td>3-16</td>
+                                <td>2-25</td>
+                                <td>1-32</td>
+                            </tr>
+                            <tr>
+                                <td>Flute Count</td>
+                                <td>2, 3, 4</td>
+                                <td>2, 3, 4, 5</td>
+                                <td>2, 3, 4, 5, 6</td>
+                            </tr>
+                            <tr>
+                                <td>Helix Angle</td>
+                                <td>30°, 45°</td>
+                                <td>30°, 38°, 45°</td>
+                                <td>30°, 38°, 45°, 50°</td>
+                            </tr>
+                            <tr>
+                                <td>Coating Type</td>
+                                <td>TiN, TiCN</td>
+                                <td>TiAlN, AlTiN</td>
+                                <td>nACo, DLC, TiSiN</td>
+                            </tr>
+                            <tr>
+                                <td>Max Hardness (HRC)</td>
+                                <td>45</td>
+                                <td>55</td>
+                                <td>65</td>
+                            </tr>
+                            <tr>
+                                <td>Coolant Through</td>
+                                <td>No</td>
+                                <td>Optional</td>
+                                <td>Standard</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- APPLICATIONS SECTION -->
+    <section class="applications-section">
+        <div class="container">
+            <div class="section-title">
+                <h2>Application Solutions</h2>
+                <p>Optimized cutting tools for specific materials and machining challenges</p>
+            </div>
+            
+            <div class="applications-grid">
+                <div class="application-card">
+                    <div class="application-image">
+                        <img src="https://images.unsplash.com/photo-1550745165-9bc0b252726f?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80" alt="Steel Machining">
+                    </div>
+                    <div class="application-content">
+                        <h3>Steel & Alloy Steel</h3>
+                        <p>Specialized tools for machining carbon steels, alloy steels, and tool steels with optimized geometries for chip control and extended tool life.</p>
+                        <div class="application-materials">
+                            <span class="material-tag">Mild Steel</span>
+                            <span class="material-tag">Alloy Steel</span>
+                            <span class="material-tag">Tool Steel</span>
+                            <span class="material-tag">Stainless</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="application-card">
+                    <div class="application-image">
+                        <img src="https://images.unsplash.com/photo-1548345680-f5475ea5df84?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2073&q=80" alt="Aerospace Materials">
+                    </div>
+                    <div class="application-content">
+                        <h3>Aerospace Alloys</h3>
+                        <p>High-performance tools for challenging aerospace materials including titanium, Inconel, and heat-resistant superalloys.</p>
+                        <div class="application-materials">
+                            <span class="material-tag">Titanium</span>
+                            <span class="material-tag">Inconel</span>
+                            <span class="material-tag">Waspaloy</span>
+                            <span class="material-tag">Hastelloy</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="application-card">
+                    <div class="application-image">
+                        <img src="https://images.unsplash.com/photo-1578662996442-48f60103fc96?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80" alt="Hard Materials">
+                    </div>
+                    <div class="application-content">
+                        <h3>Hard Materials</h3>
+                        <p>Specialized cutting solutions for hardened steels, cast iron, and other difficult-to-machine materials above 45 HRC.</p>
+                        <div class="application-materials">
+                            <span class="material-tag">Hardened Steel</span>
+                            <span class="material-tag">Cast Iron</span>
+                            <span class="material-tag">Hard-facing</span>
+                            <span class="material-tag">Composites</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- COMPARISON SECTION -->
+    <section class="comparison-section">
+        <div class="container">
+            <div class="section-title">
+                <h2>Tool Performance Comparison</h2>
+                <p>How our cutting tools outperform conventional solutions</p>
+            </div>
+            
+            <div class="comparison-table">
+                <div class="comparison-header">
+                    <div>Feature</div>
+                    <div>Standard Tools</div>
+                    <div>Competitor Premium</div>
+                    <div>Sigma Premium</div>
+                </div>
+                <div class="comparison-row">
+                    <div>Tool Life</div>
+                    <div>100% (Baseline)</div>
+                    <div>150-180%</div>
+                    <div>200-250%</div>
+                </div>
+                <div class="comparison-row">
+                    <div>Cutting Speed</div>
+                    <div>100% (Baseline)</div>
+                    <div>120-140%</div>
+                    <div>150-180%</div>
+                </div>
+                <div class="comparison-row">
+                    <div>Surface Finish</div>
+                    <div>Ra 3.2μm</div>
+                    <div>Ra 1.6-2.0μm</div>
+                    <div>Ra 0.8-1.2μm</div>
+                </div>
+                <div class="comparison-row">
+                    <div>Chip Control</div>
+                    <div><div class="feature-status feature-no"></div></div>
+                    <div><div class="feature-status feature-yes"></div></div>
+                    <div><div class="feature-status feature-yes"></div></div>
+                </div>
+                <div class="comparison-row">
+                    <div>Coolant Through</div>
+                    <div><div class="feature-status feature-no"></div></div>
+                    <div><div class="feature-status feature-no"></div></div>
+                    <div><div class="feature-status feature-yes"></div></div>
+                </div>
+                <div class="comparison-row">
+                    <div>Vibration Dampening</div>
+                    <div><div class="feature-status feature-no"></div></div>
+                    <div><div class="feature-status feature-no"></div></div>
+                    <div><div class="feature-status feature-yes"></div></div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- INDUSTRY SOLUTIONS -->
+    <section class="industry-solutions">
+        <div class="container">
+            <div class="section-title">
+                <h2>Industry-Specific Solutions</h2>
+                <p>Tailored cutting tool solutions for different manufacturing sectors</p>
+            </div>
+            
+            <div class="industry-tabs">
+                <button class="industry-tab active" data-industry="automotive">
+                    <i class="fas fa-car"></i> Automotive
+                </button>
+                <button class="industry-tab" data-industry="aerospace">
+                    <i class="fas fa-plane"></i> Aerospace
+                </button>
+                <button class="industry-tab" data-industry="medical">
+                    <i class="fas fa-medkit"></i> Medical
+                </button>
+                <button class="industry-tab" data-industry="mold">
+                    <i class="fas fa-cube"></i> Mold & Die
+                </button>
+            </div>
+            
+            <div class="industry-content">
+                <div class="industry-solution active" id="automotive-solution">
+                    <h3>Automotive Manufacturing Solutions</h3>
+                    <p>High-volume production tools optimized for automotive components including engine parts, transmission components, and chassis elements.</p>
+                    <div class="solution-features">
+                        <div class="solution-feature">
+                            <i class="fas fa-bolt"></i>
+                            <div>
+                                <h4>High-Speed Machining</h4>
+                                <p>Tools designed for maximum metal removal rates in automotive production lines</p>
+                            </div>
+                        </div>
+                        <div class="solution-feature">
+                            <i class="fas fa-sync-alt"></i>
+                            <div>
+                                <h4>Consistent Performance</h4>
+                                <p>Predictable tool life and performance for uninterrupted production cycles</p>
+                            </div>
+                        </div>
+                        <div class="solution-feature">
+                            <i class="fas fa-tachometer-alt"></i>
+                            <div>
+                                <h4>Process Optimization</h4>
+                                <p>Reduced cycle times and improved surface quality for automotive standards</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="industry-solution" id="aerospace-solution">
+                    <h3>Aerospace Manufacturing Solutions</h3>
+                    <p>Specialized tools for machining high-strength, heat-resistant aerospace materials with tight tolerances and superior surface finishes.</p>
+                    <div class="solution-features">
+                        <div class="solution-feature">
+                            <i class="fas fa-temperature-high"></i>
+                            <div>
+                                <h4>Heat-Resistant Tools</h4>
+                                <p>Advanced coatings and substrates for high-temperature aerospace alloys</p>
+                            </div>
+                        </div>
+                        <div class="solution-feature">
+                            <i class="fas fa-weight-hanging"></i>
+                            <div>
+                                <h4>Lightweight Components</h4>
+                                <p>Tools optimized for thin-wall machining and complex aerospace geometries</p>
+                            </div>
+                        </div>
+                        <div class="solution-feature">
+                            <i class="fas fa-certificate"></i>
+                            <div>
+                                <h4>Quality Assurance</h4>
+                                <p>Traceable tools meeting aerospace quality and documentation requirements</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA SECTION -->
+    <section class="cta-section">
+        <div class="container">
+            <div class="cta-content">
+                <h2>Optimize Your Cutting Operations</h2>
+                <p>Contact our cutting tool specialists to find the perfect solution for your specific application requirements.</p>
+                <div class="cta-buttons">
+                    <a href="contact.html" class="btn">Request Technical Consultation</a>
+                    <a href="downloads.html" class="btn btn-outline">Download Catalog</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-column">
+                    <h3>Sigma Toolings</h3>
+                    <p>Leading the industry with precision engineering and innovative solutions.</p>
+                    <div class="social-icons">
+                        <a href="#"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                        <a href="#"><i class="fab fa-linkedin-in"></i></a>
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                    </div>
+                </div>
+                <div class="footer-column">
+                    <h3>Quick Links</h3>
+                    <ul>
+                        <li><a href="index.html">Home</a></li>
+                        <li><a href="products.html">Products</a></li>
+                        <li><a href="solutions.html">Solutions</a></li>
+                        <li><a href="about-us.html">About Us</a></li>
+                        <li><a href="cutting-tools.html">Cutting Tools</a></li>
+                        <li><a href="contact.html">Contact</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h3>Our Products</h3>
+                    <ul>
+                        <li><a href="cutting-tools.html">Cutting Tools</a></li>
+                        <li><a href="boring-tools.html">Boring Tools</a></li>
+                        <li><a href="measuring-tools.html">Measuring Tools</a></li>
+                        <li><a href="special-tools.html">Special Tools</a></li>
+                        <li><a href="custom-tools.html">Custom Engineering</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h3>Contact Info</h3>
+                    <ul>
+                        <li><i class="fas fa-map-marker-alt"></i> 123 Industrial Way, Tech City</li>
+                        <li><i class="fas fa-phone"></i> +766804589</li>
+                        <li><i class="fas fa-envelope"></i> info@sigmatoolings.com</li>
+                        <li><i class="fas fa-clock"></i> Mon–Fri: 9AM–6PM</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>© 2025 Sigma Toolings — All Rights Reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- JS -->
+    <script>
+        // Mobile Menu Toggle
+        document.querySelector('.mobile-toggle').addEventListener('click',()=> {
+            document.querySelector('.nav-menu').classList.toggle('active');
+        });
+        
+        // Close menu on click
+        document.querySelectorAll('.nav-menu a').forEach(a=>{
+            a.addEventListener('click',()=>document.querySelector('.nav-menu').classList.remove('active'));
+        });
+
+        // Tools Filter Functionality
+        const filterBtns = document.querySelectorAll('.filter-btn');
+        const toolCards = document.querySelectorAll('.tool-card');
+        
+        filterBtns.forEach(btn => {
+            btn.addEventListener('click', () => {
+                // Remove active class from all buttons
+                filterBtns.forEach(b => b.classList.remove('active'));
+                // Add active class to clicked button
+                btn.classList.add('active');
+                
+                const filter = btn.getAttribute('data-filter');
+                
+                toolCards.forEach(card => {
+                    if (filter === 'all' || card.getAttribute('data-category') === filter) {
+                        card.style.display = 'block';
+                    } else {
+                        card.style.display = 'none';
+                    }
+                });
+            });
+        });
+
+        // Technical Specs Tabs
+        const specTabs = document.querySelectorAll('.spec-tab');
+        
+        specTabs.forEach(tab => {
+            tab.addEventListener('click', () => {
+                // Remove active class from all tabs
+                specTabs.forEach(t => t.classList.remove('active'));
+                // Add active class to clicked tab
+                tab.classList.add('active');
+                
+                // In a real implementation, this would load different spec tables
+                // For this demo, we'll just show an alert
+                const tabName = tab.getAttribute('data-tab');
+                console.log(`Loading specifications for: ${tabName}`);
+            });
+        });
+
+        // Industry Solutions Tabs
+        const industryTabs = document.querySelectorAll('.industry-tab');
+        const industrySolutions = document.querySelectorAll('.industry-solution');
+        
+        industryTabs.forEach(tab => {
+            tab.addEventListener('click', () => {
+                // Remove active class from all tabs
+                industryTabs.forEach(t => t.classList.remove('active'));
+                // Add active class to clicked tab
+                tab.classList.remove('active');
+                tab.classList.add('active');
+                
+                // Hide all solutions
+                industrySolutions.forEach(solution => {
+                    solution.classList.remove('active');
+                });
+                
+                // Show selected solution
+                const industry = tab.getAttribute('data-industry');
+                const targetSolution = document.getElementById(`${industry}-solution`);
+                if (targetSolution) {
+                    targetSolution.classList.add('active');
+                }
+            });
+        });
+
+        // Smooth Scroll for Internal Links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const targetId = this.getAttribute('href');
+                if (targetId === '#') return;
+                
+                const targetElement = document.querySelector(targetId);
+                if (targetElement) {
+                    window.scrollTo({
+                        top: targetElement.offsetTop - 100,
+                        behavior: 'smooth'
+                    });
+                }
+            });
+        });
+    </script>
+</body>
+</html>

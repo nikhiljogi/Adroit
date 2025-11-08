@@ -1,0 +1,635 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>News - Sigma Toolings</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        /* === GLOBAL STYLES === */
+        *{margin:0;padding:0;box-sizing:border-box;font-family:'Segoe UI',Tahoma,Geneva,Verdana,sans-serif;}
+        :root{ --primary:#1a365d;--secondary:#2d6bc4;--accent:#e63946;--light:#f8f9fa;--dark:#212529;--gray:#6c757d;--transition:all .3s ease; }
+        body{line-height:1.6;color:var(--dark);background:#fff;overflow-x: hidden;}
+        a{text-decoration:none;color:inherit;}
+        ul{list-style:none;}
+        .container{width:90%;max-width:1200px;margin:0 auto;padding:0 15px;}
+        .btn{display:inline-block;padding:12px 30px;background:var(--secondary);color:white;border:none;border-radius:4px;font-weight:600;cursor:pointer;transition:var(--transition);text-transform:uppercase;font-size:.9rem;letter-spacing:1px;}
+        .btn:hover{background:var(--primary);transform:translateY(-3px);box-shadow:0 5px 15px rgba(0,0,0,.1);}
+        .btn-outline{background:transparent;border:2px solid var(--secondary);color:var(--secondary);}
+        .btn-outline:hover{background:var(--secondary);color:white;}
+        .section{padding:80px 0;}
+        .section-title{text-align:center;margin-bottom:50px;}
+        .section-title h2{font-size:2.5rem;color:var(--primary);margin-bottom:15px;position:relative;display:inline-block;}
+        .section-title h2::after{content:'';position:absolute;width:70px;height:3px;background:var(--accent);bottom:-10px;left:50%;transform:translateX(-50%);}
+        .section-title p{color:var(--gray);max-width:700px;margin:0 auto;}
+        
+        /* === HEADER / NAV MENU === */
+        header{background:white;box-shadow:0 2px 10px rgba(0,0,0,.1);position:fixed;width:100%;top:0;z-index:1000;}
+        .header-container{display:flex;justify-content:space-between;align-items:center;padding:12px 0;}
+        .site-logo{height:55px;width:auto;}
+        .nav-menu{display:flex;align-items:center;gap:25px;}
+        .nav-menu li{position:relative;}
+        .nav-menu a{font-weight:600;color:var(--dark);transition:var(--transition);padding:6px;}
+        .nav-menu a:hover{color:var(--secondary);}
+        .nav-menu a.active{color:var(--secondary);}
+        /* Dropdown */
+        .dropdown-menu{
+            display:none;
+            position:absolute;
+            top:35px;
+            left:0;
+            background:white;
+            box-shadow:0 4px 12px rgba(0,0,0,.1);
+            padding:10px 0;
+            border-radius:5px;
+            width:200px;
+            z-index:9999;
+        }
+        .dropdown-menu li a{padding:10px 15px;display:block;color:#000;}
+        .dropdown-menu li a:hover{background:#f5f5f5;}
+        .nav-menu li:hover > .dropdown-menu{display:block;}
+        .mobile-toggle{display:none;font-size:1.6rem;cursor:pointer;}
+        
+        /* PAGE HERO */
+        .page-hero {
+            background: linear-gradient(rgba(26,54,93,.85), rgba(26,54,93,.85)), 
+                        url('https://images.unsplash.com/photo-1581094794329-c8112a89af12?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80') center/cover no-repeat;
+            color: white;
+            padding: 150px 0 100px;
+            text-align: center;
+            margin-top: 75px;
+        }
+        .page-hero h1 {
+            font-size: 3rem;
+            margin-bottom: 20px;
+        }
+        .page-hero p {
+            font-size: 1.2rem;
+            max-width: 700px;
+            margin: 0 auto;
+            opacity: 0.9;
+        }
+        
+        /* NEWS PAGE STYLES */
+        .news-filters {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin-bottom: 40px;
+            flex-wrap: wrap;
+        }
+        .filter-btn {
+            padding: 10px 20px;
+            background: white;
+            border: 1px solid #ddd;
+            border-radius: 30px;
+            cursor: pointer;
+            transition: var(--transition);
+            font-weight: 500;
+        }
+        .filter-btn.active, .filter-btn:hover {
+            background: var(--secondary);
+            color: white;
+            border-color: var(--secondary);
+        }
+        .news-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+            gap: 30px;
+        }
+        .news-card {
+            background: white;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.08);
+            transition: var(--transition);
+        }
+        .news-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(0,0,0,0.15);
+        }
+        .news-image {
+            height: 200px;
+            overflow: hidden;
+        }
+        .news-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: var(--transition);
+        }
+        .news-card:hover .news-image img {
+            transform: scale(1.05);
+        }
+        .news-content {
+            padding: 25px;
+        }
+        .news-meta {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 15px;
+            font-size: 0.9rem;
+            color: var(--gray);
+        }
+        .news-category {
+            background: var(--secondary);
+            color: white;
+            padding: 3px 10px;
+            border-radius: 3px;
+            font-size: 0.8rem;
+        }
+        .news-content h3 {
+            font-size: 1.3rem;
+            color: var(--primary);
+            margin-bottom: 15px;
+            line-height: 1.4;
+        }
+        .news-content p {
+            color: var(--gray);
+            margin-bottom: 20px;
+            font-size: 0.95rem;
+        }
+        .news-pagination {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            margin-top: 50px;
+        }
+        .page-btn {
+            width: 40px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+        .page-btn.active, .page-btn:hover {
+            background: var(--secondary);
+            color: white;
+            border-color: var(--secondary);
+        }
+        
+        /* FEATURED NEWS SECTION */
+        .featured-news {
+            background: var(--light);
+            padding: 80px 0;
+        }
+        .featured-news-card {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 40px;
+            background: white;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+        }
+        .featured-news-image {
+            height: 100%;
+            min-height: 400px;
+        }
+        .featured-news-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        .featured-news-content {
+            padding: 40px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+        .featured-badge {
+            display: inline-block;
+            background: var(--accent);
+            color: white;
+            padding: 5px 15px;
+            border-radius: 3px;
+            font-size: 0.8rem;
+            margin-bottom: 15px;
+            font-weight: 600;
+        }
+        .featured-news-content h2 {
+            font-size: 2rem;
+            color: var(--primary);
+            margin-bottom: 20px;
+            line-height: 1.3;
+        }
+        .featured-news-content p {
+            color: var(--gray);
+            margin-bottom: 25px;
+            font-size: 1.05rem;
+        }
+        
+        /* NEWSLETTER SECTION */
+        .newsletter-section {
+            background: var(--primary);
+            color: white;
+            padding: 80px 0;
+            text-align: center;
+        }
+        .newsletter-section h2 {
+            font-size: 2.2rem;
+            margin-bottom: 15px;
+        }
+        .newsletter-section p {
+            max-width: 600px;
+            margin: 0 auto 30px;
+            opacity: 0.9;
+        }
+        .newsletter-form {
+            display: flex;
+            max-width: 500px;
+            margin: 0 auto;
+        }
+        .newsletter-form input {
+            flex: 1;
+            padding: 15px 20px;
+            border: none;
+            border-radius: 5px 0 0 5px;
+            font-size: 1rem;
+        }
+        .newsletter-form button {
+            background: var(--accent);
+            color: white;
+            border: none;
+            padding: 0 30px;
+            border-radius: 0 5px 5px 0;
+            cursor: pointer;
+            font-weight: 600;
+            transition: var(--transition);
+        }
+        .newsletter-form button:hover {
+            background: #c1121f;
+        }
+        
+        /* FOOTER */
+        footer{background:var(--dark);color:white;padding:70px 0 20px;}
+        .footer-content{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:40px;margin-bottom:40px;}
+        .footer-column h3{font-size:1.3rem;margin-bottom:20px;position:relative;padding-bottom:10px;}
+        .footer-column h3::after{content:'';position:absolute;width:40px;height:2px;background:var(--secondary);bottom:0;left:0;}
+        .footer-column ul li{margin-bottom:10px;}
+        .footer-column ul li a{color:#b0b7c3;transition:.3s;}
+        .footer-column ul li a:hover{color:white;}
+        .social-icons{display:flex;gap:12px;margin-top:10px;}
+        .social-icons a{display:flex;align-items:center;justify-content:center;width:38px;height:38px;background:rgba(255,255,255,.1);border-radius:50%;}
+        .social-icons a:hover{background:var(--secondary);}
+        .footer-bottom{text-align:center;padding-top:20px;border-top:1px solid rgba(255,255,255,.1);color:#b0b7c3;font-size:.9rem;}
+        
+        /* RESPONSIVE */
+        @media(max-width:992px){
+            .featured-news-card {
+                grid-template-columns: 1fr;
+            }
+            .featured-news-image {
+                min-height: 300px;
+            }
+        }
+        
+        @media(max-width:768px){
+            .nav-menu{
+                position:fixed;
+                top:75px;
+                left:-100%;
+                width:100%;
+                height:100vh;
+                background:white;
+                flex-direction:column;
+                padding-top:40px;
+                transition:.3s;
+            }
+            .nav-menu.active{left:0;}
+            .nav-menu li{margin-bottom:25px;}
+            .mobile-toggle{display:block;color:var(--primary);}
+            .dropdown-menu{position:relative;box-shadow:none;width:100%;}
+            .page-hero h1{font-size:2.5rem;}
+            .news-grid {
+                grid-template-columns: 1fr;
+            }
+            .newsletter-form {
+                flex-direction: column;
+                gap: 10px;
+            }
+            .newsletter-form input, .newsletter-form button {
+                border-radius: 5px;
+                width: 100%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- HEADER -->
+    <header>
+        <div class="container header-container">
+            <div class="logo">
+                <a href="index.html">
+                    <img src="logo.png" alt="Sigma Toolings Logo" class="site-logo">
+                </a>
+            </div>
+            <div class="mobile-toggle"><i class="fas fa-bars"></i></div>
+            <ul class="nav-menu">
+                <li><a href="index.html">Home</a></li>
+                <li>
+                    <a href="#">Company ▼</a>
+                    <ul class="dropdown-menu">
+                        <li><a href="about-us.html">About Us</a></li>
+                        <li><a href="team.html">Our Team</a></li>
+                        <li><a href="careers.html">Careers</a></li>
+                        <li><a href="contact.html">Contact</a></li>
+                    </ul>
+                </li>
+                <li>
+                    <a href="#">Products ▼</a>
+                    <ul class="dropdown-menu">
+                        <li><a href="product1.html">Product 1</a></li>
+                        <li><a href="product2.html">Product 2</a></li>
+                        <li><a href="product3.html">Product 3</a></li>
+                    </ul>
+                </li>
+                <li><a href="value-adds.html">Value-Adds</a></li>
+                <li><a href="videos.html">Videos</a></li>
+                <li><a href="downloads.html">Downloads</a></li>
+                <li><a href="news.html" class="active">News</a></li>
+                <li><a href="blogs.html">Blogs</a></li>
+            </ul>
+        </div>
+    </header>
+
+    <!-- NEWS PAGE HERO -->
+    <section class="page-hero">
+        <div class="container">
+            <h1>Company News</h1>
+            <p>Stay updated with the latest developments, achievements, and announcements from Sigma Toolings</p>
+        </div>
+    </section>
+
+    <!-- FEATURED NEWS SECTION -->
+    <section class="featured-news">
+        <div class="container">
+            <div class="featured-news-card">
+                <div class="featured-news-image">
+                    <img src="https://images.unsplash.com/photo-1581094794329-c8112a89af12?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80" alt="New Manufacturing Facility">
+                </div>
+                <div class="featured-news-content">
+                    <span class="featured-badge">FEATURED</span>
+                    <h2>Sigma Toolings Announces New State-of-the-Art Manufacturing Facility</h2>
+                    <p>We are excited to announce the opening of our new 50,000 sq ft manufacturing facility in Pune, equipped with advanced CNC machines and automation systems. This expansion will increase our production capacity by 40% and allow us to serve our growing customer base more efficiently.</p>
+                    <div class="news-meta">
+                        <span><i class="far fa-calendar"></i> March 15, 2025</span>
+                        <span class="news-category">Expansion</span>
+                    </div>
+                    <a href="news-detail.html" class="btn">Read Full Story</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- NEWS SECTION -->
+    <section class="section">
+        <div class="container">
+            <div class="news-filters">
+                <button class="filter-btn active" data-filter="all">All News</button>
+                <button class="filter-btn" data-filter="awards">Awards</button>
+                <button class="filter-btn" data-filter="expansion">Expansion</button>
+                <button class="filter-btn" data-filter="product">Product Launch</button>
+                <button class="filter-btn" data-filter="partnership">Partnership</button>
+                <button class="filter-btn" data-filter="events">Events</button>
+            </div>
+            
+            <div class="news-grid">
+                <!-- News Item 1 -->
+                <div class="news-card" data-category="awards">
+                    <div class="news-image">
+                        <img src="https://images.unsplash.com/photo-1550745165-9bc0b252726f?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80" alt="Award Ceremony">
+                    </div>
+                    <div class="news-content">
+                        <div class="news-meta">
+                            <span><i class="far fa-calendar"></i> February 28, 2025</span>
+                            <span class="news-category">Awards</span>
+                        </div>
+                        <h3>Sigma Toolings Wins National Excellence in Engineering Award 2025</h3>
+                        <p>We are proud to receive the National Excellence in Engineering Award for our innovative boring solutions that have revolutionized precision manufacturing.</p>
+                        <a href="news-detail.html" class="btn btn-outline">Read More</a>
+                    </div>
+                </div>
+                
+                <!-- News Item 2 -->
+                <div class="news-card" data-category="product">
+                    <div class="news-image">
+                        <img src="https://images.unsplash.com/photo-1548345680-f5475ea5df84?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2073&q=80" alt="Product Launch">
+                    </div>
+                    <div class="news-content">
+                        <div class="news-meta">
+                            <span><i class="far fa-calendar"></i> January 10, 2025</span>
+                            <span class="news-category">Product Launch</span>
+                        </div>
+                        <h3>Introducing Our New High-Precision Micro-Boring Series</h3>
+                        <p>Sigma Toolings launches the revolutionary Micro-Boring Series with accuracy up to 0.001mm, designed for aerospace and medical component manufacturing.</p>
+                        <a href="news-detail.html" class="btn btn-outline">Read More</a>
+                    </div>
+                </div>
+                
+                <!-- News Item 3 -->
+                <div class="news-card" data-category="partnership">
+                    <div class="news-image">
+                        <img src="https://images.unsplash.com/photo-1578662996442-48f60103fc96?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80" alt="Partnership">
+                    </div>
+                    <div class="news-content">
+                        <div class="news-meta">
+                            <span><i class="far fa-calendar"></i> December 5, 2024</span>
+                            <span class="news-category">Partnership</span>
+                        </div>
+                        <h3>Strategic Partnership with German Engineering Giant Announced</h3>
+                        <p>Sigma Toolings enters into a strategic partnership with a leading German engineering company to enhance our global manufacturing capabilities.</p>
+                        <a href="news-detail.html" class="btn btn-outline">Read More</a>
+                    </div>
+                </div>
+                
+                <!-- News Item 4 -->
+                <div class="news-card" data-category="events">
+                    <div class="news-image">
+                        <img src="https://images.unsplash.com/photo-1581094794329-c8112a89af12?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80" alt="Industry Event">
+                    </div>
+                    <div class="news-content">
+                        <div class="news-meta">
+                            <span><i class="far fa-calendar"></i> November 18, 2024</span>
+                            <span class="news-category">Events</span>
+                        </div>
+                        <h3>Sigma Toolings to Showcase Innovations at IMTS 2024</h3>
+                        <p>Join us at the International Manufacturing Technology Show where we will showcase our latest innovations in precision tooling and machining solutions.</p>
+                        <a href="news-detail.html" class="btn btn-outline">Read More</a>
+                    </div>
+                </div>
+                
+                <!-- News Item 5 -->
+                <div class="news-card" data-category="awards">
+                    <div class="news-image">
+                        <img src="https://images.unsplash.com/photo-1550745165-9bc0b252726f?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80" alt="Sustainability">
+                    </div>
+                    <div class="news-content">
+                        <div class="news-meta">
+                            <span><i class="far fa-calendar"></i> October 22, 2024</span>
+                            <span class="news-category">Awards</span>
+                        </div>
+                        <h3>Sigma Toolings Achieves Carbon Neutral Certification</h3>
+                        <p>We are proud to announce that our manufacturing operations are now carbon neutral, reinforcing our commitment to sustainable manufacturing practices.</p>
+                        <a href="news-detail.html" class="btn btn-outline">Read More</a>
+                    </div>
+                </div>
+                
+                <!-- News Item 6 -->
+                <div class="news-card" data-category="expansion">
+                    <div class="news-image">
+                        <img src="https://images.unsplash.com/photo-1581094794329-c8112a89af12?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80" alt="New Office">
+                    </div>
+                    <div class="news-content">
+                        <div class="news-meta">
+                            <span><i class="far fa-calendar"></i> September 30, 2024</span>
+                            <span class="news-category">Expansion</span>
+                        </div>
+                        <h3>New Regional Office Opened in Bangalore to Serve South Indian Market</h3>
+                        <p>Sigma Toolings expands its presence in South India with a new regional office in Bangalore, strengthening our customer support and service capabilities.</p>
+                        <a href="news-detail.html" class="btn btn-outline">Read More</a>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="news-pagination">
+                <div class="page-btn active">1</div>
+                <div class="page-btn">2</div>
+                <div class="page-btn">3</div>
+                <div class="page-btn"><i class="fas fa-chevron-right"></i></div>
+            </div>
+        </div>
+    </section>
+
+    <!-- NEWSLETTER SECTION -->
+    <section class="newsletter-section">
+        <div class="container">
+            <h2>Stay Updated</h2>
+            <p>Subscribe to our newsletter to receive the latest news and updates from Sigma Toolings</p>
+            <form class="newsletter-form">
+                <input type="email" placeholder="Enter your email address" required>
+                <button type="submit">Subscribe</button>
+            </form>
+        </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-column">
+                    <h3>Sigma Toolings</h3>
+                    <p>Leading the industry with precision engineering and innovative solutions.</p>
+                    <div class="social-icons">
+                        <a href="#"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                        <a href="#"><i class="fab fa-linkedin-in"></i></a>
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                    </div>
+                </div>
+                <div class="footer-column">
+                    <h3>Quick Links</h3>
+                    <ul>
+                        <li><a href="index.html">Home</a></li>
+                        <li><a href="products.html">Products</a></li>
+                        <li><a href="solutions.html">Solutions</a></li>
+                        <li><a href="about-us.html">About Us</a></li>
+                        <li><a href="news.html">News</a></li>
+                        <li><a href="contact.html">Contact</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h3>Our Products</h3>
+                    <ul>
+                        <li><a href="#">Cutting Tools</a></li>
+                        <li><a href="#">Measuring Instruments</a></li>
+                        <li><a href="#">Industrial Machines</a></li>
+                        <li><a href="#">Safety Tools</a></li>
+                        <li><a href="#">Custom Engineering</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h3>Contact Info</h3>
+                    <ul>
+                        <li><i class="fas fa-map-marker-alt"></i> 123 Industrial Way, Tech City</li>
+                        <li><i class="fas fa-phone"></i> +766804589</li>
+                        <li><i class="fas fa-envelope"></i> info@sigmatoolings.com</li>
+                        <li><i class="fas fa-clock"></i> Mon–Fri: 9AM–6PM</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>© 2025 Sigma Toolings — All Rights Reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- JS -->
+    <script>
+        // Mobile Menu Toggle
+        document.querySelector('.mobile-toggle').addEventListener('click',()=> {
+            document.querySelector('.nav-menu').classList.toggle('active');
+        });
+        
+        // Close menu on click
+        document.querySelectorAll('.nav-menu a').forEach(a=>{
+            a.addEventListener('click',()=>document.querySelector('.nav-menu').classList.remove('active'));
+        });
+
+        // News Filter Functionality
+        const filterBtns = document.querySelectorAll('.filter-btn');
+        const newsCards = document.querySelectorAll('.news-card');
+        
+        filterBtns.forEach(btn => {
+            btn.addEventListener('click', () => {
+                // Remove active class from all buttons
+                filterBtns.forEach(b => b.classList.remove('active'));
+                // Add active class to clicked button
+                btn.classList.add('active');
+                
+                const filter = btn.getAttribute('data-filter');
+                
+                newsCards.forEach(card => {
+                    if (filter === 'all' || card.getAttribute('data-category') === filter) {
+                        card.style.display = 'block';
+                    } else {
+                        card.style.display = 'none';
+                    }
+                });
+            });
+        });
+
+        // Pagination Functionality
+        const pageBtns = document.querySelectorAll('.page-btn');
+        
+        pageBtns.forEach(btn => {
+            btn.addEventListener('click', () => {
+                // Remove active class from all buttons
+                pageBtns.forEach(b => b.classList.remove('active'));
+                // Add active class to clicked button
+                btn.classList.add('active');
+                
+                // In a real implementation, this would load the appropriate page
+                // For this demo, we'll just show an alert
+                if (btn.textContent !== '>') {
+                    alert(`Loading page ${btn.textContent}`);
+                } else {
+                    alert('Loading next page');
+                }
+            });
+        });
+
+        // Newsletter Form Submission
+        document.querySelector('.newsletter-form').addEventListener('submit', function(e) {
+            e.preventDefault();
+            const email = this.querySelector('input').value;
+            alert(`Thank you for subscribing with ${email}! You will receive our latest news updates.`);
+            this.reset();
+        });
+    </script>
+</body>
+</html>

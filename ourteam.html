@@ -1,0 +1,656 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Our Team - Sigma Toolings</title>
+    <meta name="description" content="Meet the talented team behind Sigma Toolings - experienced professionals dedicated to precision engineering excellence.">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        /* === GLOBAL STYLES === */
+        *{margin:0;padding:0;box-sizing:border-box;font-family:'Segoe UI',Tahoma,Geneva,Verdana,sans-serif;}
+        :root{ --primary:#1a365d;--secondary:#2d6bc4;--accent:#e63946;--light:#f8f9fa;--dark:#212529;--gray:#6c757d;--transition:all .3s ease; }
+        body{line-height:1.6;color:var(--dark);background:#fff;}
+        a{text-decoration:none;color:inherit;}
+        ul{list-style:none;}
+        .container{width:90%;max-width:1200px;margin:0 auto;padding:0 15px;}
+        .btn{display:inline-block;padding:12px 30px;background:var(--secondary);color:white;border:none;border-radius:4px;font-weight:600;cursor:pointer;transition:var(--transition);text-transform:uppercase;font-size:.9rem;letter-spacing:1px;}
+        .btn:hover{background:var(--primary);transform:translateY(-3px);box-shadow:0 5px 15px rgba(0,0,0,.1);}
+        .btn-outline{background:transparent;border:2px solid var(--secondary);color:var(--secondary);}
+        .btn-outline:hover{background:var(--secondary);color:white;}
+        .section{padding:80px 0;}
+        .section-title{text-align:center;margin-bottom:50px;}
+        .section-title h2{font-size:2.5rem;color:var(--primary);margin-bottom:15px;position:relative;display:inline-block;}
+        .section-title h2::after{content:'';position:absolute;width:70px;height:3px;background:var(--accent);bottom:-10px;left:50%;transform:translateX(-50%);}
+        .section-title p{color:var(--gray);max-width:700px;margin:0 auto;}
+        
+        /* === HEADER / NAV MENU === */
+        header{background:white;box-shadow:0 2px 10px rgba(0,0,0,.1);position:fixed;width:100%;top:0;z-index:1000;}
+        .header-container{display:flex;justify-content:space-between;align-items:center;padding:12px 0;}
+        .site-logo{height:55px;width:auto;}
+        .nav-menu{display:flex;align-items:center;gap:25px;}
+        .nav-menu li{position:relative;}
+        .nav-menu a{font-weight:600;color:var(--dark);transition:var(--transition);padding:6px;}
+        .nav-menu a:hover{color:var(--secondary);}
+        .nav-menu a.active{color:var(--secondary);}
+        /* Dropdown */
+        .dropdown-menu{
+            display:none;
+            position:absolute;
+            top:35px;
+            left:0;
+            background:white;
+            box-shadow:0 4px 12px rgba(0,0,0,.1);
+            padding:10px 0;
+            border-radius:5px;
+            width:200px;
+            z-index:9999;
+        }
+        .dropdown-menu li a{padding:10px 15px;display:block;color:#000;}
+        .dropdown-menu li a:hover{background:#f5f5f5;}
+        .nav-menu li:hover > .dropdown-menu{display:block;}
+        .mobile-toggle{display:none;font-size:1.6rem;cursor:pointer;}
+        
+        /* PAGE HERO */
+        .page-hero {
+            background: linear-gradient(rgba(26,54,93,.85), rgba(26,54,93,.85)), url('https://images.unsplash.com/photo-1552664730-d307ca884978?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80') center/cover no-repeat;
+            color: white;
+            padding: 150px 0 80px;
+            text-align: center;
+            margin-top: 75px;
+        }
+        .page-hero h1 {
+            font-size: 3rem;
+            margin-bottom: 20px;
+        }
+        .page-hero p {
+            font-size: 1.2rem;
+            max-width: 700px;
+            margin: 0 auto;
+        }
+        
+        /* TEAM SECTION */
+        .team-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 30px;
+            margin-top: 40px;
+        }
+        .team-member {
+            text-align: center;
+            background: white;
+            border-radius: 12px;
+            padding: 30px 20px;
+            box-shadow: 0 8px 25px rgba(0,0,0,.1);
+            transition: var(--transition);
+            position: relative;
+            overflow: hidden;
+        }
+        .team-member:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(0,0,0,.15);
+        }
+        .team-member::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 5px;
+            background: var(--secondary);
+        }
+        .team-img {
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            overflow: hidden;
+            margin: 0 auto 20px;
+            border: 5px solid var(--light);
+            box-shadow: 0 5px 15px rgba(0,0,0,.1);
+        }
+        .team-img img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: var(--transition);
+        }
+        .team-member:hover .team-img img {
+            transform: scale(1.1);
+        }
+        .team-member h3 {
+            font-size: 1.4rem;
+            color: var(--primary);
+            margin-bottom: 5px;
+        }
+        .team-member .position {
+            color: var(--secondary);
+            font-weight: 600;
+            margin-bottom: 15px;
+            font-size: 1rem;
+        }
+        .team-member .experience {
+            color: var(--gray);
+            margin-bottom: 15px;
+            font-size: 0.9rem;
+        }
+        .team-member p {
+            color: var(--gray);
+            margin-bottom: 20px;
+            font-size: 0.95rem;
+        }
+        .team-social {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            margin-top: 15px;
+        }
+        .team-social a {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 36px;
+            height: 36px;
+            background: var(--light);
+            border-radius: 50%;
+            color: var(--primary);
+            transition: var(--transition);
+        }
+        .team-social a:hover {
+            background: var(--secondary);
+            color: white;
+        }
+        
+        /* LEADERSHIP SECTION */
+        .leadership-section {
+            background: #f8f9fa;
+        }
+        .leadership-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            margin-top: 40px;
+        }
+        .leader-card {
+            background: white;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 8px 25px rgba(0,0,0,.1);
+            transition: var(--transition);
+        }
+        .leader-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(0,0,0,.15);
+        }
+        .leader-img {
+            height: 250px;
+            overflow: hidden;
+        }
+        .leader-img img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: var(--transition);
+        }
+        .leader-card:hover .leader-img img {
+            transform: scale(1.05);
+        }
+        .leader-info {
+            padding: 25px;
+            text-align: center;
+        }
+        .leader-info h3 {
+            font-size: 1.5rem;
+            color: var(--primary);
+            margin-bottom: 5px;
+        }
+        .leader-info .position {
+            color: var(--secondary);
+            font-weight: 600;
+            margin-bottom: 15px;
+        }
+        .leader-info p {
+            color: var(--gray);
+            margin-bottom: 15px;
+        }
+        
+        /* VALUES SECTION */
+        .values-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 30px;
+            margin-top: 40px;
+        }
+        .value-card {
+            text-align: center;
+            padding: 30px 20px;
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 8px 25px rgba(0,0,0,.1);
+            transition: var(--transition);
+        }
+        .value-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 30px rgba(0,0,0,.15);
+        }
+        .value-icon {
+            width: 80px;
+            height: 80px;
+            background: var(--light);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 20px;
+            color: var(--secondary);
+            font-size: 2rem;
+        }
+        .value-card h3 {
+            font-size: 1.3rem;
+            color: var(--primary);
+            margin-bottom: 15px;
+        }
+        .value-card p {
+            color: var(--gray);
+        }
+        
+        /* FOOTER */
+        footer{background:var(--dark);color:white;padding:70px 0 20px;}
+        .footer-content{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:40px;margin-bottom:40px;}
+        .footer-column h3{font-size:1.3rem;margin-bottom:20px;position:relative;padding-bottom:10px;}
+        .footer-column h3::after{content:'';position:absolute;width:40px;height:2px;background:var(--secondary);bottom:0;left:0;}
+        .footer-column ul li{margin-bottom:10px;}
+        .footer-column ul li a{color:#b0b7c3;transition:.3s;}
+        .footer-column ul li a:hover{color:white;}
+        .social-icons{display:flex;gap:12px;margin-top:10px;}
+        .social-icons a{display:flex;align-items:center;justify-content:center;width:38px;height:38px;background:rgba(255,255,255,.1);border-radius:50%;}
+        .social-icons a:hover{background:var(--secondary);}
+        .footer-bottom{text-align:center;padding-top:20px;border-top:1px solid rgba(255,255,255,.1);color:#b0b7c3;font-size:.9rem;}
+        
+        /* RESPONSIVE */
+        @media(max-width:768px){
+            .nav-menu{
+                position:fixed;
+                top:75px;
+                left:-100%;
+                width:100%;
+                height:100vh;
+                background:white;
+                flex-direction:column;
+                padding-top:40px;
+                transition:.3s;
+            }
+            .nav-menu.active{left:0;}
+            .nav-menu li{margin-bottom:25px;}
+            .mobile-toggle{display:block;color:var(--primary);}
+            .dropdown-menu{position:relative;box-shadow:none;width:100%;}
+            .page-hero {
+                padding: 120px 0 60px;
+            }
+            .page-hero h1 {
+                font-size: 2.2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- HEADER -->
+    <header>
+        <div class="container header-container">
+            <div class="logo">
+                <a href="index.html">
+                    <img src="https://via.placeholder.com/200x55/1a365d/ffffff?text=SIGMA+TOOLINGS" alt="Sigma Toolings Logo" class="site-logo">
+                </a>
+            </div>
+            <div class="mobile-toggle"><i class="fas fa-bars"></i></div>
+            <ul class="nav-menu">
+                <li><a href="index.html">Home</a></li>
+                <li>
+                    <a href="#" class="active">Company ▼</a>
+                    <ul class="dropdown-menu">
+                        <li><a href="about-us.html">About Us</a></li>
+                        <li><a href="why-us.html">Why Us</a></li>
+                        <li><a href="our-team.html" class="active">Our Team</a></li>
+                        <li><a href="careers.html">Careers</a></li>
+                        <li><a href="contact.html">Contact</a></li>
+                    </ul>
+                </li>
+                <li>
+                    <a href="#">Products ▼</a>
+                    <ul class="dropdown-menu">
+                        <li><a href="product1.html">Product 1</a></li>
+                        <li><a href="product2.html">Product 2</a></li>
+                        <li><a href="product3.html">Product 3</a></li>
+                    </ul>
+                </li>
+                <li><a href="value-adds.html">Value-Adds</a></li>
+                <li><a href="videos.html">Videos</a></li>
+                <li><a href="downloads.html">Downloads</a></li>
+                <li><a href="news.html">News</a></li>
+                <li><a href="blogs.html">Blogs</a></li>
+            </ul>
+        </div>
+    </header>
+
+    <!-- PAGE HERO -->
+    <section class="page-hero">
+        <div class="container">
+            <h1>Our Team</h1>
+            <p>Meet the talented professionals behind Sigma Toolings - experienced engineers and specialists dedicated to precision engineering excellence.</p>
+        </div>
+    </section>
+
+    <!-- LEADERSHIP TEAM -->
+    <section class="section leadership-section">
+        <div class="container">
+            <div class="section-title">
+                <h2>Leadership Team</h2>
+                <p>Our visionary leaders driving innovation and excellence in precision engineering</p>
+            </div>
+            
+            <div class="leadership-grid">
+                <div class="leader-card">
+                    <div class="leader-img">
+                        <img src="https://images.unsplash.com/photo-1560250097-0b93528c311a?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=687&q=80" alt="Rajesh Kumar">
+                    </div>
+                    <div class="leader-info">
+                        <h3>Rajesh Kumar</h3>
+                        <div class="position">Founder & CEO</div>
+                        <p>With over 25 years in precision engineering, Rajesh founded Sigma Toolings with a vision to revolutionize India's manufacturing sector. His leadership has guided our growth across 15 states.</p>
+                        <div class="team-social">
+                            <a href="#"><i class="fab fa-linkedin-in"></i></a>
+                            <a href="#"><i class="fab fa-twitter"></i></a>
+                            <a href="#"><i class="fas fa-envelope"></i></a>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="leader-card">
+                    <div class="leader-img">
+                        <img src="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=688&q=80" alt="Priya Sharma">
+                    </div>
+                    <div class="leader-info">
+                        <h3>Priya Sharma</h3>
+                        <div class="position">Chief Operations Officer</div>
+                        <p>Priya brings 18 years of operations expertise, optimizing our processes to ensure 98% on-time delivery while maintaining our stringent quality standards.</p>
+                        <div class="team-social">
+                            <a href="#"><i class="fab fa-linkedin-in"></i></a>
+                            <a href="#"><i class="fab fa-twitter"></i></a>
+                            <a href="#"><i class="fas fa-envelope"></i></a>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="leader-card">
+                    <div class="leader-img">
+                        <img src="https://images.unsplash.com/photo-1582750433449-648ed127bb54?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=687&q=80" alt="Anil Patel">
+                    </div>
+                    <div class="leader-info">
+                        <h3>Anil Patel</h3>
+                        <div class="position">Technical Director</div>
+                        <p>Anil leads our R&D initiatives with 20+ years in tooling design. His innovations have resulted in 15 patents and numerous industry-leading solutions.</p>
+                        <div class="team-social">
+                            <a href="#"><i class="fab fa-linkedin-in"></i></a>
+                            <a href="#"><i class="fab fa-twitter"></i></a>
+                            <a href="#"><i class="fas fa-envelope"></i></a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ENGINEERING TEAM -->
+    <section class="section">
+        <div class="container">
+            <div class="section-title">
+                <h2>Engineering Team</h2>
+                <p>Our skilled engineers and technicians delivering precision solutions</p>
+            </div>
+            
+            <div class="team-grid">
+                <div class="team-member">
+                    <div class="team-img">
+                        <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=687&q=80" alt="Vikram Singh">
+                    </div>
+                    <h3>Vikram Singh</h3>
+                    <div class="position">Senior Tooling Engineer</div>
+                    <div class="experience">12 Years Experience</div>
+                    <p>Specializes in automotive tooling solutions with expertise in CNC programming and precision boring systems.</p>
+                    <div class="team-social">
+                        <a href="#"><i class="fab fa-linkedin-in"></i></a>
+                        <a href="#"><i class="fas fa-envelope"></i></a>
+                    </div>
+                </div>
+                
+                <div class="team-member">
+                    <div class="team-img">
+                        <img src="https://images.unsplash.com/photo-1480429370139-e0132c086e2a?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=688&q=80" alt="Sanjay Mehta">
+                    </div>
+                    <h3>Sanjay Mehta</h3>
+                    <div class="position">Precision Machining Specialist</div>
+                    <div class="experience">15 Years Experience</div>
+                    <p>Expert in heavy engineering tooling with focus on durability and performance optimization for demanding applications.</p>
+                    <div class="team-social">
+                        <a href="#"><i class="fab fa-linkedin-in"></i></a>
+                        <a href="#"><i class="fas fa-envelope"></i></a>
+                    </div>
+                </div>
+                
+                <div class="team-member">
+                    <div class="team-img">
+                        <img src="https://images.unsplash.com/photo-1544005313-94ddf0286df2?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=688&q=80" alt="Neha Reddy">
+                    </div>
+                    <h3>Neha Reddy</h3>
+                    <div class="position">Aerospace Components Lead</div>
+                    <div class="experience">10 Years Experience</div>
+                    <p>Leads our aerospace division with expertise in high-precision tooling for critical aerospace components.</p>
+                    <div class="team-social">
+                        <a href="#"><i class="fab fa-linkedin-in"></i></a>
+                        <a href="#"><i class="fas fa-envelope"></i></a>
+                    </div>
+                </div>
+                
+                <div class="team-member">
+                    <div class="team-img">
+                        <img src="https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=687&q=80" alt="Amit Joshi">
+                    </div>
+                    <h3>Amit Joshi</h3>
+                    <div class="position">Quality Assurance Manager</div>
+                    <div class="experience">14 Years Experience</div>
+                    <p>Ensures all products meet our stringent quality standards with advanced testing methodologies and protocols.</p>
+                    <div class="team-social">
+                        <a href="#"><i class="fab fa-linkedin-in"></i></a>
+                        <a href="#"><i class="fas fa-envelope"></i></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- TEAM VALUES -->
+    <section class="section" style="background: #f8f9fa;">
+        <div class="container">
+            <div class="section-title">
+                <h2>Our Team Values</h2>
+                <p>The principles that guide our team's approach to precision engineering</p>
+            </div>
+            
+            <div class="values-grid">
+                <div class="value-card">
+                    <div class="value-icon">
+                        <i class="fas fa-bullseye"></i>
+                    </div>
+                    <h3>Precision</h3>
+                    <p>We maintain micron-level accuracy in all our engineering solutions, ensuring consistent quality and performance.</p>
+                </div>
+                
+                <div class="value-card">
+                    <div class="value-icon">
+                        <i class="fas fa-lightbulb"></i>
+                    </div>
+                    <h3>Innovation</h3>
+                    <p>Our team continuously researches and develops new solutions to stay ahead of industry trends and customer needs.</p>
+                </div>
+                
+                <div class="value-card">
+                    <div class="value-icon">
+                        <i class="fas fa-handshake"></i>
+                    </div>
+                    <h3>Collaboration</h3>
+                    <p>We work closely with clients to understand their unique challenges and develop customized solutions.</p>
+                </div>
+                
+                <div class="value-card">
+                    <div class="value-icon">
+                        <i class="fas fa-graduation-cap"></i>
+                    </div>
+                    <h3>Continuous Learning</h3>
+                    <p>Our team regularly updates skills and knowledge to incorporate the latest technologies and methodologies.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA SECTION -->
+    <section class="section" style="padding: 60px 0; background: var(--primary); color: white;">
+        <div class="container">
+            <div style="text-align: center;">
+                <h2 style="font-size: 2.2rem; margin-bottom: 20px;">Join Our Team</h2>
+                <p style="max-width: 700px; margin: 0 auto 30px; font-size: 1.1rem;">
+                    Are you passionate about precision engineering? Explore career opportunities with Sigma Toolings.
+                </p>
+                <a href="careers.html" class="btn" style="background: white; color: var(--primary);">View Open Positions</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-column">
+                    <h3>Sigma Toolings</h3>
+                    <p>Leading the industry with precision engineering and innovative solutions.</p>
+                    <div class="social-icons">
+                        <a href="#"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                        <a href="#"><i class="fab fa-linkedin-in"></i></a>
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                    </div>
+                </div>
+                <div class="footer-column">
+                    <h3>Quick Links</h3>
+                    <ul>
+                        <li><a href="index.html">Home</a></li>
+                        <li><a href="products.html">Products</a></li>
+                        <li><a href="solutions.html">Solutions</a></li>
+                        <li><a href="about-us.html">About Us</a></li>
+                        <li><a href="our-team.html">Our Team</a></li>
+                        <li><a href="contact.html">Contact</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h3>Our Products</h3>
+                    <ul>
+                        <li><a href="#">Cutting Tools</a></li>
+                        <li><a href="#">Measuring Instruments</a></li>
+                        <li><a href="#">Industrial Machines</a></li>
+                        <li><a href="#">Safety Tools</a></li>
+                        <li><a href="#">Custom Engineering</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h3>Contact Info</h3>
+                    <ul>
+                        <li><i class="fas fa-map-marker-alt"></i> 123 Industrial Way, Tech City</li>
+                        <li><i class="fas fa-phone"></i> +91-9876543210</li>
+                        <li><i class="fas fa-envelope"></i> info@sigmatoolings.com</li>
+                        <li><i class="fas fa-clock"></i> Mon–Fri: 9AM–6PM</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>© 2025 Sigma Toolings — All Rights Reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- JS -->
+    <script>
+        // Mobile Menu Toggle
+        document.querySelector('.mobile-toggle').addEventListener('click',()=> {
+            document.querySelector('.nav-menu').classList.toggle('active');
+        });
+        
+        // Close menu on click (for mobile)
+        document.querySelectorAll('.nav-menu a').forEach(a=>{
+            a.addEventListener('click',()=> {
+                if(window.innerWidth <= 768) {
+                    document.querySelector('.nav-menu').classList.remove('active');
+                }
+            });
+        });
+
+        // Enhanced dropdown functionality
+        document.querySelectorAll('.nav-menu li').forEach(item => {
+            // Handle hover for desktop
+            item.addEventListener('mouseenter', function() {
+                if(window.innerWidth > 768) {
+                    this.querySelector('.dropdown-menu').style.display = 'block';
+                }
+            });
+            
+            item.addEventListener('mouseleave', function() {
+                if(window.innerWidth > 768) {
+                    this.querySelector('.dropdown-menu').style.display = 'none';
+                }
+            });
+            
+            // Handle click for mobile dropdowns
+            if(window.innerWidth <= 768) {
+                const link = item.querySelector('a');
+                const dropdown = item.querySelector('.dropdown-menu');
+                
+                if(dropdown) {
+                    link.addEventListener('click', function(e) {
+                        e.preventDefault();
+                        const isActive = dropdown.style.display === 'block';
+                        
+                        // Close all other dropdowns
+                        document.querySelectorAll('.dropdown-menu').forEach(d => {
+                            d.style.display = 'none';
+                        });
+                        
+                        // Toggle current dropdown
+                        dropdown.style.display = isActive ? 'none' : 'block';
+                    });
+                }
+            }
+        });
+
+        // Close dropdowns when clicking outside
+        document.addEventListener('click', function(e) {
+            if(!e.target.closest('.nav-menu')) {
+                document.querySelectorAll('.dropdown-menu').forEach(dropdown => {
+                    dropdown.style.display = 'none';
+                });
+            }
+        });
+
+        // Update dropdown behavior on window resize
+        window.addEventListener('resize', function() {
+            if(window.innerWidth > 768) {
+                // Reset all dropdowns for desktop
+                document.querySelectorAll('.dropdown-menu').forEach(dropdown => {
+                    dropdown.style.display = '';
+                });
+            } else {
+                // Close all dropdowns for mobile
+                document.querySelectorAll('.dropdown-menu').forEach(dropdown => {
+                    dropdown.style.display = 'none';
+                });
+            }
+        });
+    </script>
+</body>
+</html>

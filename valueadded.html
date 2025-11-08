@@ -1,0 +1,1137 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Value-Adds - Sigma Toolings</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        /* === GLOBAL STYLES === */
+        *{margin:0;padding:0;box-sizing:border-box;font-family:'Segoe UI',Tahoma,Geneva,Verdana,sans-serif;}
+        :root{ --primary:#1a365d;--secondary:#2d6bc4;--accent:#e63946;--light:#f8f9fa;--dark:#212529;--gray:#6c757d;--transition:all .3s ease; }
+        body{line-height:1.6;color:var(--dark);background:#fff;overflow-x: hidden;}
+        a{text-decoration:none;color:inherit;}
+        ul{list-style:none;}
+        .container{width:90%;max-width:1200px;margin:0 auto;padding:0 15px;}
+        .btn{display:inline-block;padding:12px 30px;background:var(--secondary);color:white;border:none;border-radius:4px;font-weight:600;cursor:pointer;transition:var(--transition);text-transform:uppercase;font-size:.9rem;letter-spacing:1px;}
+        .btn:hover{background:var(--primary);transform:translateY(-3px);box-shadow:0 5px 15px rgba(0,0,0,.1);}
+        .btn-outline{background:transparent;border:2px solid var(--secondary);color:var(--secondary);}
+        .btn-outline:hover{background:var(--secondary);color:white;}
+        .section{padding:80px 0;}
+        .section-title{text-align:center;margin-bottom:50px;}
+        .section-title h2{font-size:2.5rem;color:var(--primary);margin-bottom:15px;position:relative;display:inline-block;}
+        .section-title h2::after{content:'';position:absolute;width:70px;height:3px;background:var(--accent);bottom:-10px;left:50%;transform:translateX(-50%);}
+        .section-title p{color:var(--gray);max-width:700px;margin:0 auto;}
+        
+        /* === HEADER / NAV MENU === */
+        header{background:white;box-shadow:0 2px 10px rgba(0,0,0,.1);position:fixed;width:100%;top:0;z-index:1000;}
+        .header-container{display:flex;justify-content:space-between;align-items:center;padding:12px 0;}
+        .site-logo{height:55px;width:auto;}
+        .nav-menu{display:flex;align-items:center;gap:25px;}
+        .nav-menu li{position:relative;}
+        .nav-menu a{font-weight:600;color:var(--dark);transition:var(--transition);padding:6px;}
+        .nav-menu a:hover{color:var(--secondary);}
+        .nav-menu a.active{color:var(--secondary);}
+        /* Dropdown */
+        .dropdown-menu{
+            display:none;
+            position:absolute;
+            top:35px;
+            left:0;
+            background:white;
+            box-shadow:0 4px 12px rgba(0,0,0,.1);
+            padding:10px 0;
+            border-radius:5px;
+            width:200px;
+            z-index:9999;
+        }
+        .dropdown-menu li a{padding:10px 15px;display:block;color:#000;}
+        .dropdown-menu li a:hover{background:#f5f5f5;}
+        .nav-menu li:hover > .dropdown-menu{display:block;}
+        .mobile-toggle{display:none;font-size:1.6rem;cursor:pointer;}
+        
+        /* PAGE HERO */
+        .page-hero {
+            background: linear-gradient(rgba(26,54,93,.85), rgba(26,54,93,.85)), 
+                        url('https://images.unsplash.com/photo-1581094794329-c8112a89af12?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80') center/cover no-repeat;
+            color: white;
+            padding: 150px 0 100px;
+            text-align: center;
+            margin-top: 75px;
+        }
+        .page-hero h1 {
+            font-size: 3rem;
+            margin-bottom: 20px;
+        }
+        .page-hero p {
+            font-size: 1.2rem;
+            max-width: 700px;
+            margin: 0 auto;
+            opacity: 0.9;
+        }
+        
+        /* VALUE ADDS HERO */
+        .value-adds-hero {
+            background: var(--light);
+            padding: 80px 0;
+        }
+        .value-adds-intro {
+            text-align: center;
+            max-width: 900px;
+            margin: 0 auto 60px;
+        }
+        .value-adds-intro h2 {
+            font-size: 2.2rem;
+            color: var(--primary);
+            margin-bottom: 20px;
+        }
+        .value-adds-intro p {
+            font-size: 1.1rem;
+            color: var(--gray);
+            margin-bottom: 30px;
+        }
+        
+        /* VALUE ADDS GRID */
+        .value-adds-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 30px;
+            margin-bottom: 60px;
+        }
+        .value-add-card {
+            background: white;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.08);
+            transition: var(--transition);
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+        }
+        .value-add-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(0,0,0,0.15);
+        }
+        .value-add-icon {
+            height: 120px;
+            background: var(--primary);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 3rem;
+        }
+        .value-add-content {
+            padding: 30px;
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+        }
+        .value-add-content h3 {
+            font-size: 1.4rem;
+            color: var(--primary);
+            margin-bottom: 15px;
+        }
+        .value-add-content p {
+            color: var(--gray);
+            margin-bottom: 20px;
+            flex-grow: 1;
+        }
+        .value-add-features {
+            margin: 20px 0;
+        }
+        .value-add-features li {
+            display: flex;
+            align-items: flex-start;
+            gap: 10px;
+            margin-bottom: 10px;
+            font-size: 0.95rem;
+        }
+        .value-add-features i {
+            color: var(--accent);
+            margin-top: 3px;
+            flex-shrink: 0;
+        }
+        
+        /* BENEFITS SECTION */
+        .benefits-section {
+            background: var(--primary);
+            color: white;
+            padding: 80px 0;
+        }
+        .benefits-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 40px;
+        }
+        .benefit-item {
+            text-align: center;
+            padding: 30px 20px;
+        }
+        .benefit-icon {
+            width: 80px;
+            height: 80px;
+            background: rgba(255,255,255,0.1);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 20px;
+            font-size: 2rem;
+            color: white;
+        }
+        .benefit-item h3 {
+            font-size: 1.3rem;
+            margin-bottom: 15px;
+        }
+        .benefit-item p {
+            opacity: 0.9;
+        }
+        
+        /* CASE STUDIES SECTION */
+        .case-studies-section {
+            padding: 80px 0;
+            background: var(--light);
+        }
+        .case-studies-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+        }
+        .case-study-card {
+            background: white;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.08);
+            transition: var(--transition);
+        }
+        .case-study-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 30px rgba(0,0,0,0.15);
+        }
+        .case-study-image {
+            height: 200px;
+            overflow: hidden;
+        }
+        .case-study-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: var(--transition);
+        }
+        .case-study-card:hover .case-study-image img {
+            transform: scale(1.05);
+        }
+        .case-study-content {
+            padding: 25px;
+        }
+        .case-study-content h3 {
+            font-size: 1.3rem;
+            color: var(--primary);
+            margin-bottom: 10px;
+        }
+        .case-study-meta {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 15px;
+            font-size: 0.9rem;
+            color: var(--gray);
+        }
+        .case-study-content p {
+            color: var(--gray);
+            margin-bottom: 20px;
+            font-size: 0.95rem;
+        }
+        .case-study-stats {
+            display: flex;
+            justify-content: space-between;
+            background: var(--light);
+            padding: 15px;
+            border-radius: 5px;
+            margin-top: 20px;
+        }
+        .stat-item {
+            text-align: center;
+        }
+        .stat-number {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--accent);
+            margin-bottom: 5px;
+        }
+        .stat-label {
+            font-size: 0.8rem;
+            color: var(--gray);
+        }
+        
+        /* PROCESS SECTION */
+        .process-section {
+            padding: 80px 0;
+        }
+        .process-steps {
+            display: flex;
+            justify-content: space-between;
+            position: relative;
+            margin: 60px 0;
+        }
+        .process-steps::before {
+            content: '';
+            position: absolute;
+            top: 40px;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background: var(--secondary);
+            z-index: 1;
+        }
+        .process-step {
+            text-align: center;
+            position: relative;
+            z-index: 2;
+            flex: 1;
+        }
+        .step-number {
+            width: 80px;
+            height: 80px;
+            background: var(--secondary);
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin: 0 auto 20px;
+            border: 5px solid white;
+            box-shadow: 0 0 0 3px var(--secondary);
+        }
+        .step-content h3 {
+            font-size: 1.2rem;
+            color: var(--primary);
+            margin-bottom: 10px;
+        }
+        .step-content p {
+            color: var(--gray);
+            font-size: 0.95rem;
+        }
+        
+        /* CTA SECTION */
+        .cta-section {
+            background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+            color: white;
+            padding: 80px 0;
+            text-align: center;
+        }
+        .cta-content {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        .cta-content h2 {
+            font-size: 2.5rem;
+            margin-bottom: 20px;
+        }
+        .cta-content p {
+            font-size: 1.1rem;
+            margin-bottom: 30px;
+            opacity: 0.9;
+        }
+        .cta-buttons {
+            display: flex;
+            gap: 20px;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+        .cta-buttons .btn {
+            background: white;
+            color: var(--primary);
+        }
+        .cta-buttons .btn:hover {
+            background: var(--accent);
+            color: white;
+        }
+        .cta-buttons .btn-outline {
+            background: transparent;
+            border-color: white;
+            color: white;
+        }
+        .cta-buttons .btn-outline:hover {
+            background: white;
+            color: var(--primary);
+        }
+        
+        /* TESTIMONIALS SECTION */
+        .testimonials-section {
+            background: var(--light);
+            padding: 80px 0;
+        }
+        .testimonials-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+        }
+        .testimonial-card {
+            background: white;
+            border-radius: 10px;
+            padding: 30px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.08);
+            position: relative;
+        }
+        .testimonial-card::before {
+            content: '"';
+            position: absolute;
+            top: 20px;
+            right: 30px;
+            font-size: 4rem;
+            color: var(--light);
+            font-family: Georgia, serif;
+            line-height: 1;
+        }
+        .testimonial-text {
+            font-style: italic;
+            margin-bottom: 20px;
+            color: var(--gray);
+        }
+        .testimonial-author {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+        .author-avatar {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background: var(--secondary);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: 600;
+            flex-shrink: 0;
+        }
+        .author-info h4 {
+            margin-bottom: 5px;
+            color: var(--primary);
+        }
+        .author-info p {
+            font-size: 0.9rem;
+            color: var(--gray);
+        }
+        
+        /* FAQ SECTION */
+        .faq-section {
+            padding: 80px 0;
+        }
+        .faq-container {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        .faq-item {
+            background: white;
+            border-radius: 10px;
+            margin-bottom: 15px;
+            box-shadow: 0 3px 10px rgba(0,0,0,0.08);
+            overflow: hidden;
+        }
+        .faq-question {
+            padding: 20px 25px;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-weight: 600;
+            color: var(--primary);
+            transition: var(--transition);
+        }
+        .faq-question:hover {
+            background: var(--light);
+        }
+        .faq-question i {
+            transition: var(--transition);
+        }
+        .faq-item.active .faq-question i {
+            transform: rotate(180deg);
+        }
+        .faq-answer {
+            padding: 0 25px;
+            max-height: 0;
+            overflow: hidden;
+            transition: var(--transition);
+        }
+        .faq-item.active .faq-answer {
+            padding: 0 25px 20px;
+            max-height: 500px;
+        }
+        .faq-answer p {
+            color: var(--gray);
+            line-height: 1.6;
+        }
+        
+        /* FOOTER */
+        footer{background:var(--dark);color:white;padding:70px 0 20px;}
+        .footer-content{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:40px;margin-bottom:40px;}
+        .footer-column h3{font-size:1.3rem;margin-bottom:20px;position:relative;padding-bottom:10px;}
+        .footer-column h3::after{content:'';position:absolute;width:40px;height:2px;background:var(--secondary);bottom:0;left:0;}
+        .footer-column ul li{margin-bottom:10px;}
+        .footer-column ul li a{color:#b0b7c3;transition:.3s;}
+        .footer-column ul li a:hover{color:white;}
+        .social-icons{display:flex;gap:12px;margin-top:10px;}
+        .social-icons a{display:flex;align-items:center;justify-content:center;width:38px;height:38px;background:rgba(255,255,255,.1);border-radius:50%;}
+        .social-icons a:hover{background:var(--secondary);}
+        .footer-bottom{text-align:center;padding-top:20px;border-top:1px solid rgba(255,255,255,.1);color:#b0b7c3;font-size:.9rem;}
+        
+        /* RESPONSIVE */
+        @media(max-width:992px){
+            .process-steps {
+                flex-direction: column;
+                gap: 40px;
+            }
+            .process-steps::before {
+                display: none;
+            }
+            .process-step {
+                display: flex;
+                gap: 20px;
+                text-align: left;
+            }
+            .step-number {
+                margin: 0;
+                flex-shrink: 0;
+            }
+        }
+        
+        @media(max-width:768px){
+            .nav-menu{
+                position:fixed;
+                top:75px;
+                left:-100%;
+                width:100%;
+                height:100vh;
+                background:white;
+                flex-direction:column;
+                padding-top:40px;
+                transition:.3s;
+            }
+            .nav-menu.active{left:0;}
+            .nav-menu li{margin-bottom:25px;}
+            .mobile-toggle{display:block;color:var(--primary);}
+            .dropdown-menu{position:relative;box-shadow:none;width:100%;}
+            .page-hero h1{font-size:2.5rem;}
+            .value-adds-grid, .case-studies-grid, .testimonials-grid {
+                grid-template-columns: 1fr;
+            }
+            .cta-buttons {
+                flex-direction: column;
+                align-items: center;
+            }
+            .process-step {
+                flex-direction: column;
+                text-align: center;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- HEADER -->
+    <header>
+        <div class="container header-container">
+            <div class="logo">
+                <a href="index.html">
+                    <img src="logo.png" alt="Sigma Toolings Logo" class="site-logo">
+                </a>
+            </div>
+            <div class="mobile-toggle"><i class="fas fa-bars"></i></div>
+            <ul class="nav-menu">
+                <li><a href="index.html">Home</a></li>
+                <li>
+                    <a href="#">Company ▼</a>
+                    <ul class="dropdown-menu">
+                        <li><a href="about-us.html">About Us</a></li>
+                        <li><a href="team.html">Our Team</a></li>
+                        <li><a href="careers.html">Careers</a></li>
+                        <li><a href="contact.html">Contact</a></li>
+                    </ul>
+                </li>
+                <li>
+                    <a href="#">Products ▼</a>
+                    <ul class="dropdown-menu">
+                        <li><a href="product1.html">Product 1</a></li>
+                        <li><a href="product2.html">Product 2</a></li>
+                        <li><a href="product3.html">Product 3</a></li>
+                    </ul>
+                </li>
+                <li><a href="value-adds.html" class="active">Value-Adds</a></li>
+                <li><a href="videos.html">Videos</a></li>
+                <li><a href="downloads.html">Downloads</a></li>
+                <li><a href="news.html">News</a></li>
+                <li><a href="blogs.html">Blogs</a></li>
+            </ul>
+        </div>
+    </header>
+
+    <!-- PAGE HERO -->
+    <section class="page-hero">
+        <div class="container">
+            <h1>Value-Added Services</h1>
+            <p>Going beyond products to deliver comprehensive solutions that enhance your manufacturing capabilities</p>
+        </div>
+    </section>
+
+    <!-- VALUE ADDS HERO -->
+    <section class="value-adds-hero">
+        <div class="container">
+            <div class="value-adds-intro">
+                <h2>More Than Just Tooling Solutions</h2>
+                <p>At Sigma Toolings, we believe our responsibility extends beyond delivering high-quality products. Our value-added services are designed to optimize your operations, maximize tool performance, and drive your business forward.</p>
+                <a href="#contact" class="btn">Get Custom Solution</a>
+            </div>
+            
+            <div class="value-adds-grid">
+                <!-- Technical Consulting -->
+                <div class="value-add-card">
+                    <div class="value-add-icon">
+                        <i class="fas fa-cogs"></i>
+                    </div>
+                    <div class="value-add-content">
+                        <h3>Technical Consulting</h3>
+                        <p>Our engineering experts provide comprehensive technical consulting to optimize your manufacturing processes and tooling applications.</p>
+                        <ul class="value-add-features">
+                            <li><i class="fas fa-check"></i> Process optimization analysis</li>
+                            <li><i class="fas fa-check"></i> Tooling selection guidance</li>
+                            <li><i class="fas fa-check"></i> Machining parameter recommendations</li>
+                            <li><i class="fas fa-check"></i> Troubleshooting and problem-solving</li>
+                        </ul>
+                        <a href="#" class="btn btn-outline">Learn More</a>
+                    </div>
+                </div>
+                
+                <!-- Custom Tool Design -->
+                <div class="value-add-card">
+                    <div class="value-add-icon">
+                        <i class="fas fa-pencil-ruler"></i>
+                    </div>
+                    <div class="value-add-content">
+                        <h3>Custom Tool Design</h3>
+                        <p>Tailored tooling solutions designed specifically for your unique manufacturing challenges and requirements.</p>
+                        <ul class="value-add-features">
+                            <li><i class="fas fa-check"></i> CAD/CAM design services</li>
+                            <li><i class="fas fa-check"></i> Prototype development</li>
+                            <li><i class="fas fa-check"></i> Application-specific tooling</li>
+                            <li><i class="fas fa-check"></i> Reverse engineering capabilities</li>
+                        </ul>
+                        <a href="#" class="btn btn-outline">Learn More</a>
+                    </div>
+                </div>
+                
+                <!-- Tool Maintenance & Repair -->
+                <div class="value-add-card">
+                    <div class="value-add-icon">
+                        <i class="fas fa-tools"></i>
+                    </div>
+                    <div class="value-add-content">
+                        <h3>Tool Maintenance & Repair</h3>
+                        <p>Extend tool life and maintain peak performance with our comprehensive maintenance and repair services.</p>
+                        <ul class="value-add-features">
+                            <li><i class="fas fa-check"></i> Precision reconditioning</li>
+                            <li><i class="fas fa-check"></i> Coating reapplication</li>
+                            <li><i class="fas fa-check"></i> Performance restoration</li>
+                            <li><i class="fas fa-check"></i> Preventive maintenance programs</li>
+                        </ul>
+                        <a href="#" class="btn btn-outline">Learn More</a>
+                    </div>
+                </div>
+                
+                <!-- Training & Education -->
+                <div class="value-add-card">
+                    <div class="value-add-icon">
+                        <i class="fas fa-chalkboard-teacher"></i>
+                    </div>
+                    <div class="value-add-content">
+                        <h3>Training & Education</h3>
+                        <p>Empower your team with knowledge through our comprehensive training programs on tooling best practices.</p>
+                        <ul class="value-add-features">
+                            <li><i class="fas fa-check"></i> Operator training programs</li>
+                            <li><i class="fas fa-check"></i> Technical workshops</li>
+                            <li><i class="fas fa-check"></i> Application-specific training</li>
+                            <li><i class="fas fa-check"></i> On-site or virtual sessions</li>
+                        </ul>
+                        <a href="#" class="btn btn-outline">Learn More</a>
+                    </div>
+                </div>
+                
+                <!-- Inventory Management -->
+                <div class="value-add-card">
+                    <div class="value-add-icon">
+                        <i class="fas fa-warehouse"></i>
+                    </div>
+                    <div class="value-add-content">
+                        <h3>Inventory Management</h3>
+                        <p>Optimize your tool inventory with our managed services that ensure availability while reducing costs.</p>
+                        <ul class="value-add-features">
+                            <li><i class="fas fa-check"></i> Consignment inventory</li>
+                            <li><i class="fas fa-check"></i> Usage monitoring</li>
+                            <li><i class="fas fa-check"></i> Automatic replenishment</li>
+                            <li><i class="fas fa-check"></i> Inventory optimization</li>
+                        </ul>
+                        <a href="#" class="btn btn-outline">Learn More</a>
+                    </div>
+                </div>
+                
+                <!-- Performance Monitoring -->
+                <div class="value-add-card">
+                    <div class="value-add-icon">
+                        <i class="fas fa-chart-line"></i>
+                    </div>
+                    <div class="value-add-content">
+                        <h3>Performance Monitoring</h3>
+                        <p>Data-driven insights into your tooling performance to identify opportunities for improvement.</p>
+                        <ul class="value-add-features">
+                            <li><i class="fas fa-check"></i> Tool life tracking</li>
+                            <li><i class="fas fa-check"></i> Performance analytics</li>
+                            <li><i class="fas fa-check"></i> Cost-per-part analysis</li>
+                            <li><i class="fas fa-check"></i> Optimization recommendations</li>
+                        </ul>
+                        <a href="#" class="btn btn-outline">Learn More</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- BENEFITS SECTION -->
+    <section class="benefits-section">
+        <div class="container">
+            <div class="section-title">
+                <h2 style="color: white;">Key Benefits</h2>
+                <p style="color: rgba(255,255,255,0.8);">How our value-added services deliver tangible results for your business</p>
+            </div>
+            
+            <div class="benefits-container">
+                <div class="benefit-item">
+                    <div class="benefit-icon">
+                        <i class="fas fa-money-bill-wave"></i>
+                    </div>
+                    <h3>Cost Reduction</h3>
+                    <p>Optimize tool usage and reduce overall manufacturing costs through improved efficiency and extended tool life.</p>
+                </div>
+                
+                <div class="benefit-item">
+                    <div class="benefit-icon">
+                        <i class="fas fa-rocket"></i>
+                    </div>
+                    <h3>Increased Productivity</h3>
+                    <p>Maximize machine uptime and output with optimized tooling solutions and preventive maintenance.</p>
+                </div>
+                
+                <div class="benefit-item">
+                    <div class="benefit-icon">
+                        <i class="fas fa-award"></i>
+                    </div>
+                    <h3>Improved Quality</h3>
+                    <p>Enhance product quality and consistency with precision tooling and expert technical guidance.</p>
+                </div>
+                
+                <div class="benefit-item">
+                    <div class="benefit-icon">
+                        <i class="fas fa-clock"></i>
+                    </div>
+                    <h3>Time Savings</h3>
+                    <p>Reduce setup times, changeovers, and troubleshooting with optimized processes and expert support.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CASE STUDIES SECTION -->
+    <section class="case-studies-section">
+        <div class="container">
+            <div class="section-title">
+                <h2>Success Stories</h2>
+                <p>Real-world examples of how our value-added services have transformed manufacturing operations</p>
+            </div>
+            
+            <div class="case-studies-grid">
+                <div class="case-study-card">
+                    <div class="case-study-image">
+                        <img src="https://images.unsplash.com/photo-1550745165-9bc0b252726f?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80" alt="Automotive Case Study">
+                    </div>
+                    <div class="case-study-content">
+                        <h3>Automotive Component Manufacturer</h3>
+                        <div class="case-study-meta">
+                            <span>Industry: Automotive</span>
+                            <span>Duration: 6 months</span>
+                        </div>
+                        <p>Implemented custom tooling solutions and technical consulting to address specific machining challenges in engine component production.</p>
+                        <div class="case-study-stats">
+                            <div class="stat-item">
+                                <div class="stat-number">42%</div>
+                                <div class="stat-label">Tool Life Increase</div>
+                            </div>
+                            <div class="stat-item">
+                                <div class="stat-number">28%</div>
+                                <div class="stat-label">Cost Reduction</div>
+                            </div>
+                            <div class="stat-item">
+                                <div class="stat-number">15%</div>
+                                <div class="stat-label">Productivity Gain</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="case-study-card">
+                    <div class="case-study-image">
+                        <img src="https://images.unsplash.com/photo-1548345680-f5475ea5df84?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2073&q=80" alt="Aerospace Case Study">
+                    </div>
+                    <div class="case-study-content">
+                        <h3>Aerospace Parts Supplier</h3>
+                        <div class="case-study-meta">
+                            <span>Industry: Aerospace</span>
+                            <span>Duration: 9 months</span>
+                        </div>
+                        <p>Developed specialized tooling and provided comprehensive training to meet stringent aerospace quality standards and complex material requirements.</p>
+                        <div class="case-study-stats">
+                            <div class="stat-item">
+                                <div class="stat-number">65%</div>
+                                <div class="stat-label">Scrap Reduction</div>
+                            </div>
+                            <div class="stat-item">
+                                <div class="stat-number">35%</div>
+                                <div class="stat-label">Cycle Time Improvement</div>
+                            </div>
+                            <div class="stat-item">
+                                <div class="stat-number">100%</div>
+                                <div class="stat-label">Quality Compliance</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="case-study-card">
+                    <div class="case-study-image">
+                        <img src="https://images.unsplash.com/photo-1578662996442-48f60103fc96?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80" alt="Heavy Engineering Case Study">
+                    </div>
+                    <div class="case-study-content">
+                        <h3>Heavy Engineering Company</h3>
+                        <div class="case-study-meta">
+                            <span>Industry: Heavy Engineering</span>
+                            <span>Duration: 12 months</span>
+                        </div>
+                        <p>Implemented tool maintenance program and inventory management system to optimize tool usage across multiple manufacturing facilities.</p>
+                        <div class="case-study-stats">
+                            <div class="stat-item">
+                                <div class="stat-number">55%</div>
+                                <div class="stat-label">Inventory Cost Reduction</div>
+                            </div>
+                            <div class="stat-item">
+                                <div class="stat-number">40%</div>
+                                <div class="stat-label">Maintenance Cost Savings</div>
+                            </div>
+                            <div class="stat-item">
+                                <div class="stat-number">22%</div>
+                                <div class="stat-label">Uptime Improvement</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- PROCESS SECTION -->
+    <section class="process-section">
+        <div class="container">
+            <div class="section-title">
+                <h2>Our Approach</h2>
+                <p>Structured methodology to deliver maximum value through our services</p>
+            </div>
+            
+            <div class="process-steps">
+                <div class="process-step">
+                    <div class="step-number">1</div>
+                    <div class="step-content">
+                        <h3>Assessment & Analysis</h3>
+                        <p>Comprehensive evaluation of your current processes, challenges, and opportunities for improvement.</p>
+                    </div>
+                </div>
+                
+                <div class="process-step">
+                    <div class="step-number">2</div>
+                    <div class="step-content">
+                        <h3>Solution Design</h3>
+                        <p>Development of customized strategies and tooling solutions tailored to your specific needs.</p>
+                    </div>
+                </div>
+                
+                <div class="process-step">
+                    <div class="step-number">3</div>
+                    <div class="step-content">
+                        <h3>Implementation</h3>
+                        <p>Seamless integration of solutions with minimal disruption to your operations.</p>
+                    </div>
+                </div>
+                
+                <div class="process-step">
+                    <div class="step-number">4</div>
+                    <div class="step-content">
+                        <h3>Monitoring & Optimization</h3>
+                        <p>Continuous performance tracking and refinement to ensure ongoing improvement.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- TESTIMONIALS SECTION -->
+    <section class="testimonials-section">
+        <div class="container">
+            <div class="section-title">
+                <h2>Client Testimonials</h2>
+                <p>What our customers say about our value-added services</p>
+            </div>
+            
+            <div class="testimonials-grid">
+                <div class="testimonial-card">
+                    <div class="testimonial-text">
+                        "Sigma Toolings' technical consulting transformed our machining operations. Their experts identified inefficiencies we had overlooked for years, resulting in a 30% improvement in our overall equipment effectiveness."
+                    </div>
+                    <div class="testimonial-author">
+                        <div class="author-avatar">SK</div>
+                        <div class="author-info">
+                            <h4>Sanjay Kumar</h4>
+                            <p>Production Manager, AutoComponents Ltd.</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="testimonial-card">
+                    <div class="testimonial-text">
+                        "The custom tool design service exceeded our expectations. Sigma developed a specialized boring tool that solved a persistent quality issue we had been struggling with for months. Their engineering expertise is exceptional."
+                    </div>
+                    <div class="testimonial-author">
+                        <div class="author-avatar">PM</div>
+                        <div class="author-info">
+                            <h4>Priya Mehta</h4>
+                            <p>Engineering Head, AeroTech Solutions</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="testimonial-card">
+                    <div class="testimonial-text">
+                        "The inventory management program has streamlined our tool crib operations significantly. We've reduced our tool inventory by 40% while improving availability. The cost savings have been substantial."
+                    </div>
+                    <div class="testimonial-author">
+                        <div class="author-avatar">RK</div>
+                        <div class="author-info">
+                            <h4>Rahul Khanna</h4>
+                            <p>Operations Director, HeavyMech Industries</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FAQ SECTION -->
+    <section class="faq-section">
+        <div class="container">
+            <div class="section-title">
+                <h2>Frequently Asked Questions</h2>
+                <p>Common questions about our value-added services</p>
+            </div>
+            
+            <div class="faq-container">
+                <div class="faq-item">
+                    <div class="faq-question">
+                        <span>How do I know which value-added services are right for my operation?</span>
+                        <i class="fas fa-chevron-down"></i>
+                    </div>
+                    <div class="faq-answer">
+                        <p>Our technical team will conduct a comprehensive assessment of your operations to identify areas where our value-added services can deliver the most impact. We analyze your current processes, pain points, and business objectives to recommend the most suitable services.</p>
+                    </div>
+                </div>
+                
+                <div class="faq-item">
+                    <div class="faq-question">
+                        <span>What is the typical ROI for implementing these services?</span>
+                        <i class="fas fa-chevron-down"></i>
+                    </div>
+                    <div class="faq-answer">
+                        <p>ROI varies based on the specific services implemented and your current operations. However, our clients typically see returns within 6-18 months through reduced tooling costs, improved productivity, decreased downtime, and enhanced product quality. We provide detailed ROI analysis during the consultation phase.</p>
+                    </div>
+                </div>
+                
+                <div class="faq-item">
+                    <div class="faq-question">
+                        <span>Do you offer these services for small to medium-sized businesses?</span>
+                        <i class="fas fa-chevron-down"></i>
+                    </div>
+                    <div class="faq-answer">
+                        <p>Absolutely! We tailor our value-added services to businesses of all sizes. For smaller operations, we offer scalable solutions that deliver meaningful benefits without requiring substantial upfront investment. Our approach is always customized to your specific needs and budget.</p>
+                    </div>
+                </div>
+                
+                <div class="faq-item">
+                    <div class="faq-question">
+                        <span>How quickly can you implement these services?</span>
+                        <i class="fas fa-chevron-down"></i>
+                    </div>
+                    <div class="faq-answer">
+                        <p>Implementation timelines vary based on the complexity of services. Basic consulting and training can often begin within weeks, while comprehensive programs like custom tool design or inventory management systems may take 2-4 months for full implementation. We work closely with you to minimize disruption to your operations.</p>
+                    </div>
+                </div>
+                
+                <div class="faq-item">
+                    <div class="faq-question">
+                        <span>Are these services available nationwide?</span>
+                        <i class="fas fa-chevron-down"></i>
+                    </div>
+                    <div class="faq-answer">
+                        <p>Yes, we serve clients across India with our value-added services. While some services like on-site training and consulting require physical presence, many of our services including technical support, performance monitoring, and custom design can be delivered remotely. We have regional teams to ensure timely support regardless of location.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA SECTION -->
+    <section class="cta-section">
+        <div class="container">
+            <div class="cta-content">
+                <h2>Ready to Enhance Your Manufacturing Operations?</h2>
+                <p>Discover how our value-added services can transform your tooling performance and drive your business forward.</p>
+                <div class="cta-buttons">
+                    <a href="contact.html" class="btn">Request Consultation</a>
+                    <a href="contact.html" class="btn btn-outline">Contact Our Experts</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-column">
+                    <h3>Sigma Toolings</h3>
+                    <p>Leading the industry with precision engineering and innovative solutions.</p>
+                    <div class="social-icons">
+                        <a href="#"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                        <a href="#"><i class="fab fa-linkedin-in"></i></a>
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                    </div>
+                </div>
+                <div class="footer-column">
+                    <h3>Quick Links</h3>
+                    <ul>
+                        <li><a href="index.html">Home</a></li>
+                        <li><a href="products.html">Products</a></li>
+                        <li><a href="solutions.html">Solutions</a></li>
+                        <li><a href="about-us.html">About Us</a></li>
+                        <li><a href="value-adds.html">Value-Adds</a></li>
+                        <li><a href="contact.html">Contact</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h3>Our Products</h3>
+                    <ul>
+                        <li><a href="#">Cutting Tools</a></li>
+                        <li><a href="#">Measuring Instruments</a></li>
+                        <li><a href="#">Industrial Machines</a></li>
+                        <li><a href="#">Safety Tools</a></li>
+                        <li><a href="#">Custom Engineering</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h3>Contact Info</h3>
+                    <ul>
+                        <li><i class="fas fa-map-marker-alt"></i> 123 Industrial Way, Tech City</li>
+                        <li><i class="fas fa-phone"></i> +766804589</li>
+                        <li><i class="fas fa-envelope"></i> info@sigmatoolings.com</li>
+                        <li><i class="fas fa-clock"></i> Mon–Fri: 9AM–6PM</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>© 2025 Sigma Toolings — All Rights Reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- JS -->
+    <script>
+        // Mobile Menu Toggle
+        document.querySelector('.mobile-toggle').addEventListener('click',()=> {
+            document.querySelector('.nav-menu').classList.toggle('active');
+        });
+        
+        // Close menu on click
+        document.querySelectorAll('.nav-menu a').forEach(a=>{
+            a.addEventListener('click',()=>document.querySelector('.nav-menu').classList.remove('active'));
+        });
+
+        // FAQ Accordion
+        document.querySelectorAll('.faq-question').forEach(question => {
+            question.addEventListener('click', () => {
+                const item = question.parentNode;
+                item.classList.toggle('active');
+            });
+        });
+
+        // Smooth Scroll for Internal Links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const targetId = this.getAttribute('href');
+                if (targetId === '#') return;
+                
+                const targetElement = document.querySelector(targetId);
+                if (targetElement) {
+                    window.scrollTo({
+                        top: targetElement.offsetTop - 100,
+                        behavior: 'smooth'
+                    });
+                }
+            });
+        });
+
+        // Animate Stats on Scroll (for case studies)
+        const animateStats = () => {
+            const stats = document.querySelectorAll('.stat-number');
+            stats.forEach(stat => {
+                const finalValue = parseInt(stat.textContent);
+                let currentValue = 0;
+                const duration = 2000; // 2 seconds
+                const increment = finalValue / (duration / 16); // 60fps
+                
+                const timer = setInterval(() => {
+                    currentValue += increment;
+                    if (currentValue >= finalValue) {
+                        stat.textContent = finalValue + '%';
+                        clearInterval(timer);
+                    } else {
+                        stat.textContent = Math.floor(currentValue) + '%';
+                    }
+                }, 16);
+            });
+        };
+
+        // Intersection Observer for stats animation
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    animateStats();
+                    observer.unobserve(entry.target);
+                }
+            });
+        }, { threshold: 0.5 });
+
+        // Observe case studies section
+        const caseStudiesSection = document.querySelector('.case-studies-section');
+        if (caseStudiesSection) {
+            observer.observe(caseStudiesSection);
+        }
+    </script>
+</body>
+</html>

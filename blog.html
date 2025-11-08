@@ -1,0 +1,820 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Blogs - Sigma Toolings</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        /* === GLOBAL STYLES === */
+        *{margin:0;padding:0;box-sizing:border-box;font-family:'Segoe UI',Tahoma,Geneva,Verdana,sans-serif;}
+        :root{ --primary:#1a365d;--secondary:#2d6bc4;--accent:#e63946;--light:#f8f9fa;--dark:#212529;--gray:#6c757d;--transition:all .3s ease; }
+        body{line-height:1.6;color:var(--dark);background:#fff;overflow-x: hidden;}
+        a{text-decoration:none;color:inherit;}
+        ul{list-style:none;}
+        .container{width:90%;max-width:1200px;margin:0 auto;padding:0 15px;}
+        .btn{display:inline-block;padding:12px 30px;background:var(--secondary);color:white;border:none;border-radius:4px;font-weight:600;cursor:pointer;transition:var(--transition);text-transform:uppercase;font-size:.9rem;letter-spacing:1px;}
+        .btn:hover{background:var(--primary);transform:translateY(-3px);box-shadow:0 5px 15px rgba(0,0,0,.1);}
+        .btn-outline{background:transparent;border:2px solid var(--secondary);color:var(--secondary);}
+        .btn-outline:hover{background:var(--secondary);color:white;}
+        .section{padding:80px 0;}
+        .section-title{text-align:center;margin-bottom:50px;}
+        .section-title h2{font-size:2.5rem;color:var(--primary);margin-bottom:15px;position:relative;display:inline-block;}
+        .section-title h2::after{content:'';position:absolute;width:70px;height:3px;background:var(--accent);bottom:-10px;left:50%;transform:translateX(-50%);}
+        .section-title p{color:var(--gray);max-width:700px;margin:0 auto;}
+        
+        /* === HEADER / NAV MENU === */
+        header{background:white;box-shadow:0 2px 10px rgba(0,0,0,.1);position:fixed;width:100%;top:0;z-index:1000;}
+        .header-container{display:flex;justify-content:space-between;align-items:center;padding:12px 0;}
+        .site-logo{height:55px;width:auto;}
+        .nav-menu{display:flex;align-items:center;gap:25px;}
+        .nav-menu li{position:relative;}
+        .nav-menu a{font-weight:600;color:var(--dark);transition:var(--transition);padding:6px;}
+        .nav-menu a:hover{color:var(--secondary);}
+        .nav-menu a.active{color:var(--secondary);}
+        /* Dropdown */
+        .dropdown-menu{
+            display:none;
+            position:absolute;
+            top:35px;
+            left:0;
+            background:white;
+            box-shadow:0 4px 12px rgba(0,0,0,.1);
+            padding:10px 0;
+            border-radius:5px;
+            width:200px;
+            z-index:9999;
+        }
+        .dropdown-menu li a{padding:10px 15px;display:block;color:#000;}
+        .dropdown-menu li a:hover{background:#f5f5f5;}
+        .nav-menu li:hover > .dropdown-menu{display:block;}
+        .mobile-toggle{display:none;font-size:1.6rem;cursor:pointer;}
+        
+        /* PAGE HERO */
+        .page-hero {
+            background: linear-gradient(rgba(26,54,93,.85), rgba(26,54,93,.85)), 
+                        url('https://images.unsplash.com/photo-1581094794329-c8112a89af12?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80') center/cover no-repeat;
+            color: white;
+            padding: 150px 0 100px;
+            text-align: center;
+            margin-top: 75px;
+        }
+        .page-hero h1 {
+            font-size: 3rem;
+            margin-bottom: 20px;
+        }
+        .page-hero p {
+            font-size: 1.2rem;
+            max-width: 700px;
+            margin: 0 auto;
+            opacity: 0.9;
+        }
+        
+        /* BLOGS PAGE STYLES */
+        .blogs-section {
+            background: var(--light);
+        }
+        .blogs-container {
+            display: grid;
+            grid-template-columns: 2fr 1fr;
+            gap: 40px;
+        }
+        .blog-card {
+            background: white;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.08);
+            transition: var(--transition);
+            margin-bottom: 30px;
+        }
+        .blog-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 30px rgba(0,0,0,0.15);
+        }
+        .blog-image {
+            height: 250px;
+            overflow: hidden;
+        }
+        .blog-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: var(--transition);
+        }
+        .blog-card:hover .blog-image img {
+            transform: scale(1.05);
+        }
+        .blog-content {
+            padding: 25px;
+        }
+        .blog-meta {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 15px;
+            font-size: 0.9rem;
+            color: var(--gray);
+        }
+        .blog-author {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .author-avatar {
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            background: var(--secondary);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 0.8rem;
+            font-weight: 600;
+        }
+        .blog-content h3 {
+            font-size: 1.4rem;
+            color: var(--primary);
+            margin-bottom: 15px;
+            line-height: 1.4;
+        }
+        .blog-content p {
+            color: var(--gray);
+            margin-bottom: 20px;
+            font-size: 0.95rem;
+        }
+        .blog-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+        .blog-tag {
+            background: var(--light);
+            padding: 5px 10px;
+            border-radius: 3px;
+            font-size: 0.8rem;
+            color: var(--gray);
+            transition: var(--transition);
+        }
+        .blog-tag:hover {
+            background: var(--secondary);
+            color: white;
+        }
+        
+        /* SIDEBAR STYLES */
+        .sidebar {
+            background: white;
+            border-radius: 10px;
+            padding: 25px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.08);
+            height: fit-content;
+            position: sticky;
+            top: 100px;
+        }
+        .sidebar-widget {
+            margin-bottom: 30px;
+        }
+        .sidebar-widget:last-child {
+            margin-bottom: 0;
+        }
+        .sidebar-widget h3 {
+            font-size: 1.2rem;
+            color: var(--primary);
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 1px solid #eee;
+        }
+        
+        /* Search Widget */
+        .search-form {
+            position: relative;
+        }
+        .search-form input {
+            width: 100%;
+            padding: 12px 15px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font-size: 1rem;
+        }
+        .search-form button {
+            position: absolute;
+            right: 5px;
+            top: 5px;
+            background: var(--secondary);
+            color: white;
+            border: none;
+            padding: 7px 12px;
+            border-radius: 3px;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+        .search-form button:hover {
+            background: var(--primary);
+        }
+        
+        /* Categories Widget */
+        .categories-list li {
+            margin-bottom: 10px;
+            padding-bottom: 10px;
+            border-bottom: 1px solid #f5f5f5;
+        }
+        .categories-list li:last-child {
+            margin-bottom: 0;
+            padding-bottom: 0;
+            border-bottom: none;
+        }
+        .categories-list a {
+            display: flex;
+            justify-content: space-between;
+            transition: var(--transition);
+        }
+        .categories-list a:hover {
+            color: var(--secondary);
+        }
+        .categories-list span {
+            background: var(--light);
+            padding: 2px 8px;
+            border-radius: 10px;
+            font-size: 0.8rem;
+        }
+        
+        /* Recent Posts Widget */
+        .recent-posts li {
+            display: flex;
+            gap: 15px;
+            margin-bottom: 15px;
+            padding-bottom: 15px;
+            border-bottom: 1px solid #f5f5f5;
+        }
+        .recent-posts li:last-child {
+            margin-bottom: 0;
+            padding-bottom: 0;
+            border-bottom: none;
+        }
+        .recent-post-img {
+            width: 70px;
+            height: 70px;
+            border-radius: 5px;
+            overflow: hidden;
+            flex-shrink: 0;
+        }
+        .recent-post-img img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        .recent-post-content h4 {
+            font-size: 0.95rem;
+            margin-bottom: 5px;
+            line-height: 1.4;
+            transition: var(--transition);
+        }
+        .recent-post-content h4:hover {
+            color: var(--secondary);
+        }
+        .recent-post-content span {
+            font-size: 0.8rem;
+            color: var(--gray);
+        }
+        
+        /* Tags Widget */
+        .tags-cloud {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+        .tag {
+            background: var(--light);
+            padding: 5px 12px;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            transition: var(--transition);
+        }
+        .tag:hover {
+            background: var(--secondary);
+            color: white;
+        }
+        
+        /* Featured Post */
+        .featured-post {
+            background: white;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            margin-bottom: 40px;
+        }
+        .featured-post-image {
+            height: 350px;
+            overflow: hidden;
+        }
+        .featured-post-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: var(--transition);
+        }
+        .featured-post:hover .featured-post-image img {
+            transform: scale(1.05);
+        }
+        .featured-post-content {
+            padding: 30px;
+        }
+        .featured-badge {
+            display: inline-block;
+            background: var(--accent);
+            color: white;
+            padding: 5px 15px;
+            border-radius: 3px;
+            font-size: 0.8rem;
+            margin-bottom: 15px;
+            font-weight: 600;
+        }
+        .featured-post-content h2 {
+            font-size: 1.8rem;
+            color: var(--primary);
+            margin-bottom: 15px;
+            line-height: 1.3;
+        }
+        .featured-post-content p {
+            color: var(--gray);
+            margin-bottom: 20px;
+            font-size: 1rem;
+        }
+        
+        /* Pagination */
+        .blogs-pagination {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            margin-top: 50px;
+        }
+        .page-btn {
+            width: 40px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+        .page-btn.active, .page-btn:hover {
+            background: var(--secondary);
+            color: white;
+            border-color: var(--secondary);
+        }
+        
+        /* FOOTER */
+        footer{background:var(--dark);color:white;padding:70px 0 20px;}
+        .footer-content{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:40px;margin-bottom:40px;}
+        .footer-column h3{font-size:1.3rem;margin-bottom:20px;position:relative;padding-bottom:10px;}
+        .footer-column h3::after{content:'';position:absolute;width:40px;height:2px;background:var(--secondary);bottom:0;left:0;}
+        .footer-column ul li{margin-bottom:10px;}
+        .footer-column ul li a{color:#b0b7c3;transition:.3s;}
+        .footer-column ul li a:hover{color:white;}
+        .social-icons{display:flex;gap:12px;margin-top:10px;}
+        .social-icons a{display:flex;align-items:center;justify-content:center;width:38px;height:38px;background:rgba(255,255,255,.1);border-radius:50%;}
+        .social-icons a:hover{background:var(--secondary);}
+        .footer-bottom{text-align:center;padding-top:20px;border-top:1px solid rgba(255,255,255,.1);color:#b0b7c3;font-size:.9rem;}
+        
+        /* RESPONSIVE */
+        @media(max-width:992px){
+            .blogs-container {
+                grid-template-columns: 1fr;
+            }
+            .sidebar {
+                order: -1;
+                position: static;
+            }
+        }
+        
+        @media(max-width:768px){
+            .nav-menu{
+                position:fixed;
+                top:75px;
+                left:-100%;
+                width:100%;
+                height:100vh;
+                background:white;
+                flex-direction:column;
+                padding-top:40px;
+                transition:.3s;
+            }
+            .nav-menu.active{left:0;}
+            .nav-menu li{margin-bottom:25px;}
+            .mobile-toggle{display:block;color:var(--primary);}
+            .dropdown-menu{position:relative;box-shadow:none;width:100%;}
+            .page-hero h1{font-size:2.5rem;}
+            .featured-post-image {
+                height: 250px;
+            }
+            .featured-post-content h2 {
+                font-size: 1.5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- HEADER -->
+    <header>
+        <div class="container header-container">
+            <div class="logo">
+                <a href="index.html">
+                    <img src="logo.png" alt="Sigma Toolings Logo" class="site-logo">
+                </a>
+            </div>
+            <div class="mobile-toggle"><i class="fas fa-bars"></i></div>
+            <ul class="nav-menu">
+                <li><a href="index.html">Home</a></li>
+                <li>
+                    <a href="#">Company ▼</a>
+                    <ul class="dropdown-menu">
+                        <li><a href="about-us.html">About Us</a></li>
+                        <li><a href="team.html">Our Team</a></li>
+                        <li><a href="careers.html">Careers</a></li>
+                        <li><a href="contact.html">Contact</a></li>
+                    </ul>
+                </li>
+                <li>
+                    <a href="#">Products ▼</a>
+                    <ul class="dropdown-menu">
+                        <li><a href="product1.html">Product 1</a></li>
+                        <li><a href="product2.html">Product 2</a></li>
+                        <li><a href="product3.html">Product 3</a></li>
+                    </ul>
+                </li>
+                <li><a href="value-adds.html">Value-Adds</a></li>
+                <li><a href="videos.html">Videos</a></li>
+                <li><a href="downloads.html">Downloads</a></li>
+                <li><a href="news.html">News</a></li>
+                <li><a href="blogs.html" class="active">Blogs</a></li>
+            </ul>
+        </div>
+    </header>
+
+    <!-- BLOGS PAGE HERO -->
+    <section class="page-hero">
+        <div class="container">
+            <h1>Industry Insights & Blogs</h1>
+            <p>Expert perspectives, technical guides, and industry trends from our engineering specialists</p>
+        </div>
+    </section>
+
+    <!-- BLOGS SECTION -->
+    <section class="section blogs-section">
+        <div class="container">
+            <div class="blogs-container">
+                <div class="blogs-main">
+                    <!-- Featured Blog Post -->
+                    <div class="featured-post">
+                        <div class="featured-post-image">
+                            <img src="https://images.unsplash.com/photo-1581094794329-c8112a89af12?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80" alt="Precision Engineering">
+                        </div>
+                        <div class="featured-post-content">
+                            <span class="featured-badge">FEATURED</span>
+                            <h2>The Future of Precision Engineering: Trends Shaping 2025 and Beyond</h2>
+                            <p>Explore the emerging trends in precision engineering, from AI-driven manufacturing to sustainable practices, and how they're transforming the tooling industry. Learn how Sigma Toolings is staying ahead of these developments.</p>
+                            <div class="blog-meta">
+                                <div class="blog-author">
+                                    <div class="author-avatar">RS</div>
+                                    <span>By Rajesh Sharma</span>
+                                </div>
+                                <span><i class="far fa-calendar"></i> March 10, 2025</span>
+                            </div>
+                            <div class="blog-tags">
+                                <a href="#" class="blog-tag">Precision Engineering</a>
+                                <a href="#" class="blog-tag">Industry Trends</a>
+                                <a href="#" class="blog-tag">Technology</a>
+                                <a href="#" class="blog-tag">Innovation</a>
+                            </div>
+                            <a href="blog-detail.html" class="btn">Read Full Article</a>
+                        </div>
+                    </div>
+                    
+                    <!-- Blog Post 1 -->
+                    <div class="blog-card">
+                        <div class="blog-image">
+                            <img src="https://images.unsplash.com/photo-1550745165-9bc0b252726f?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80" alt="Tool Maintenance">
+                        </div>
+                        <div class="blog-content">
+                            <div class="blog-meta">
+                                <div class="blog-author">
+                                    <div class="author-avatar">PK</div>
+                                    <span>By Priya Kumar</span>
+                                </div>
+                                <span><i class="far fa-calendar"></i> February 22, 2025</span>
+                            </div>
+                            <h3>Maximizing Tool Life: Best Practices for Maintenance and Care</h3>
+                            <p>Learn essential maintenance techniques to extend the lifespan of your precision tools, reduce downtime, and optimize manufacturing efficiency. Our experts share proven strategies for tool care.</p>
+                            <div class="blog-tags">
+                                <a href="#" class="blog-tag">Tool Maintenance</a>
+                                <a href="#" class="blog-tag">Best Practices</a>
+                                <a href="#" class="blog-tag">Efficiency</a>
+                            </div>
+                            <a href="blog-detail.html" class="btn btn-outline">Read Full Article</a>
+                        </div>
+                    </div>
+                    
+                    <!-- Blog Post 2 -->
+                    <div class="blog-card">
+                        <div class="blog-image">
+                            <img src="https://images.unsplash.com/photo-1548345680-f5475ea5df84?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2073&q=80" alt="Aerospace Manufacturing">
+                        </div>
+                        <div class="blog-content">
+                            <div class="blog-meta">
+                                <div class="blog-author">
+                                    <div class="author-avatar">AS</div>
+                                    <span>By Anil Singh</span>
+                                </div>
+                                <span><i class="far fa-calendar"></i> January 15, 2025</span>
+                            </div>
+                            <h3>Meeting Aerospace Standards: Challenges in High-Precision Component Manufacturing</h3>
+                            <p>Discover the unique challenges and solutions in manufacturing aerospace components that meet stringent quality and precision requirements. Case studies from our work with leading aerospace companies.</p>
+                            <div class="blog-tags">
+                                <a href="#" class="blog-tag">Aerospace</a>
+                                <a href="#" class="blog-tag">Quality Standards</a>
+                                <a href="#" class="blog-tag">Precision</a>
+                                <a href="#" class="blog-tag">Case Study</a>
+                            </div>
+                            <a href="blog-detail.html" class="btn btn-outline">Read Full Article</a>
+                        </div>
+                    </div>
+                    
+                    <!-- Blog Post 3 -->
+                    <div class="blog-card">
+                        <div class="blog-image">
+                            <img src="https://images.unsplash.com/photo-1578662996442-48f60103fc96?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80" alt="Sustainable Manufacturing">
+                        </div>
+                        <div class="blog-content">
+                            <div class="blog-meta">
+                                <div class="blog-author">
+                                    <div class="author-avatar">SM</div>
+                                    <span>By Sanjay Mehta</span>
+                                </div>
+                                <span><i class="far fa-calendar"></i> December 8, 2024</span>
+                            </div>
+                            <h3>Sustainable Manufacturing: How Precision Engineering Reduces Environmental Impact</h3>
+                            <p>Explore how precision engineering contributes to sustainable manufacturing practices by minimizing waste, optimizing material usage, and improving energy efficiency in production processes.</p>
+                            <div class="blog-tags">
+                                <a href="#" class="blog-tag">Sustainability</a>
+                                <a href="#" class="blog-tag">Green Manufacturing</a>
+                                <a href="#" class="blog-tag">Eco-friendly</a>
+                            </div>
+                            <a href="blog-detail.html" class="btn btn-outline">Read Full Article</a>
+                        </div>
+                    </div>
+                    
+                    <!-- Blog Post 4 -->
+                    <div class="blog-card">
+                        <div class="blog-image">
+                            <img src="https://images.unsplash.com/photo-1581094794329-c8112a89af12?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80" alt="Automation in Manufacturing">
+                        </div>
+                        <div class="blog-content">
+                            <div class="blog-meta">
+                                <div class="blog-author">
+                                    <div class="author-avatar">VK</div>
+                                    <span>By Vikas Khanna</span>
+                                </div>
+                                <span><i class="far fa-calendar"></i> November 20, 2024</span>
+                            </div>
+                            <h3>The Role of Automation in Modern Tooling Solutions</h3>
+                            <p>How automation technologies are revolutionizing tooling solutions, improving precision, reducing human error, and increasing production efficiency in manufacturing environments.</p>
+                            <div class="blog-tags">
+                                <a href="#" class="blog-tag">Automation</a>
+                                <a href="#" class="blog-tag">Industry 4.0</a>
+                                <a href="#" class="blog-tag">Robotics</a>
+                                <a href="#" class="blog-tag">Efficiency</a>
+                            </div>
+                            <a href="blog-detail.html" class="btn btn-outline">Read Full Article</a>
+                        </div>
+                    </div>
+                    
+                    <!-- Blog Post 5 -->
+                    <div class="blog-card">
+                        <div class="blog-image">
+                            <img src="https://images.unsplash.com/photo-1550745165-9bc0b252726f?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80" alt="Material Science">
+                        </div>
+                        <div class="blog-content">
+                            <div class="blog-meta">
+                                <div class="blog-author">
+                                    <div class="author-avatar">NM</div>
+                                    <span>By Neha Mishra</span>
+                                </div>
+                                <span><i class="far fa-calendar"></i> October 15, 2024</span>
+                            </div>
+                            <h3>Advanced Materials in Tooling: From Carbide to Ceramics</h3>
+                            <p>An in-depth look at how advanced materials are transforming tooling performance, durability, and application possibilities in various industrial sectors.</p>
+                            <div class="blog-tags">
+                                <a href="#" class="blog-tag">Materials</a>
+                                <a href="#" class="blog-tag">Innovation</a>
+                                <a href="#" class="blog-tag">Durability</a>
+                                <a href="#" class="blog-tag">Performance</a>
+                            </div>
+                            <a href="blog-detail.html" class="btn btn-outline">Read Full Article</a>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- SIDEBAR -->
+                <div class="sidebar">
+                    <!-- Search Widget -->
+                    <div class="sidebar-widget">
+                        <h3>Search Blogs</h3>
+                        <form class="search-form">
+                            <input type="text" placeholder="Search articles...">
+                            <button type="submit"><i class="fas fa-search"></i></button>
+                        </form>
+                    </div>
+                    
+                    <!-- Categories Widget -->
+                    <div class="sidebar-widget">
+                        <h3>Categories</h3>
+                        <ul class="categories-list">
+                            <li><a href="#">Precision Engineering <span>12</span></a></li>
+                            <li><a href="#">Tool Maintenance <span>8</span></a></li>
+                            <li><a href="#">Industry Trends <span>15</span></a></li>
+                            <li><a href="#">Technical Guides <span>10</span></a></li>
+                            <li><a href="#">Case Studies <span>6</span></a></li>
+                            <li><a href="#">Innovation <span>9</span></a></li>
+                        </ul>
+                    </div>
+                    
+                    <!-- Recent Posts Widget -->
+                    <div class="sidebar-widget">
+                        <h3>Recent Posts</h3>
+                        <ul class="recent-posts">
+                            <li>
+                                <div class="recent-post-img">
+                                    <img src="https://images.unsplash.com/photo-1581094794329-c8112a89af12?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=500&q=80" alt="Recent Post">
+                                </div>
+                                <div class="recent-post-content">
+                                    <a href="#"><h4>The Future of Precision Engineering: Trends Shaping 2025 and Beyond</h4></a>
+                                    <span>March 10, 2025</span>
+                                </div>
+                            </li>
+                            <li>
+                                <div class="recent-post-img">
+                                    <img src="https://images.unsplash.com/photo-1550745165-9bc0b252726f?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=500&q=80" alt="Recent Post">
+                                </div>
+                                <div class="recent-post-content">
+                                    <a href="#"><h4>Maximizing Tool Life: Best Practices for Maintenance</h4></a>
+                                    <span>February 22, 2025</span>
+                                </div>
+                            </li>
+                            <li>
+                                <div class="recent-post-img">
+                                    <img src="https://images.unsplash.com/photo-1548345680-f5475ea5df84?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=500&q=80" alt="Recent Post">
+                                </div>
+                                <div class="recent-post-content">
+                                    <a href="#"><h4>Meeting Aerospace Standards: Challenges in Manufacturing</h4></a>
+                                    <span>January 15, 2025</span>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                    
+                    <!-- Tags Widget -->
+                    <div class="sidebar-widget">
+                        <h3>Popular Tags</h3>
+                        <div class="tags-cloud">
+                            <a href="#" class="tag">Precision</a>
+                            <a href="#" class="tag">Engineering</a>
+                            <a href="#" class="tag">Tooling</a>
+                            <a href="#" class="tag">Manufacturing</a>
+                            <a href="#" class="tag">Innovation</a>
+                            <a href="#" class="tag">Quality</a>
+                            <a href="#" class="tag">Efficiency</a>
+                            <a href="#" class="tag">Technology</a>
+                            <a href="#" class="tag">Automation</a>
+                            <a href="#" class="tag">Sustainability</a>
+                        </div>
+                    </div>
+                    
+                    <!-- Newsletter Widget -->
+                    <div class="sidebar-widget">
+                        <h3>Subscribe to Updates</h3>
+                        <p style="font-size: 0.9rem; margin-bottom: 15px; color: var(--gray);">Get the latest industry insights delivered to your inbox.</p>
+                        <form class="search-form">
+                            <input type="email" placeholder="Your email address" required>
+                            <button type="submit"><i class="fas fa-paper-plane"></i></button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="blogs-pagination">
+                <div class="page-btn active">1</div>
+                <div class="page-btn">2</div>
+                <div class="page-btn">3</div>
+                <div class="page-btn"><i class="fas fa-chevron-right"></i></div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-column">
+                    <h3>Sigma Toolings</h3>
+                    <p>Leading the industry with precision engineering and innovative solutions.</p>
+                    <div class="social-icons">
+                        <a href="#"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                        <a href="#"><i class="fab fa-linkedin-in"></i></a>
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                    </div>
+                </div>
+                <div class="footer-column">
+                    <h3>Quick Links</h3>
+                    <ul>
+                        <li><a href="index.html">Home</a></li>
+                        <li><a href="products.html">Products</a></li>
+                        <li><a href="solutions.html">Solutions</a></li>
+                        <li><a href="about-us.html">About Us</a></li>
+                        <li><a href="blogs.html">Blogs</a></li>
+                        <li><a href="contact.html">Contact</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h3>Our Products</h3>
+                    <ul>
+                        <li><a href="#">Cutting Tools</a></li>
+                        <li><a href="#">Measuring Instruments</a></li>
+                        <li><a href="#">Industrial Machines</a></li>
+                        <li><a href="#">Safety Tools</a></li>
+                        <li><a href="#">Custom Engineering</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h3>Contact Info</h3>
+                    <ul>
+                        <li><i class="fas fa-map-marker-alt"></i> 123 Industrial Way, Tech City</li>
+                        <li><i class="fas fa-phone"></i> +766804589</li>
+                        <li><i class="fas fa-envelope"></i> info@sigmatoolings.com</li>
+                        <li><i class="fas fa-clock"></i> Mon–Fri: 9AM–6PM</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>© 2025 Sigma Toolings — All Rights Reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- JS -->
+    <script>
+        // Mobile Menu Toggle
+        document.querySelector('.mobile-toggle').addEventListener('click',()=> {
+            document.querySelector('.nav-menu').classList.toggle('active');
+        });
+        
+        // Close menu on click
+        document.querySelectorAll('.nav-menu a').forEach(a=>{
+            a.addEventListener('click',()=>document.querySelector('.nav-menu').classList.remove('active'));
+        });
+
+        // Search Functionality
+        document.querySelectorAll('.search-form').forEach(form => {
+            form.addEventListener('submit', function(e) {
+                e.preventDefault();
+                const searchTerm = this.querySelector('input').value;
+                if (searchTerm.trim() !== '') {
+                    alert(`Searching for: ${searchTerm}`);
+                    // In a real implementation, this would redirect to search results
+                }
+            });
+        });
+
+        // Pagination Functionality
+        const pageBtns = document.querySelectorAll('.page-btn');
+        
+        pageBtns.forEach(btn => {
+            btn.addEventListener('click', () => {
+                // Remove active class from all buttons
+                pageBtns.forEach(b => b.classList.remove('active'));
+                // Add active class to clicked button
+                btn.classList.add('active');
+                
+                // In a real implementation, this would load the appropriate page
+                if (btn.querySelector('i')) {
+                    alert('Loading next page');
+                } else {
+                    alert(`Loading page ${btn.textContent}`);
+                }
+            });
+        });
+
+        // Tag and Category Click Handlers
+        document.querySelectorAll('.blog-tag, .tag, .categories-list a').forEach(element => {
+            element.addEventListener('click', function(e) {
+                e.preventDefault();
+                const text = this.textContent || this.querySelector('a').textContent;
+                alert(`Filtering by: ${text}`);
+                // In a real implementation, this would filter the blog posts
+            });
+        });
+    </script>
+</body>
+</html>

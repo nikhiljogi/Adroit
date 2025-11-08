@@ -1,0 +1,1077 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Careers - Adroit Toolings</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        /* Reset and Base Styles */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        :root {
+            --primary: #1a365d;
+            --secondary: #2d6bc4;
+            --accent: #e63946;
+            --light: #f8f9fa;
+            --dark: #212529;
+            --gray: #6c757d;
+            --transition: all 0.3s ease;
+        }
+
+        body {
+            line-height: 1.6;
+            color: var(--dark);
+            background-color: #fff;
+            overflow-x: hidden;
+        }
+
+        a {
+            text-decoration: none;
+            color: inherit;
+        }
+
+        ul {
+            list-style: none;
+        }
+
+        .container {
+            width: 90%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 15px;
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 12px 30px;
+            background-color: var(--secondary);
+            color: white;
+            border: none;
+            border-radius: 4px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: var(--transition);
+            text-transform: uppercase;
+            font-size: 0.9rem;
+            letter-spacing: 1px;
+        }
+
+        .btn:hover {
+            background-color: var(--primary);
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .btn-outline {
+            background: transparent;
+            border: 2px solid var(--secondary);
+            color: var(--secondary);
+        }
+
+        .btn-outline:hover {
+            background: var(--secondary);
+            color: white;
+        }
+
+        .section {
+            padding: 80px 0;
+        }
+
+        .section-title {
+            text-align: center;
+            margin-bottom: 50px;
+        }
+
+        .section-title h2 {
+            font-size: 2.5rem;
+            color: var(--primary);
+            margin-bottom: 15px;
+            position: relative;
+            display: inline-block;
+        }
+
+        .section-title h2::after {
+            content: '';
+            position: absolute;
+            width: 70px;
+            height: 3px;
+            background-color: var(--accent);
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+
+        .section-title p {
+            color: var(--gray);
+            max-width: 700px;
+            margin: 0 auto;
+        }
+        
+        /* === HEADER / NAV MENU === */
+        header{background:white;box-shadow:0 2px 10px rgba(0,0,0,.1);position:fixed;width:100%;top:0;z-index:1000;}
+        .header-container{display:flex;justify-content:space-between;align-items:center;padding:12px 0;}
+        .site-logo{height:55px;width:auto;}
+        .nav-menu{display:flex;align-items:center;gap:25px;}
+        .nav-menu li{position:relative;}
+        .nav-menu a{font-weight:600;color:var(--dark);transition:var(--transition);padding:6px;}
+        .nav-menu a:hover{color:var(--secondary);}
+        .nav-menu a.active{color:var(--secondary);}
+        /* Dropdown */
+        .dropdown-menu{
+            display:none;
+            position:absolute;
+            top:35px;
+            left:0;
+            background:white;
+            box-shadow:0 4px 12px rgba(0,0,0,.1);
+            padding:10px 0;
+            border-radius:5px;
+            width:200px;
+            z-index:9999;
+        }
+        .dropdown-menu li a{padding:10px 15px;display:block;color:#000;}
+        .dropdown-menu li a:hover{background:#f5f5f5;}
+        .nav-menu li:hover > .dropdown-menu{display:block;}
+        .mobile-toggle{display:none;font-size:1.6rem;cursor:pointer;}
+        
+        /* Hero Section */
+        .page-hero {
+            background: linear-gradient(rgba(26, 54, 93, 0.85), rgba(26, 54, 93, 0.9)), url('https://images.unsplash.com/photo-1552664730-d307ca884978?ixlib=rb-4.0.3&auto=format&fit=crop&w=1350&q=80');
+            background-size: cover;
+            background-position: center;
+            color: white;
+            padding: 180px 0 100px;
+            text-align: center;
+            margin-top: 75px;
+        }
+
+        .page-hero h1 {
+            font-size: 3.5rem;
+            margin-bottom: 20px;
+        }
+
+        .page-hero p {
+            font-size: 1.2rem;
+            max-width: 700px;
+            margin: 0 auto 30px;
+        }
+
+        /* Culture Section */
+        .culture {
+            background-color: var(--light);
+        }
+
+        .culture-content {
+            display: flex;
+            align-items: center;
+            gap: 50px;
+        }
+
+        .culture-text {
+            flex: 1;
+        }
+
+        .culture-text h3 {
+            font-size: 2rem;
+            color: var(--primary);
+            margin-bottom: 20px;
+        }
+
+        .culture-text p {
+            margin-bottom: 20px;
+            color: var(--gray);
+        }
+
+        .culture-features {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+            margin-top: 30px;
+        }
+
+        .culture-feature {
+            display: flex;
+            align-items: flex-start;
+            gap: 15px;
+        }
+
+        .culture-feature i {
+            color: var(--secondary);
+            font-size: 1.2rem;
+            margin-top: 5px;
+        }
+
+        .culture-image {
+            flex: 1;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+        }
+
+        .culture-image img {
+            width: 100%;
+            height: auto;
+            display: block;
+            transition: var(--transition);
+        }
+
+        .culture-image:hover img {
+            transform: scale(1.05);
+        }
+
+        /* Job Openings Section */
+        .job-filters {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin-bottom: 40px;
+            flex-wrap: wrap;
+        }
+
+        .filter-btn {
+            padding: 8px 20px;
+            background: white;
+            border: 1px solid #ddd;
+            border-radius: 30px;
+            cursor: pointer;
+            transition: var(--transition);
+            font-weight: 500;
+        }
+
+        .filter-btn.active, .filter-btn:hover {
+            background: var(--secondary);
+            color: white;
+            border-color: var(--secondary);
+        }
+
+        .job-list {
+            display: flex;
+            flex-direction: column;
+            gap: 25px;
+        }
+
+        .job-item {
+            background-color: white;
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+            transition: var(--transition);
+            border-left: 4px solid transparent;
+        }
+
+        .job-item:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+            border-left-color: var(--secondary);
+        }
+
+        .job-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 15px;
+        }
+
+        .job-title {
+            font-size: 1.5rem;
+            color: var(--primary);
+            margin-bottom: 5px;
+        }
+
+        .job-meta {
+            display: flex;
+            gap: 20px;
+            color: var(--gray);
+            font-size: 0.9rem;
+            margin-bottom: 15px;
+            flex-wrap: wrap;
+        }
+
+        .job-meta span {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        .job-description {
+            color: var(--gray);
+            margin-bottom: 20px;
+        }
+
+        .job-tags {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+            margin-bottom: 20px;
+        }
+
+        .job-tag {
+            background: rgba(45, 107, 196, 0.1);
+            color: var(--secondary);
+            padding: 5px 12px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 500;
+        }
+
+        .job-actions {
+            display: flex;
+            gap: 15px;
+        }
+
+        /* Benefits Section */
+        .benefits {
+            background-color: var(--light);
+        }
+
+        .benefits-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 30px;
+        }
+
+        .benefit-card {
+            text-align: center;
+            padding: 40px 30px;
+            background-color: white;
+            border-radius: 8px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+            transition: var(--transition);
+        }
+
+        .benefit-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
+        }
+
+        .benefit-icon {
+            font-size: 3rem;
+            color: var(--secondary);
+            margin-bottom: 20px;
+        }
+
+        .benefit-card h3 {
+            font-size: 1.5rem;
+            margin-bottom: 15px;
+            color: var(--primary);
+        }
+
+        .benefit-card p {
+            color: var(--gray);
+        }
+
+        /* Application Process Section */
+        .process-steps {
+            display: flex;
+            justify-content: space-between;
+            position: relative;
+            margin-top: 50px;
+        }
+
+        .process-steps::before {
+            content: '';
+            position: absolute;
+            top: 40px;
+            left: 10%;
+            right: 10%;
+            height: 3px;
+            background: var(--secondary);
+            z-index: 1;
+        }
+
+        .process-step {
+            text-align: center;
+            position: relative;
+            z-index: 2;
+            flex: 1;
+        }
+
+        .step-number {
+            width: 80px;
+            height: 80px;
+            background: var(--secondary);
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.8rem;
+            font-weight: bold;
+            margin: 0 auto 20px;
+            transition: var(--transition);
+        }
+
+        .process-step:hover .step-number {
+            transform: scale(1.1);
+            background: var(--primary);
+        }
+
+        .step-content h3 {
+            font-size: 1.3rem;
+            margin-bottom: 10px;
+            color: var(--primary);
+        }
+
+        .step-content p {
+            color: var(--gray);
+            max-width: 200px;
+            margin: 0 auto;
+        }
+
+        /* Testimonials Section */
+        .testimonials-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+        }
+
+        .testimonial-card {
+            background-color: white;
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+            transition: var(--transition);
+            position: relative;
+        }
+
+        .testimonial-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+        }
+
+        .testimonial-card::before {
+            content: '"';
+            position: absolute;
+            top: 10px;
+            left: 20px;
+            font-size: 4rem;
+            color: rgba(45, 107, 196, 0.1);
+            font-family: Georgia, serif;
+        }
+
+        .testimonial-text {
+            margin-bottom: 20px;
+            font-style: italic;
+            color: var(--gray);
+            position: relative;
+            z-index: 1;
+        }
+
+        .testimonial-author {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .author-avatar {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            overflow: hidden;
+        }
+
+        .author-avatar img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .author-info h4 {
+            color: var(--primary);
+            margin-bottom: 5px;
+        }
+
+        .author-info p {
+            color: var(--gray);
+            font-size: 0.9rem;
+        }
+
+        /* CTA Section */
+        .cta {
+            background: linear-gradient(to right, var(--primary), var(--secondary));
+            color: white;
+            text-align: center;
+            padding: 80px 0;
+        }
+
+        .cta h2 {
+            font-size: 2.5rem;
+            margin-bottom: 20px;
+        }
+
+        .cta p {
+            font-size: 1.2rem;
+            max-width: 700px;
+            margin: 0 auto 30px;
+        }
+
+        .cta .btn {
+            background-color: white;
+            color: var(--primary);
+            margin: 0 10px;
+        }
+
+        .cta .btn:hover {
+            background-color: var(--light);
+            color: var(--primary);
+        }
+
+        /* FOOTER */
+        footer{background:var(--dark);color:white;padding:70px 0 20px;}
+        .footer-content{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:40px;margin-bottom:40px;}
+        .footer-column h3{font-size:1.3rem;margin-bottom:20px;position:relative;padding-bottom:10px;}
+        .footer-column h3::after{content:'';position:absolute;width:40px;height:2px;background:var(--secondary);bottom:0;left:0;}
+        .footer-column ul li{margin-bottom:10px;}
+        .footer-column ul li a{color:#b0b7c3;transition:.3s;}
+        .footer-column ul li a:hover{color:white;}
+        .social-icons{display:flex;gap:12px;margin-top:10px;}
+        .social-icons a{display:flex;align-items:center;justify-content:center;width:38px;height:38px;background:rgba(255,255,255,.1);border-radius:50%;}
+        .social-icons a:hover{background:var(--secondary);}
+        .footer-bottom{text-align:center;padding-top:20px;border-top:1px solid rgba(255,255,255,.1);color:#b0b7c3;font-size:.9rem;}
+        
+        /* RESPONSIVE */
+        @media(max-width:768px){
+            .nav-menu{
+                position:fixed;
+                top:75px;
+                left:-100%;
+                width:100%;
+                height:100vh;
+                background:white;
+                flex-direction:column;
+                padding-top:40px;
+                transition:.3s;
+            }
+            .nav-menu.active{left:0;}
+            .nav-menu li{margin-bottom:25px;}
+            .mobile-toggle{display:block;color:var(--primary);}
+            .dropdown-menu{position:relative;box-shadow:none;width:100%;}
+            .page-hero h1{font-size:2.5rem;}
+            .page-hero p{font-size:1rem;}
+            .culture-content {
+                flex-direction: column;
+            }
+            .culture-features {
+                grid-template-columns: 1fr;
+            }
+            .job-header {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 10px;
+            }
+            .job-actions {
+                flex-direction: column;
+                width: 100%;
+            }
+            .job-actions .btn {
+                width: 100%;
+                text-align: center;
+            }
+            .process-steps {
+                flex-direction: column;
+                gap: 40px;
+            }
+            .process-steps::before {
+                display: none;
+            }
+        }
+    </style>
+</head>
+<body>
+   <!-- HEADER -->
+    <header>
+        <div class="container header-container">
+            <div class="logo">
+                <a href="index.html">
+                    <img src="logo.png" alt="Adroit Toolings Logo" class="site-logo">
+                </a>
+            </div>
+            <div class="mobile-toggle"><i class="fas fa-bars"></i></div>
+            <ul class="nav-menu">
+                <li><a href="index.html">Home</a></li>
+                <li>
+                    <a href="#" class="active">Company ▼</a>
+                    <ul class="dropdown-menu">
+                        <li><a href="aboutus.html">About Us</a></li>
+                        <li><a href="whyus.html">Why Us</a></li>
+                        <li><a href="team.html">Our Team</a></li>
+                        <li><a href="careers.html">Careers</a></li>
+                        <li><a href="contact.html">Contact</a></li>
+                    </ul>
+                </li>
+                <li>
+                    <a href="#">Products ▼</a>
+                    <ul class="dropdown-menu">
+                        <li><a href="product1.html">Product 1</a></li>
+                        <li><a href="product2.html">Product 2</a></li>
+                        <li><a href="product3.html">Product 3</a></li>
+                    </ul>
+                </li>
+                <li><a href="value-adds.html">Value-Adds</a></li>
+                <li><a href="videos.html">Videos</a></li>
+                <li><a href="downloads.html">Downloads</a></li>
+                <li><a href="news.html">News</a></li>
+                <li><a href="blogs.html">Blogs</a></li>
+            </ul>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="page-hero">
+        <div class="container">
+            <h1>Build Your Career With Adroit Toolings</h1>
+            <p>Join our team of innovators and help shape the future of precision engineering. Explore opportunities to grow professionally while making an impact.</p>
+            <a href="#job-openings" class="btn">View Open Positions</a>
+        </div>
+    </section>
+
+    <!-- Culture Section -->
+    <section class="section culture">
+        <div class="container">
+            <div class="culture-content">
+                <div class="culture-text">
+                    <h3>Our Culture of Excellence</h3>
+                    <p>At Adroit Toolings, we foster an environment where innovation thrives and employees are empowered to reach their full potential. Our culture is built on collaboration, integrity, and a shared passion for engineering excellence.</p>
+                    <p>We believe that our people are our greatest asset, and we're committed to creating a workplace where everyone feels valued, respected, and inspired to do their best work.</p>
+                    
+                    <div class="culture-features">
+                        <div class="culture-feature">
+                            <i class="fas fa-lightbulb"></i>
+                            <div>
+                                <h4>Innovation</h4>
+                                <p>We encourage creative thinking and reward innovative solutions.</p>
+                            </div>
+                        </div>
+                        <div class="culture-feature">
+                            <i class="fas fa-users"></i>
+                            <div>
+                                <h4>Collaboration</h4>
+                                <p>Cross-functional teams work together to solve complex challenges.</p>
+                            </div>
+                        </div>
+                        <div class="culture-feature">
+                            <i class="fas fa-chart-line"></i>
+                            <div>
+                                <h4>Growth</h4>
+                                <p>We invest in our employees' professional development and career advancement.</p>
+                            </div>
+                        </div>
+                        <div class="culture-feature">
+                            <i class="fas fa-balance-scale"></i>
+                            <div>
+                                <h4>Integrity</h4>
+                                <p>We operate with transparency and uphold the highest ethical standards.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="culture-image">
+                    <img src="https://images.unsplash.com/photo-1521737711867-e3b97375f902?ixlib=rb-4.0.3&auto=format&fit=crop&w=1350&q=80" alt="Adroit Toolings Team Collaboration">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Job Openings Section -->
+    <section class="section" id="job-openings">
+        <div class="container">
+            <div class="section-title">
+                <h2>Current Openings</h2>
+                <p>Explore our available positions and find your perfect fit at Adroit Toolings</p>
+            </div>
+
+            <div class="job-filters">
+                <button class="filter-btn active" data-filter="all">All Positions</button>
+                <button class="filter-btn" data-filter="engineering">Engineering</button>
+                <button class="filter-btn" data-filter="operations">Operations</button>
+                <button class="filter-btn" data-filter="sales">Sales & Marketing</button>
+                <button class="filter-btn" data-filter="support">Support</button>
+            </div>
+
+            <div class="job-list">
+                <!-- Engineering Jobs -->
+                <div class="job-item" data-category="engineering">
+                    <div class="job-header">
+                        <div>
+                            <h3 class="job-title">Senior Mechanical Engineer</h3>
+                            <div class="job-meta">
+                                <span><i class="fas fa-map-marker-alt"></i> Tech City, TC</span>
+                                <span><i class="fas fa-briefcase"></i> Full-time</span>
+                                <span><i class="fas fa-clock"></i> Posted 2 days ago</span>
+                            </div>
+                        </div>
+                        <div class="job-tags">
+                            <span class="job-tag">R&D</span>
+                            <span class="job-tag">CAD</span>
+                            <span class="job-tag">Prototyping</span>
+                        </div>
+                    </div>
+                    <p class="job-description">We're seeking an experienced Mechanical Engineer to lead our R&D initiatives for next-generation tooling solutions. The ideal candidate will have 5+ years of experience in precision engineering and a track record of innovative design.</p>
+                    <div class="job-actions">
+                        <a href="#" class="btn">Apply Now</a>
+                        <a href="#" class="btn btn-outline">View Details</a>
+                    </div>
+                </div>
+
+                <div class="job-item" data-category="engineering">
+                    <div class="job-header">
+                        <div>
+                            <h3 class="job-title">Quality Assurance Specialist</h3>
+                            <div class="job-meta">
+                                <span><i class="fas fa-map-marker-alt"></i> Manufacturing Plant</span>
+                                <span><i class="fas fa-briefcase"></i> Full-time</span>
+                                <span><i class="fas fa-clock"></i> Posted 1 week ago</span>
+                            </div>
+                        </div>
+                        <div class="job-tags">
+                            <span class="job-tag">Testing</span>
+                            <span class="job-tag">ISO 9001</span>
+                            <span class="job-tag">Quality Control</span>
+                        </div>
+                    </div>
+                    <p class="job-description">Join our quality team to ensure all products meet our rigorous standards. Responsibilities include developing testing protocols, conducting inspections, and implementing quality improvement initiatives.</p>
+                    <div class="job-actions">
+                        <a href="#" class="btn">Apply Now</a>
+                        <a href="#" class="btn btn-outline">View Details</a>
+                    </div>
+                </div>
+
+                <!-- Sales Jobs -->
+                <div class="job-item" data-category="sales">
+                    <div class="job-header">
+                        <div>
+                            <h3 class="job-title">Sales Engineer</h3>
+                            <div class="job-meta">
+                                <span><i class="fas fa-map-marker-alt"></i> Remote / Regional</span>
+                                <span><i class="fas fa-briefcase"></i> Full-time</span>
+                                <span><i class="fas fa-clock"></i> Posted 3 days ago</span>
+                            </div>
+                        </div>
+                        <div class="job-tags">
+                            <span class="job-tag">Technical Sales</span>
+                            <span class="job-tag">Client Relations</span>
+                            <span class="job-tag">B2B</span>
+                        </div>
+                    </div>
+                    <p class="job-description">We're looking for a Sales Engineer with technical expertise to help clients identify the right tooling solutions for their specific needs. This role combines technical knowledge with customer relationship management.</p>
+                    <div class="job-actions">
+                        <a href="#" class="btn">Apply Now</a>
+                        <a href="#" class="btn btn-outline">View Details</a>
+                    </div>
+                </div>
+
+                <!-- Operations Jobs -->
+                <div class="job-item" data-category="operations">
+                    <div class="job-header">
+                        <div>
+                            <h3 class="job-title">Production Supervisor</h3>
+                            <div class="job-meta">
+                                <span><i class="fas fa-map-marker-alt"></i> Manufacturing Plant</span>
+                                <span><i class="fas fa-briefcase"></i> Full-time</span>
+                                <span><i class="fas fa-clock"></i> Posted 5 days ago</span>
+                            </div>
+                        </div>
+                        <div class="job-tags">
+                            <span class="job-tag">Manufacturing</span>
+                            <span class="job-tag">Team Leadership</span>
+                            <span class="job-tag">Process Improvement</span>
+                        </div>
+                    </div>
+                    <p class="job-description">Lead our production team to ensure efficient manufacturing operations while maintaining our high-quality standards. This role requires strong leadership skills and experience in precision manufacturing environments.</p>
+                    <div class="job-actions">
+                        <a href="#" class="btn">Apply Now</a>
+                        <a href="#" class="btn btn-outline">View Details</a>
+                    </div>
+                </div>
+
+                <!-- Support Jobs -->
+                <div class="job-item" data-category="support">
+                    <div class="job-header">
+                        <div>
+                            <h3 class="job-title">Technical Support Specialist</h3>
+                            <div class="job-meta">
+                                <span><i class="fas fa-map-marker-alt"></i> Tech City, TC</span>
+                                <span><i class="fas fa-briefcase"></i> Full-time</span>
+                                <span><i class="fas fa-clock"></i> Posted 2 weeks ago</span>
+                            </div>
+                        </div>
+                        <div class="job-tags">
+                            <span class="job-tag">Customer Service</span>
+                            <span class="job-tag">Technical Assistance</span>
+                            <span class="job-tag">Problem Solving</span>
+                        </div>
+                    </div>
+                    <p class="job-description">Provide exceptional technical support to our clients, helping them maximize the value of our tooling solutions. This role requires strong communication skills and technical knowledge of precision tooling applications.</p>
+                    <div class="job-actions">
+                        <a href="#" class="btn">Apply Now</a>
+                        <a href="#" class="btn btn-outline">View Details</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Benefits Section -->
+    <section class="section benefits">
+        <div class="container">
+            <div class="section-title">
+                <h2>Employee Benefits</h2>
+                <p>We invest in our team's well-being and professional development</p>
+            </div>
+            <div class="benefits-grid">
+                <div class="benefit-card">
+                    <div class="benefit-icon">
+                        <i class="fas fa-heartbeat"></i>
+                    </div>
+                    <h3>Health Insurance</h3>
+                    <p>Comprehensive medical, dental, and vision coverage for you and your family.</p>
+                </div>
+                <div class="benefit-card">
+                    <div class="benefit-icon">
+                        <i class="fas fa-graduation-cap"></i>
+                    </div>
+                    <h3>Professional Development</h3>
+                    <p>Tuition reimbursement and ongoing training opportunities to advance your career.</p>
+                </div>
+                <div class="benefit-card">
+                    <div class="benefit-icon">
+                        <i class="fas fa-umbrella-beach"></i>
+                    </div>
+                    <h3>Paid Time Off</h3>
+                    <p>Generous vacation, sick leave, and holiday policies to maintain work-life balance.</p>
+                </div>
+                <div class="benefit-card">
+                    <div class="benefit-icon">
+                        <i class="fas fa-retweet"></i>
+                    </div>
+                    <h3>Retirement Planning</h3>
+                    <p>401(k) with company matching to help you plan for your future.</p>
+                </div>
+                <div class="benefit-card">
+                    <div class="benefit-icon">
+                        <i class="fas fa-dumbbell"></i>
+                    </div>
+                    <h3>Wellness Programs</h3>
+                    <p>On-site fitness center, wellness challenges, and mental health resources.</p>
+                </div>
+                <div class="benefit-card">
+                    <div class="benefit-icon">
+                        <i class="fas fa-utensils"></i>
+                    </div>
+                    <h3>Meal Benefits</h3>
+                    <p>Subsidized cafeteria, healthy snacks, and coffee bar for all employees.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Application Process Section -->
+    <section class="section">
+        <div class="container">
+            <div class="section-title">
+                <h2>Our Hiring Process</h2>
+                <p>We've designed a straightforward process to help us find the right talent</p>
+            </div>
+            <div class="process-steps">
+                <div class="process-step">
+                    <div class="step-number">1</div>
+                    <div class="step-content">
+                        <h3>Application</h3>
+                        <p>Submit your application online or through our portal</p>
+                    </div>
+                </div>
+                <div class="process-step">
+                    <div class="step-number">2</div>
+                    <div class="step-content">
+                        <h3>Screening</h3>
+                        <p>Our HR team reviews your qualifications</p>
+                    </div>
+                </div>
+                <div class="process-step">
+                    <div class="step-number">3</div>
+                    <div class="step-content">
+                        <h3>Interviews</h3>
+                        <p>Meet with our team members and hiring managers</p>
+                    </div>
+                </div>
+                <div class="process-step">
+                    <div class="step-number">4</div>
+                    <div class="step-content">
+                        <h3>Offer</h3>
+                        <p>Receive an offer and join our team</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Testimonials Section -->
+    <section class="section">
+        <div class="container">
+            <div class="section-title">
+                <h2>Employee Stories</h2>
+                <p>Hear from our team members about their experience at Adroit Toolings</p>
+            </div>
+            <div class="testimonials-grid">
+                <div class="testimonial-card">
+                    <p class="testimonial-text">I've been with Adroit for 5 years and have grown from a junior engineer to a team lead. The company truly invests in employee development and provides opportunities to work on cutting-edge projects.</p>
+                    <div class="testimonial-author">
+                        <div class="author-avatar">
+                            <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?ixlib=rb-4.0.3&auto=format&fit=crop&w=100&q=80" alt="David Kim">
+                        </div>
+                        <div class="author-info">
+                            <h4>David Kim</h4>
+                            <p>Senior Mechanical Engineer</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="testimonial-card">
+                    <p class="testimonial-text">The collaborative culture at Adroit is exceptional. Teams work together seamlessly across departments, and management genuinely values employee input. It's refreshing to work for a company that listens.</p>
+                    <div class="testimonial-author">
+                        <div class="author-avatar">
+                            <img src="https://images.unsplash.com/photo-1494790108755-2616b612b786?ixlib=rb-4.0.3&auto=format&fit=crop&w=100&q=80" alt="Maria Rodriguez">
+                        </div>
+                        <div class="author-info">
+                            <h4>Maria Rodriguez</h4>
+                            <p>Quality Assurance Manager</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="testimonial-card">
+                    <p class="testimonial-text">What I appreciate most about Adroit is the work-life balance. The company understands that employees have lives outside work and provides the flexibility needed to excel both professionally and personally.</p>
+                    <div class="testimonial-author">
+                        <div class="author-avatar">
+                            <img src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-4.0.3&auto=format&fit=crop&w=100&q=80" alt="James Wilson">
+                        </div>
+                        <div class="author-info">
+                            <h4>James Wilson</h4>
+                            <p>Production Supervisor</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="cta">
+        <div class="container">
+            <h2>Ready to Join Our Team?</h2>
+            <p>Take the next step in your career and help us shape the future of precision engineering.</p>
+            <a href="#job-openings" class="btn">View Open Positions</a>
+            <a href="contact.html" class="btn btn-outline">Contact Our HR Team</a>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-column">
+                    <h3>Adroit Toolings</h3>
+                    <p>Leading the industry with precision engineering and innovative solutions for over two decades.</p>
+                    <div class="social-icons">
+                        <a href="#"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                        <a href="#"><i class="fab fa-linkedin-in"></i></a>
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                    </div>
+                </div>
+                <div class="footer-column">
+                    <h3>Quick Links</h3>
+                    <ul>
+                        <li><a href="index.html">Home</a></li>
+                        <li><a href="products.html">Products</a></li>
+                        <li><a href="solutions.html">Solutions</a></li>
+                        <li><a href="about-us.html">About Us</a></li>
+                        <li><a href="contact.html">Contact</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h3>Our Products</h3>
+                    <ul>
+                        <li><a href="#">Cutting Tools</a></li>
+                        <li><a href="#">Measuring Instruments</a></li>
+                        <li><a href="#">Industrial Machinery</a></li>
+                        <li><a href="#">Safety Equipment</a></li>
+                        <li><a href="#">Custom Solutions</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h3>Contact Info</h3>
+                    <ul>
+                        <li><i class="fas fa-map-marker-alt"></i> 123 Industrial Way, Tech City, TC 10101</li>
+                        <li><i class="fas fa-phone"></i> +1 (555) 123-4567</li>
+                        <li><i class="fas fa-envelope"></i> info@adroittoolings.com</li>
+                        <li><i class="fas fa-clock"></i> Mon-Fri: 8:00 AM - 6:00 PM</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2025 Adroit Toolings. All Rights Reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Mobile Menu Toggle
+        document.querySelector('.mobile-toggle').addEventListener('click', function() {
+            document.querySelector('.nav-menu').classList.toggle('active');
+        });
+
+        // Close mobile menu when clicking on a link
+        document.querySelectorAll('.nav-menu a').forEach(link => {
+            link.addEventListener('click', function() {
+                document.querySelector('.nav-menu').classList.remove('active');
+            });
+        });
+
+        // Smooth scrolling for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+                
+                const targetId = this.getAttribute('href');
+                if(targetId === '#') return;
+                
+                const targetElement = document.querySelector(targetId);
+                if(targetElement) {
+                    window.scrollTo({
+                        top: targetElement.offsetTop - 100,
+                        behavior: 'smooth'
+                    });
+                }
+            });
+        });
+
+        // Job filtering functionality
+        document.querySelectorAll('.filter-btn').forEach(button => {
+            button.addEventListener('click', function() {
+                // Update active button
+                document.querySelectorAll('.filter-btn').forEach(btn => {
+                    btn.classList.remove('active');
+                });
+                this.classList.add('active');
+                
+                // Filter jobs
+                const filter = this.getAttribute('data-filter');
+                const jobs = document.querySelectorAll('.job-item');
+                
+                jobs.forEach(job => {
+                    if (filter === 'all' || job.getAttribute('data-category') === filter) {
+                        job.style.display = 'block';
+                    } else {
+                        job.style.display = 'none';
+                    }
+                });
+            });
+        });
+    </script>
+</body>
+</html>

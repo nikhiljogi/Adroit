@@ -1,0 +1,1129 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Full Product Range - Adroit Toolings</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        /* Reset and Base Styles */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        :root {
+            --primary: #1a365d;
+            --secondary: #2d6bc4;
+            --accent: #e63946;
+            --light: #f8f9fa;
+            --dark: #212529;
+            --gray: #6c757d;
+            --transition: all 0.3s ease;
+        }
+
+        body {
+            line-height: 1.6;
+            color: var(--dark);
+            background-color: #fff;
+            overflow-x: hidden;
+        }
+
+        a {
+            text-decoration: none;
+            color: inherit;
+        }
+
+        ul {
+            list-style: none;
+        }
+
+        .container {
+            width: 90%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 15px;
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 12px 30px;
+            background-color: var(--secondary);
+            color: white;
+            border: none;
+            border-radius: 4px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: var(--transition);
+            text-transform: uppercase;
+            font-size: 0.9rem;
+            letter-spacing: 1px;
+        }
+
+        .btn:hover {
+            background-color: var(--primary);
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .btn-outline {
+            background: transparent;
+            border: 2px solid var(--secondary);
+            color: var(--secondary);
+        }
+
+        .btn-outline:hover {
+            background: var(--secondary);
+            color: white;
+        }
+
+        .section {
+            padding: 80px 0;
+        }
+
+        .section-title {
+            text-align: center;
+            margin-bottom: 50px;
+        }
+
+        .section-title h2 {
+            font-size: 2.5rem;
+            color: var(--primary);
+            margin-bottom: 15px;
+            position: relative;
+            display: inline-block;
+        }
+
+        .section-title h2::after {
+            content: '';
+            position: absolute;
+            width: 70px;
+            height: 3px;
+            background-color: var(--accent);
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+
+        .section-title p {
+            color: var(--gray);
+            max-width: 700px;
+            margin: 0 auto;
+        }
+        
+        /* === HEADER / NAV MENU === */
+        header{background:white;box-shadow:0 2px 10px rgba(0,0,0,.1);position:fixed;width:100%;top:0;z-index:1000;}
+        .header-container{display:flex;justify-content:space-between;align-items:center;padding:12px 0;}
+        .site-logo{height:55px;width:auto;}
+        .nav-menu{display:flex;align-items:center;gap:25px;}
+        .nav-menu li{position:relative;}
+        .nav-menu a{font-weight:600;color:var(--dark);transition:var(--transition);padding:6px;}
+        .nav-menu a:hover{color:var(--secondary);}
+        .nav-menu a.active{color:var(--secondary);}
+        /* Dropdown */
+        .dropdown-menu{
+            display:none;
+            position:absolute;
+            top:35px;
+            left:0;
+            background:white;
+            box-shadow:0 4px 12px rgba(0,0,0,.1);
+            padding:10px 0;
+            border-radius:5px;
+            width:200px;
+            z-index:9999;
+        }
+        .dropdown-menu li a{padding:10px 15px;display:block;color:#000;}
+        .dropdown-menu li a:hover{background:#f5f5f5;}
+        .nav-menu li:hover > .dropdown-menu{display:block;}
+        .mobile-toggle{display:none;font-size:1.6rem;cursor:pointer;}
+        
+
+        /* Product Filters */
+        .product-filters {
+            background: var(--light);
+            padding: 30px 0;
+            position: sticky;
+            top: 75px;
+            z-index: 100;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+        }
+
+        .filter-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 20px;
+        }
+
+        .filter-group {
+            display: flex;
+            gap: 15px;
+            flex-wrap: wrap;
+        }
+
+        .filter-btn {
+            padding: 8px 20px;
+            background: white;
+            border: 1px solid #ddd;
+            border-radius: 30px;
+            cursor: pointer;
+            transition: var(--transition);
+            font-weight: 500;
+        }
+
+        .filter-btn.active, .filter-btn:hover {
+            background: var(--secondary);
+            color: white;
+            border-color: var(--secondary);
+        }
+
+        .search-box {
+            position: relative;
+            min-width: 250px;
+        }
+
+        .search-box input {
+            width: 100%;
+            padding: 10px 15px 10px 40px;
+            border: 1px solid #ddd;
+            border-radius: 30px;
+            font-size: 0.9rem;
+        }
+
+        .search-box i {
+            position: absolute;
+            left: 15px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--gray);
+        }
+
+        /* Product Grid */
+        .product-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 30px;
+        }
+
+        .product-card {
+            background-color: white;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+            transition: var(--transition);
+            position: relative;
+        }
+
+        .product-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
+        }
+
+        .product-badge {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            background: var(--accent);
+            color: white;
+            padding: 5px 10px;
+            border-radius: 4px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            z-index: 2;
+        }
+
+        .product-image {
+            height: 220px;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .product-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: var(--transition);
+        }
+
+        .product-card:hover .product-image img {
+            transform: scale(1.1);
+        }
+
+        .product-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(26, 54, 93, 0.8);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            transition: var(--transition);
+        }
+
+        .product-card:hover .product-overlay {
+            opacity: 1;
+        }
+
+        .product-actions {
+            display: flex;
+            gap: 10px;
+        }
+
+        .action-btn {
+            width: 40px;
+            height: 40px;
+            background: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--primary);
+            transition: var(--transition);
+        }
+
+        .action-btn:hover {
+            background: var(--secondary);
+            color: white;
+        }
+
+        .product-info {
+            padding: 20px;
+        }
+
+        .product-category {
+            color: var(--secondary);
+            font-size: 0.9rem;
+            font-weight: 600;
+            margin-bottom: 5px;
+            text-transform: uppercase;
+        }
+
+        .product-title {
+            font-size: 1.3rem;
+            color: var(--primary);
+            margin-bottom: 10px;
+        }
+
+        .product-description {
+            color: var(--gray);
+            font-size: 0.9rem;
+            margin-bottom: 15px;
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+        }
+
+        .product-features {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-bottom: 15px;
+        }
+
+        .product-feature {
+            background: rgba(45, 107, 196, 0.1);
+            color: var(--secondary);
+            padding: 3px 8px;
+            border-radius: 4px;
+            font-size: 0.8rem;
+        }
+
+        .product-footer {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: 15px;
+        }
+
+        .product-price {
+            font-size: 1.2rem;
+            font-weight: 700;
+            color: var(--primary);
+        }
+
+        /* Categories Section */
+        .categories-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 30px;
+        }
+
+        .category-card {
+            background-color: white;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+            transition: var(--transition);
+            text-align: center;
+            padding: 40px 20px;
+        }
+
+        .category-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
+        }
+
+        .category-icon {
+            font-size: 3rem;
+            color: var(--secondary);
+            margin-bottom: 20px;
+        }
+
+        .category-card h3 {
+            font-size: 1.5rem;
+            margin-bottom: 15px;
+            color: var(--primary);
+        }
+
+        .category-card p {
+            color: var(--gray);
+            margin-bottom: 20px;
+        }
+
+        .product-count {
+            display: inline-block;
+            background: var(--light);
+            color: var(--primary);
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            font-weight: 600;
+        }
+
+        /* Technical Specs */
+        .specs-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+
+        .specs-table th, .specs-table td {
+            padding: 12px 15px;
+            text-align: left;
+            border-bottom: 1px solid #eee;
+        }
+
+        .specs-table th {
+            background: var(--light);
+            color: var(--primary);
+            font-weight: 600;
+            width: 30%;
+        }
+
+        /* CTA Section */
+        .cta {
+            background: linear-gradient(to right, var(--primary), var(--secondary));
+            color: white;
+            text-align: center;
+            padding: 80px 0;
+        }
+
+        .cta h2 {
+            font-size: 2.5rem;
+            margin-bottom: 20px;
+        }
+
+        .cta p {
+            font-size: 1.2rem;
+            max-width: 700px;
+            margin: 0 auto 30px;
+        }
+
+        .cta .btn {
+            background-color: white;
+            color: var(--primary);
+            margin: 0 10px;
+        }
+
+        .cta .btn:hover {
+            background-color: var(--light);
+            color: var(--primary);
+        }
+
+        /* FOOTER */
+        footer{background:var(--dark);color:white;padding:70px 0 20px;}
+        .footer-content{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:40px;margin-bottom:40px;}
+        .footer-column h3{font-size:1.3rem;margin-bottom:20px;position:relative;padding-bottom:10px;}
+        .footer-column h3::after{content:'';position:absolute;width:40px;height:2px;background:var(--secondary);bottom:0;left:0;}
+        .footer-column ul li{margin-bottom:10px;}
+        .footer-column ul li a{color:#b0b7c3;transition:.3s;}
+        .footer-column ul li a:hover{color:white;}
+        .social-icons{display:flex;gap:12px;margin-top:10px;}
+        .social-icons a{display:flex;align-items:center;justify-content:center;width:38px;height:38px;background:rgba(255,255,255,.1);border-radius:50%;}
+        .social-icons a:hover{background:var(--secondary);}
+        .footer-bottom{text-align:center;padding-top:20px;border-top:1px solid rgba(255,255,255,.1);color:#b0b7c3;font-size:.9rem;}
+        
+        /* Modal */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.7);
+            z-index: 1000;
+            overflow-y: auto;
+        }
+
+        .modal-content {
+            background: white;
+            margin: 50px auto;
+            width: 90%;
+            max-width: 900px;
+            border-radius: 8px;
+            overflow: hidden;
+            animation: modalFade 0.3s;
+        }
+
+        @keyframes modalFade {
+            from {opacity: 0; transform: translateY(-50px);}
+            to {opacity: 1; transform: translateY(0);}
+        }
+
+        .modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px;
+            background: var(--primary);
+            color: white;
+        }
+
+        .modal-close {
+            background: none;
+            border: none;
+            color: white;
+            font-size: 1.5rem;
+            cursor: pointer;
+        }
+
+        .modal-body {
+            padding: 30px;
+        }
+
+        /* RESPONSIVE */
+        @media(max-width:768px){
+            .nav-menu{
+                position:fixed;
+                top:75px;
+                left:-100%;
+                width:100%;
+                height:100vh;
+                background:white;
+                flex-direction:column;
+                padding-top:40px;
+                transition:.3s;
+            }
+            .nav-menu.active{left:0;}
+            .nav-menu li{margin-bottom:25px;}
+            .mobile-toggle{display:block;color:var(--primary);}
+            .dropdown-menu{position:relative;box-shadow:none;width:100%;}
+           
+            .filter-container {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+            .search-box {
+                width: 100%;
+            }
+            .product-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+   <!-- HEADER -->
+    <header>
+        <div class="container header-container">
+            <div class="logo">
+                <a href="index.html">
+                    <img src="logo.png" alt="Adroit Toolings Logo" class="site-logo">
+                </a>
+            </div>
+            <div class="mobile-toggle"><i class="fas fa-bars"></i></div>
+            <ul class="nav-menu">
+                <li><a href="index.html">Home</a></li>
+                <li>
+                    <a href="#">Company ▼</a>
+                    <ul class="dropdown-menu">
+                        <li><a href="aboutus.html">About Us</a></li>
+                        <li><a href="whyus.html">Why Us</a></li>
+                        <li><a href="team.html">Our Team</a></li>
+                        <li><a href="careers.html">Careers</a></li>
+                        <li><a href="contact.html">Contact</a></li>
+                    </ul>
+                </li>
+                <li>
+                    <a href="#" class="active">Products ▼</a>
+                    <ul class="dropdown-menu">
+                        <li><a href="product-range.html">View Full Range</a></li>
+                        <li><a href="product1.html">Cutting Tools</a></li>
+                        <li><a href="product2.html">Measuring Instruments</a></li>
+                        <li><a href="product3.html">Industrial Machinery</a></li>
+                    </ul>
+                </li>
+                <li><a href="value-adds.html">Value-Adds</a></li>
+                <li><a href="videos.html">Videos</a></li>
+                <li><a href="downloads.html">Downloads</a></li>
+                <li><a href="news.html">News</a></li>
+                <li><a href="blogs.html">Blogs</a></li>
+            </ul>
+        </div>
+    </header>
+
+
+    <!-- Product Filters -->
+    <section class="product-filters">
+        <div class="container filter-container">
+            <div class="filter-group">
+                <button class="filter-btn active" data-filter="all">All Products</button>
+                <button class="filter-btn" data-filter="cutting">Cutting Tools</button>
+                <button class="filter-btn" data-filter="measuring">Measuring Instruments</button>
+                <button class="filter-btn" data-filter="machinery">Industrial Machinery</button>
+                <button class="filter-btn" data-filter="safety">Safety Equipment</button>
+                <button class="filter-btn" data-filter="custom">Custom Solutions</button>
+            </div>
+            <div class="search-box">
+                <i class="fas fa-search"></i>
+                <input type="text" id="product-search" placeholder="Search products...">
+            </div>
+        </div>
+    </section>
+
+    <!-- Product Categories -->
+    <section class="section" id="product-categories">
+        <div class="container">
+            <div class="section-title">
+                <h2>Product Categories</h2>
+                <p>Browse our specialized tooling solutions by category</p>
+            </div>
+            <div class="categories-grid">
+                <div class="category-card" data-category="cutting">
+                    <div class="category-icon">
+                        <i class="fas fa-cut"></i>
+                    </div>
+                    <h3>Cutting Tools</h3>
+                    <p>Precision cutting instruments for industrial applications</p>
+                    <span class="product-count">24 Products</span>
+                </div>
+                <div class="category-card" data-category="measuring">
+                    <div class="category-icon">
+                        <i class="fas fa-ruler-combined"></i>
+                    </div>
+                    <h3>Measuring Instruments</h3>
+                    <p>Accurate measurement tools for quality control</p>
+                    <span class="product-count">18 Products</span>
+                </div>
+                <div class="category-card" data-category="machinery">
+                    <div class="category-icon">
+                        <i class="fas fa-cogs"></i>
+                    </div>
+                    <h3>Industrial Machinery</h3>
+                    <p>Heavy-duty machinery for manufacturing operations</p>
+                    <span class="product-count">12 Products</span>
+                </div>
+                <div class="category-card" data-category="safety">
+                    <div class="category-icon">
+                        <i class="fas fa-hard-hat"></i>
+                    </div>
+                    <h3>Safety Equipment</h3>
+                    <p>Protective gear and safety solutions for workplaces</p>
+                    <span class="product-count">15 Products</span>
+                </div>
+                <div class="category-card" data-category="custom">
+                    <div class="category-icon">
+                        <i class="fas fa-tools"></i>
+                    </div>
+                    <h3>Custom Solutions</h3>
+                    <p>Bespoke tooling designed for specific applications</p>
+                    <span class="product-count">Custom Orders</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Product Grid -->
+    <section class="section">
+        <div class="container">
+            <div class="section-title">
+                <h2>Our Products</h2>
+                <p>Explore our complete range of precision tooling solutions</p>
+            </div>
+            <div class="product-grid">
+                <!-- Cutting Tools -->
+                <div class="product-card" data-category="cutting">
+                    <div class="product-badge">Bestseller</div>
+                    <div class="product-image">
+                        <img src="https://images.unsplash.com/photo-1581093450333-5b32872c5b67?ixlib=rb-4.0.3&auto=format&fit=crop&w=1350&q=80" alt="Precision Drill Bits">
+                        <div class="product-overlay">
+                            <div class="product-actions">
+                                <a href="#" class="action-btn" data-product="1"><i class="fas fa-eye"></i></a>
+                                <a href="#" class="action-btn"><i class="fas fa-shopping-cart"></i></a>
+                                <a href="#" class="action-btn"><i class="far fa-heart"></i></a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="product-info">
+                        <div class="product-category">Cutting Tools</div>
+                        <h3 class="product-title">Precision Drill Bits Set</h3>
+                        <p class="product-description">High-speed steel drill bits with titanium coating for extended lifespan and superior performance.</p>
+                        <div class="product-features">
+                            <span class="product-feature">Titanium Coated</span>
+                            <span class="product-feature">High-Speed Steel</span>
+                            <span class="product-feature">30-Piece Set</span>
+                        </div>
+                        <div class="product-footer">
+                            <div class="product-price">$89.99</div>
+                            <a href="#" class="btn">View Details</a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="product-card" data-category="cutting">
+                    <div class="product-image">
+                        <img src="https://images.unsplash.com/photo-1581093450333-5b32872c5b67?ixlib=rb-4.0.3&auto=format&fit=crop&w=1350&q=80" alt="Carbide End Mills">
+                        <div class="product-overlay">
+                            <div class="product-actions">
+                                <a href="#" class="action-btn" data-product="2"><i class="fas fa-eye"></i></a>
+                                <a href="#" class="action-btn"><i class="fas fa-shopping-cart"></i></a>
+                                <a href="#" class="action-btn"><i class="far fa-heart"></i></a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="product-info">
+                        <div class="product-category">Cutting Tools</div>
+                        <h3 class="product-title">Carbide End Mills</h3>
+                        <p class="product-description">Premium carbide end mills for precision milling operations in various materials.</p>
+                        <div class="product-features">
+                            <span class="product-feature">Solid Carbide</span>
+                            <span class="product-feature">4-Flute Design</span>
+                            <span class="product-feature">Multiple Sizes</span>
+                        </div>
+                        <div class="product-footer">
+                            <div class="product-price">$124.99</div>
+                            <a href="#" class="btn">View Details</a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Measuring Instruments -->
+                <div class="product-card" data-category="measuring">
+                    <div class="product-badge">New</div>
+                    <div class="product-image">
+                        <img src="https://images.unsplash.com/photo-1581093450333-5b32872c5b67?ixlib=rb-4.0.3&auto=format&fit=crop&w=1350&q=80" alt="Digital Caliper">
+                        <div class="product-overlay">
+                            <div class="product-actions">
+                                <a href="#" class="action-btn" data-product="3"><i class="fas fa-eye"></i></a>
+                                <a href="#" class="action-btn"><i class="fas fa-shopping-cart"></i></a>
+                                <a href="#" class="action-btn"><i class="far fa-heart"></i></a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="product-info">
+                        <div class="product-category">Measuring Instruments</div>
+                        <h3 class="product-title">Digital Caliper</h3>
+                        <p class="product-description">High-precision digital caliper with LCD display and multiple measurement modes.</p>
+                        <div class="product-features">
+                            <span class="product-feature">0.001mm Accuracy</span>
+                            <span class="product-feature">IP54 Rated</span>
+                            <span class="product-feature">Auto-Off</span>
+                        </div>
+                        <div class="product-footer">
+                            <div class="product-price">$79.99</div>
+                            <a href="#" class="btn">View Details</a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="product-card" data-category="measuring">
+                    <div class="product-image">
+                        <img src="https://images.unsplash.com/photo-1581093450333-5b32872c5b67?ixlib=rb-4.0.3&auto=format&fit=crop&w=1350&q=80" alt="Laser Distance Meter">
+                        <div class="product-overlay">
+                            <div class="product-actions">
+                                <a href="#" class="action-btn" data-product="4"><i class="fas fa-eye"></i></a>
+                                <a href="#" class="action-btn"><i class="fas fa-shopping-cart"></i></a>
+                                <a href="#" class="action-btn"><i class="far fa-heart"></i></a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="product-info">
+                        <div class="product-category">Measuring Instruments</div>
+                        <h3 class="product-title">Laser Distance Meter</h3>
+                        <p class="product-description">Advanced laser measuring device with Bluetooth connectivity and area calculation.</p>
+                        <div class="product-features">
+                            <span class="product-feature">100m Range</span>
+                            <span class="product-feature">Bluetooth</span>
+                            <span class="product-feature">Area Calculation</span>
+                        </div>
+                        <div class="product-footer">
+                            <div class="product-price">$149.99</div>
+                            <a href="#" class="btn">View Details</a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Industrial Machinery -->
+                <div class="product-card" data-category="machinery">
+                    <div class="product-image">
+                        <img src="https://images.unsplash.com/photo-1581093450333-5b32872c5b67?ixlib=rb-4.0.3&auto=format&fit=crop&w=1350&q=80" alt="CNC Milling Machine">
+                        <div class="product-overlay">
+                            <div class="product-actions">
+                                <a href="#" class="action-btn" data-product="5"><i class="fas fa-eye"></i></a>
+                                <a href="#" class="action-btn"><i class="fas fa-shopping-cart"></i></a>
+                                <a href="#" class="action-btn"><i class="far fa-heart"></i></a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="product-info">
+                        <div class="product-category">Industrial Machinery</div>
+                        <h3 class="product-title">CNC Milling Machine</h3>
+                        <p class="product-description">3-axis CNC milling machine with advanced control system and high precision.</p>
+                        <div class="product-features">
+                            <span class="product-feature">3-Axis Control</span>
+                            <span class="product-feature">Auto Tool Changer</span>
+                            <span class="product-feature">Coolant System</span>
+                        </div>
+                        <div class="product-footer">
+                            <div class="product-price">$12,499.99</div>
+                            <a href="#" class="btn">View Details</a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Safety Equipment -->
+                <div class="product-card" data-category="safety">
+                    <div class="product-badge">Safety</div>
+                    <div class="product-image">
+                        <img src="https://images.unsplash.com/photo-1581093450333-5b32872c5b67?ixlib=rb-4.0.3&auto=format&fit=crop&w=1350&q=80" alt="Safety Goggles">
+                        <div class="product-overlay">
+                            <div class="product-actions">
+                                <a href="#" class="action-btn" data-product="6"><i class="fas fa-eye"></i></a>
+                                <a href="#" class="action-btn"><i class="fas fa-shopping-cart"></i></a>
+                                <a href="#" class="action-btn"><i class="far fa-heart"></i></a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="product-info">
+                        <div class="product-category">Safety Equipment</div>
+                        <h3 class="product-title">Anti-Fog Safety Goggles</h3>
+                        <p class="product-description">Professional safety goggles with anti-fog coating and UV protection.</p>
+                        <div class="product-features">
+                            <span class="product-feature">Anti-Fog</span>
+                            <span class="product-feature">UV Protection</span>
+                            <span class="product-feature">Adjustable Strap</span>
+                        </div>
+                        <div class="product-footer">
+                            <div class="product-price">$24.99</div>
+                            <a href="#" class="btn">View Details</a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Custom Solutions -->
+                <div class="product-card" data-category="custom">
+                    <div class="product-image">
+                        <img src="https://images.unsplash.com/photo-1581093450333-5b32872c5b67?ixlib=rb-4.0.3&auto=format&fit=crop&w=1350&q=80" alt="Custom Tooling">
+                        <div class="product-overlay">
+                            <div class="product-actions">
+                                <a href="#" class="action-btn" data-product="7"><i class="fas fa-eye"></i></a>
+                                <a href="#" class="action-btn"><i class="fas fa-shopping-cart"></i></a>
+                                <a href="#" class="action-btn"><i class="far fa-heart"></i></a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="product-info">
+                        <div class="product-category">Custom Solutions</div>
+                        <h3 class="product-title">Custom Tooling Design</h3>
+                        <p class="product-description">Bespoke tooling solutions designed specifically for your manufacturing needs.</p>
+                        <div class="product-features">
+                            <span class="product-feature">Custom Design</span>
+                            <span class="product-feature">Consultation</span>
+                            <span class="product-feature">Prototyping</span>
+                        </div>
+                        <div class="product-footer">
+                            <div class="product-price">Contact for Quote</div>
+                            <a href="#" class="btn">Request Quote</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="cta">
+        <div class="container">
+            <h2>Need Help Selecting the Right Tools?</h2>
+            <p>Our technical experts are ready to help you choose the perfect tooling solutions for your specific applications.</p>
+            <a href="contact.html" class="btn">Contact Our Experts</a>
+            <a href="downloads.html" class="btn btn-outline">Download Catalog</a>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-column">
+                    <h3>Adroit Toolings</h3>
+                    <p>Leading the industry with precision engineering and innovative solutions for over two decades.</p>
+                    <div class="social-icons">
+                        <a href="#"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                        <a href="#"><i class="fab fa-linkedin-in"></i></a>
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                    </div>
+                </div>
+                <div class="footer-column">
+                    <h3>Quick Links</h3>
+                    <ul>
+                        <li><a href="index.html">Home</a></li>
+                        <li><a href="product-range.html">Products</a></li>
+                        <li><a href="solutions.html">Solutions</a></li>
+                        <li><a href="about-us.html">About Us</a></li>
+                        <li><a href="contact.html">Contact</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h3>Our Products</h3>
+                    <ul>
+                        <li><a href="#">Cutting Tools</a></li>
+                        <li><a href="#">Measuring Instruments</a></li>
+                        <li><a href="#">Industrial Machinery</a></li>
+                        <li><a href="#">Safety Equipment</a></li>
+                        <li><a href="#">Custom Solutions</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h3>Contact Info</h3>
+                    <ul>
+                        <li><i class="fas fa-map-marker-alt"></i> 123 Industrial Way, Tech City, TC 10101</li>
+                        <li><i class="fas fa-phone"></i> +1 (555) 123-4567</li>
+                        <li><i class="fas fa-envelope"></i> info@adroittoolings.com</li>
+                        <li><i class="fas fa-clock"></i> Mon-Fri: 8:00 AM - 6:00 PM</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2025 Adroit Toolings. All Rights Reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Product Modal -->
+    <div id="product-modal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 id="modal-product-title">Product Details</h2>
+                <button class="modal-close">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div id="modal-product-content">
+                    <!-- Product details will be loaded here -->
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Mobile Menu Toggle
+        document.querySelector('.mobile-toggle').addEventListener('click', function() {
+            document.querySelector('.nav-menu').classList.toggle('active');
+        });
+
+        // Close mobile menu when clicking on a link
+        document.querySelectorAll('.nav-menu a').forEach(link => {
+            link.addEventListener('click', function() {
+                document.querySelector('.nav-menu').classList.remove('active');
+            });
+        });
+
+        // Smooth scrolling for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+                
+                const targetId = this.getAttribute('href');
+                if(targetId === '#') return;
+                
+                const targetElement = document.querySelector(targetId);
+                if(targetElement) {
+                    window.scrollTo({
+                        top: targetElement.offsetTop - 100,
+                        behavior: 'smooth'
+                    });
+                }
+            });
+        });
+
+        // Product filtering functionality
+        document.querySelectorAll('.filter-btn').forEach(button => {
+            button.addEventListener('click', function() {
+                // Update active button
+                document.querySelectorAll('.filter-btn').forEach(btn => {
+                    btn.classList.remove('active');
+                });
+                this.classList.add('active');
+                
+                // Filter products
+                const filter = this.getAttribute('data-filter');
+                const products = document.querySelectorAll('.product-card');
+                
+                products.forEach(product => {
+                    if (filter === 'all' || product.getAttribute('data-category') === filter) {
+                        product.style.display = 'block';
+                    } else {
+                        product.style.display = 'none';
+                    }
+                });
+            });
+        });
+
+        // Category card filtering
+        document.querySelectorAll('.category-card').forEach(card => {
+            card.addEventListener('click', function() {
+                const category = this.getAttribute('data-category');
+                
+                // Update active filter button
+                document.querySelectorAll('.filter-btn').forEach(btn => {
+                    btn.classList.remove('active');
+                    if(btn.getAttribute('data-filter') === category) {
+                        btn.classList.add('active');
+                    }
+                });
+                
+                // Filter products
+                const products = document.querySelectorAll('.product-card');
+                
+                products.forEach(product => {
+                    if (product.getAttribute('data-category') === category) {
+                        product.style.display = 'block';
+                    } else {
+                        product.style.display = 'none';
+                    }
+                });
+                
+                // Scroll to products
+                document.querySelector('.product-grid').scrollIntoView({
+                    behavior: 'smooth'
+                });
+            });
+        });
+
+        // Product search functionality
+        document.getElementById('product-search').addEventListener('input', function() {
+            const searchTerm = this.value.toLowerCase();
+            const products = document.querySelectorAll('.product-card');
+            
+            products.forEach(product => {
+                const title = product.querySelector('.product-title').textContent.toLowerCase();
+                const description = product.querySelector('.product-description').textContent.toLowerCase();
+                const category = product.querySelector('.product-category').textContent.toLowerCase();
+                
+                if (title.includes(searchTerm) || description.includes(searchTerm) || category.includes(searchTerm)) {
+                    product.style.display = 'block';
+                } else {
+                    product.style.display = 'none';
+                }
+            });
+        });
+
+        // Modal functionality
+        const modal = document.getElementById('product-modal');
+        const modalClose = document.querySelector('.modal-close');
+        
+        // Close modal when clicking X
+        modalClose.addEventListener('click', function() {
+            modal.style.display = 'none';
+        });
+        
+        // Close modal when clicking outside
+        window.addEventListener('click', function(e) {
+            if (e.target === modal) {
+                modal.style.display = 'none';
+            }
+        });
+        
+        // Product quick view
+        document.querySelectorAll('.action-btn[data-product]').forEach(btn => {
+            btn.addEventListener('click', function(e) {
+                e.preventDefault();
+                const productId = this.getAttribute('data-product');
+                
+                // In a real application, you would fetch product details from an API
+                // For this demo, we'll use static content
+                let productDetails = '';
+                
+                switch(productId) {
+                    case '1':
+                        productDetails = `
+                            <h3>Precision Drill Bits Set - Detailed Information</h3>
+                            <p>Our high-speed steel drill bits with titanium coating offer exceptional performance and durability. Perfect for professional and industrial applications.</p>
+                            <h4>Specifications:</h4>
+                            <table class="specs-table">
+                                <tr>
+                                    <th>Material</th>
+                                    <td>High-Speed Steel with Titanium Coating</td>
+                                </tr>
+                                <tr>
+                                    <th>Size Range</th>
+                                    <td>1/16" to 1/2" (30 pieces)</td>
+                                </tr>
+                                <tr>
+                                    <th>Point Angle</th>
+                                    <td>135° Split Point</td>
+                                </tr>
+                                <tr>
+                                    <th>Applications</th>
+                                    <td>Metal, Wood, Plastic</td>
+                                </tr>
+                            </table>
+                        `;
+                        break;
+                    case '2':
+                        productDetails = `
+                            <h3>Carbide End Mills - Detailed Information</h3>
+                            <p>Premium solid carbide end mills designed for precision milling operations in various materials including steel, aluminum, and composites.</p>
+                            <h4>Specifications:</h4>
+                            <table class="specs-table">
+                                <tr>
+                                    <th>Material</th>
+                                    <td>Solid Carbide</td>
+                                </tr>
+                                <tr>
+                                    <th>Flute Count</th>
+                                    <td>4 Flutes</td>
+                                </tr>
+                                <tr>
+                                    <th>Coating</th>
+                                    <td>TiAlN</td>
+                                </tr>
+                                <tr>
+                                    <th>Shank Type</th>
+                                    <td>Straight Shank</td>
+                                </tr>
+                            </table>
+                        `;
+                        break;
+                    // Add more product details as needed
+                    default:
+                        productDetails = `<h3>Product Details</h3><p>Detailed information about this product.</p>`;
+                }
+                
+                document.getElementById('modal-product-content').innerHTML = productDetails;
+                modal.style.display = 'block';
+            });
+        });
+    </script>
+</body>
+</html>

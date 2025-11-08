@@ -1,0 +1,748 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Downloads - Sigma Toolings</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        /* === GLOBAL STYLES === */
+        *{margin:0;padding:0;box-sizing:border-box;font-family:'Segoe UI',Tahoma,Geneva,Verdana,sans-serif;}
+        :root{ --primary:#1a365d;--secondary:#2d6bc4;--accent:#e63946;--light:#f8f9fa;--dark:#212529;--gray:#6c757d;--transition:all .3s ease; }
+        body{line-height:1.6;color:var(--dark);background:#fff;overflow-x: hidden;}
+        a{text-decoration:none;color:inherit;}
+        ul{list-style:none;}
+        .container{width:90%;max-width:1200px;margin:0 auto;padding:0 15px;}
+        .btn{display:inline-block;padding:12px 30px;background:var(--secondary);color:white;border:none;border-radius:4px;font-weight:600;cursor:pointer;transition:var(--transition);text-transform:uppercase;font-size:.9rem;letter-spacing:1px;}
+        .btn:hover{background:var(--primary);transform:translateY(-3px);box-shadow:0 5px 15px rgba(0,0,0,.1);}
+        .btn-outline{background:transparent;border:2px solid var(--secondary);color:var(--secondary);}
+        .btn-outline:hover{background:var(--secondary);color:white;}
+        .section{padding:80px 0;}
+        .section-title{text-align:center;margin-bottom:50px;}
+        .section-title h2{font-size:2.5rem;color:var(--primary);margin-bottom:15px;position:relative;display:inline-block;}
+        .section-title h2::after{content:'';position:absolute;width:70px;height:3px;background:var(--accent);bottom:-10px;left:50%;transform:translateX(-50%);}
+        .section-title p{color:var(--gray);max-width:700px;margin:0 auto;}
+        
+        /* === HEADER / NAV MENU === */
+        header{background:white;box-shadow:0 2px 10px rgba(0,0,0,.1);position:fixed;width:100%;top:0;z-index:1000;}
+        .header-container{display:flex;justify-content:space-between;align-items:center;padding:12px 0;}
+        .site-logo{height:55px;width:auto;}
+        .nav-menu{display:flex;align-items:center;gap:25px;}
+        .nav-menu li{position:relative;}
+        .nav-menu a{font-weight:600;color:var(--dark);transition:var(--transition);padding:6px;}
+        .nav-menu a:hover{color:var(--secondary);}
+        .nav-menu a.active{color:var(--secondary);}
+        /* Dropdown */
+        .dropdown-menu{
+            display:none;
+            position:absolute;
+            top:35px;
+            left:0;
+            background:white;
+            box-shadow:0 4px 12px rgba(0,0,0,.1);
+            padding:10px 0;
+            border-radius:5px;
+            width:200px;
+            z-index:9999;
+        }
+        .dropdown-menu li a{padding:10px 15px;display:block;color:#000;}
+        .dropdown-menu li a:hover{background:#f5f5f5;}
+        .nav-menu li:hover > .dropdown-menu{display:block;}
+        .mobile-toggle{display:none;font-size:1.6rem;cursor:pointer;}
+        
+        /* PAGE HERO */
+        .page-hero {
+            background: linear-gradient(rgba(26,54,93,.85), rgba(26,54,93,.85)), 
+                        url('https://images.unsplash.com/photo-1581094794329-c8112a89af12?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80') center/cover no-repeat;
+            color: white;
+            padding: 150px 0 100px;
+            text-align: center;
+            margin-top: 75px;
+        }
+        .page-hero h1 {
+            font-size: 3rem;
+            margin-bottom: 20px;
+        }
+        .page-hero p {
+            font-size: 1.2rem;
+            max-width: 700px;
+            margin: 0 auto;
+            opacity: 0.9;
+        }
+        
+        /* DOWNLOADS PAGE STYLES */
+        .downloads-section {
+            background: var(--light);
+        }
+        .downloads-filters {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin-bottom: 40px;
+            flex-wrap: wrap;
+        }
+        .filter-btn {
+            padding: 10px 20px;
+            background: white;
+            border: 1px solid #ddd;
+            border-radius: 30px;
+            cursor: pointer;
+            transition: var(--transition);
+            font-weight: 500;
+        }
+        .filter-btn.active, .filter-btn:hover {
+            background: var(--secondary);
+            color: white;
+            border-color: var(--secondary);
+        }
+        .downloads-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 30px;
+        }
+        .download-card {
+            background: white;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.08);
+            transition: var(--transition);
+        }
+        .download-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(0,0,0,0.15);
+        }
+        .download-icon {
+            height: 120px;
+            background: var(--primary);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 3rem;
+        }
+        .download-info {
+            padding: 25px;
+        }
+        .download-info h3 {
+            font-size: 1.3rem;
+            color: var(--primary);
+            margin-bottom: 10px;
+        }
+        .download-meta {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 15px;
+            font-size: 0.9rem;
+            color: var(--gray);
+        }
+        .download-info p {
+            color: var(--gray);
+            margin-bottom: 20px;
+            font-size: 0.95rem;
+        }
+        .download-actions {
+            display: flex;
+            gap: 10px;
+        }
+        .download-actions .btn {
+            flex: 1;
+            text-align: center;
+            padding: 10px 15px;
+            font-size: 0.85rem;
+        }
+        
+        /* NEWS PAGE STYLES */
+        .news-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+            gap: 30px;
+        }
+        .news-card {
+            background: white;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.08);
+            transition: var(--transition);
+        }
+        .news-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(0,0,0,0.15);
+        }
+        .news-image {
+            height: 200px;
+            overflow: hidden;
+        }
+        .news-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: var(--transition);
+        }
+        .news-card:hover .news-image img {
+            transform: scale(1.05);
+        }
+        .news-content {
+            padding: 25px;
+        }
+        .news-meta {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 15px;
+            font-size: 0.9rem;
+            color: var(--gray);
+        }
+        .news-category {
+            background: var(--secondary);
+            color: white;
+            padding: 3px 10px;
+            border-radius: 3px;
+            font-size: 0.8rem;
+        }
+        .news-content h3 {
+            font-size: 1.3rem;
+            color: var(--primary);
+            margin-bottom: 15px;
+            line-height: 1.4;
+        }
+        .news-content p {
+            color: var(--gray);
+            margin-bottom: 20px;
+            font-size: 0.95rem;
+        }
+        .news-pagination {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            margin-top: 50px;
+        }
+        .page-btn {
+            width: 40px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+        .page-btn.active, .page-btn:hover {
+            background: var(--secondary);
+            color: white;
+            border-color: var(--secondary);
+        }
+        
+        /* BLOGS PAGE STYLES */
+        .blogs-section {
+            background: var(--light);
+        }
+        .blogs-container {
+            display: grid;
+            grid-template-columns: 2fr 1fr;
+            gap: 40px;
+        }
+        .blog-card {
+            background: white;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.08);
+            transition: var(--transition);
+            margin-bottom: 30px;
+        }
+        .blog-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 30px rgba(0,0,0,0.15);
+        }
+        .blog-image {
+            height: 250px;
+            overflow: hidden;
+        }
+        .blog-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: var(--transition);
+        }
+        .blog-card:hover .blog-image img {
+            transform: scale(1.05);
+        }
+        .blog-content {
+            padding: 25px;
+        }
+        .blog-meta {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 15px;
+            font-size: 0.9rem;
+            color: var(--gray);
+        }
+        .blog-author {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .author-avatar {
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            background: var(--secondary);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 0.8rem;
+        }
+        .blog-content h3 {
+            font-size: 1.4rem;
+            color: var(--primary);
+            margin-bottom: 15px;
+            line-height: 1.4;
+        }
+        .blog-content p {
+            color: var(--gray);
+            margin-bottom: 20px;
+            font-size: 0.95rem;
+        }
+        .blog-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+        .blog-tag {
+            background: var(--light);
+            padding: 5px 10px;
+            border-radius: 3px;
+            font-size: 0.8rem;
+            color: var(--gray);
+        }
+        .sidebar {
+            background: white;
+            border-radius: 10px;
+            padding: 25px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.08);
+            height: fit-content;
+        }
+        .sidebar-widget {
+            margin-bottom: 30px;
+        }
+        .sidebar-widget:last-child {
+            margin-bottom: 0;
+        }
+        .sidebar-widget h3 {
+            font-size: 1.2rem;
+            color: var(--primary);
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 1px solid #eee;
+        }
+        
+        .recent-posts li {
+            display: flex;
+            gap: 15px;
+            margin-bottom: 15px;
+            padding-bottom: 15px;
+            border-bottom: 1px solid #f5f5f5;
+        }
+        .recent-posts li:last-child {
+            margin-bottom: 0;
+            padding-bottom: 0;
+            border-bottom: none;
+        }
+        .recent-post-img {
+            width: 70px;
+            height: 70px;
+            border-radius: 5px;
+            overflow: hidden;
+            flex-shrink: 0;
+        }
+        .recent-post-img img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        .recent-post-content h4 {
+            font-size: 0.95rem;
+            margin-bottom: 5px;
+            line-height: 1.4;
+        }
+        .recent-post-content span {
+            font-size: 0.8rem;
+            color: var(--gray);
+        }
+        .tags-cloud {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+        .tag {
+            background: var(--light);
+            padding: 5px 12px;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            transition: var(--transition);
+        }
+        .tag:hover {
+            background: var(--secondary);
+            color: white;
+        }
+        
+        /* FOOTER */
+        footer{background:var(--dark);color:white;padding:70px 0 20px;}
+        .footer-content{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:40px;margin-bottom:40px;}
+        .footer-column h3{font-size:1.3rem;margin-bottom:20px;position:relative;padding-bottom:10px;}
+        .footer-column h3::after{content:'';position:absolute;width:40px;height:2px;background:var(--secondary);bottom:0;left:0;}
+        .footer-column ul li{margin-bottom:10px;}
+        .footer-column ul li a{color:#b0b7c3;transition:.3s;}
+        .footer-column ul li a:hover{color:white;}
+        .social-icons{display:flex;gap:12px;margin-top:10px;}
+        .social-icons a{display:flex;align-items:center;justify-content:center;width:38px;height:38px;background:rgba(255,255,255,.1);border-radius:50%;}
+        .social-icons a:hover{background:var(--secondary);}
+        .footer-bottom{text-align:center;padding-top:20px;border-top:1px solid rgba(255,255,255,.1);color:#b0b7c3;font-size:.9rem;}
+        
+        /* RESPONSIVE */
+        @media(max-width:992px){
+            .blogs-container {
+                grid-template-columns: 1fr;
+            }
+            .sidebar {
+                order: -1;
+            }
+        }
+        
+        @media(max-width:768px){
+            .nav-menu{
+                position:fixed;
+                top:75px;
+                left:-100%;
+                width:100%;
+                height:100vh;
+                background:white;
+                flex-direction:column;
+                padding-top:40px;
+                transition:.3s;
+            }
+            .nav-menu.active{left:0;}
+            .nav-menu li{margin-bottom:25px;}
+            .mobile-toggle{display:block;color:var(--primary);}
+            .dropdown-menu{position:relative;box-shadow:none;width:100%;}
+            .page-hero h1{font-size:2.5rem;}
+            .downloads-grid, .news-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- HEADER -->
+    <header>
+        <div class="container header-container">
+            <div class="logo">
+                <a href="index.html">
+                    <img src="logo.png" alt="Sigma Toolings Logo" class="site-logo">
+                </a>
+            </div>
+            <div class="mobile-toggle"><i class="fas fa-bars"></i></div>
+            <ul class="nav-menu">
+                <li><a href="index.html">Home</a></li>
+                <li>
+                    <a href="#">Company ▼</a>
+                    <ul class="dropdown-menu">
+                        <li><a href="about-us.html">About Us</a></li>
+                        <li><a href="team.html">Our Team</a></li>
+                        <li><a href="careers.html">Careers</a></li>
+                        <li><a href="contact.html">Contact</a></li>
+                    </ul>
+                </li>
+                <li>
+                    <a href="#">Products ▼</a>
+                    <ul class="dropdown-menu">
+                        <li><a href="product1.html">Product 1</a></li>
+                        <li><a href="product2.html">Product 2</a></li>
+                        <li><a href="product3.html">Product 3</a></li>
+                    </ul>
+                </li>
+                <li><a href="value-adds.html">Value-Adds</a></li>
+                <li><a href="videos.html">Videos</a></li>
+                <li><a href="downloads.html" class="active">Downloads</a></li>
+                <li><a href="news.html">News</a></li>
+                <li><a href="blogs.html">Blogs</a></li>
+            </ul>
+        </div>
+    </header>
+
+    <!-- DOWNLOADS PAGE -->
+    <section class="page-hero">
+        <div class="container">
+            <h1>Downloads</h1>
+            <p>Access our product catalogs, technical specifications, brochures, and other resources</p>
+        </div>
+    </section>
+
+    <section class="section downloads-section">
+        <div class="container">
+            <div class="downloads-filters">
+                <button class="filter-btn active" data-filter="all">All Resources</button>
+                <button class="filter-btn" data-filter="catalog">Product Catalogs</button>
+                <button class="filter-btn" data-filter="brochure">Brochures</button>
+                <button class="filter-btn" data-filter="specs">Technical Specs</button>
+                <button class="filter-btn" data-filter="manual">User Manuals</button>
+                <button class="filter-btn" data-filter="certificate">Certificates</button>
+            </div>
+            
+            <div class="downloads-grid">
+                <!-- Catalog Downloads -->
+                <div class="download-card" data-category="catalog">
+                    <div class="download-icon">
+                        <i class="fas fa-book"></i>
+                    </div>
+                    <div class="download-info">
+                        <h3>Complete Product Catalog 2025</h3>
+                        <div class="download-meta">
+                            <span><i class="far fa-file-pdf"></i> PDF, 15.2 MB</span>
+                            <span><i class="far fa-calendar"></i> Jan 15, 2025</span>
+                        </div>
+                        <p>Our comprehensive product catalog featuring all tooling solutions, specifications, and technical data.</p>
+                        <div class="download-actions">
+                            <a href="#" class="btn">Download</a>
+                            <a href="#" class="btn btn-outline">Preview</a>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Brochure Downloads -->
+                <div class="download-card" data-category="brochure">
+                    <div class="download-icon">
+                        <i class="fas fa-brochure"></i>
+                    </div>
+                    <div class="download-info">
+                        <h3>Automotive Tooling Solutions</h3>
+                        <div class="download-meta">
+                            <span><i class="far fa-file-pdf"></i> PDF, 8.7 MB</span>
+                            <span><i class="far fa-calendar"></i> Dec 10, 2024</span>
+                        </div>
+                        <p>Specialized brochure highlighting our automotive tooling solutions and industry applications.</p>
+                        <div class="download-actions">
+                            <a href="#" class="btn">Download</a>
+                            <a href="#" class="btn btn-outline">Preview</a>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Technical Specs -->
+                <div class="download-card" data-category="specs">
+                    <div class="download-icon">
+                        <i class="fas fa-cogs"></i>
+                    </div>
+                    <div class="download-info">
+                        <h3>Boring Heads Technical Specifications</h3>
+                        <div class="download-meta">
+                            <span><i class="far fa-file-pdf"></i> PDF, 3.2 MB</span>
+                            <span><i class="far fa-calendar"></i> Nov 22, 2024</span>
+                        </div>
+                        <p>Detailed technical specifications for our complete range of precision boring heads.</p>
+                        <div class="download-actions">
+                            <a href="#" class="btn">Download</a>
+                            <a href="#" class="btn btn-outline">Preview</a>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- User Manuals -->
+                <div class="download-card" data-category="manual">
+                    <div class="download-icon">
+                        <i class="fas fa-book-open"></i>
+                    </div>
+                    <div class="download-info">
+                        <h3>Cutting Tools User Manual</h3>
+                        <div class="download-meta">
+                            <span><i class="far fa-file-pdf"></i> PDF, 5.8 MB</span>
+                            <span><i class="far fa-calendar"></i> Oct 30, 2024</span>
+                        </div>
+                        <p>Complete user manual for our cutting tools including operation guidelines and maintenance.</p>
+                        <div class="download-actions">
+                            <a href="#" class="btn">Download</a>
+                            <a href="#" class="btn btn-outline">Preview</a>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Certificates -->
+                <div class="download-card" data-category="certificate">
+                    <div class="download-icon">
+                        <i class="fas fa-award"></i>
+                    </div>
+                    <div class="download-info">
+                        <h3>ISO 9001:2015 Certificate</h3>
+                        <div class="download-meta">
+                            <span><i class="far fa-file-pdf"></i> PDF, 1.5 MB</span>
+                            <span><i class="far fa-calendar"></i> Sep 15, 2024</span>
+                        </div>
+                        <p>Our quality management system certification for precision engineering solutions.</p>
+                        <div class="download-actions">
+                            <a href="#" class="btn">Download</a>
+                            <a href="#" class="btn btn-outline">Preview</a>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- More Downloads -->
+                <div class="download-card" data-category="specs">
+                    <div class="download-icon">
+                        <i class="fas fa-ruler-combined"></i>
+                    </div>
+                    <div class="download-info">
+                        <h3>Measuring Instruments Guide</h3>
+                        <div class="download-meta">
+                            <span><i class="far fa-file-pdf"></i> PDF, 4.3 MB</span>
+                            <span><i class="far fa-calendar"></i> Aug 28, 2024</span>
+                        </div>
+                        <p>Comprehensive guide to our precision measuring instruments and their applications.</p>
+                        <div class="download-actions">
+                            <a href="#" class="btn">Download</a>
+                            <a href="#" class="btn btn-outline">Preview</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- FOOTER -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-column">
+                    <h3>Sigma Toolings</h3>
+                    <p>Leading the industry with precision engineering and innovative solutions.</p>
+                    <div class="social-icons">
+                        <a href="#"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                        <a href="#"><i class="fab fa-linkedin-in"></i></a>
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                    </div>
+                </div>
+                <div class="footer-column">
+                    <h3>Quick Links</h3>
+                    <ul>
+                        <li><a href="index.html">Home</a></li>
+                        <li><a href="products.html">Products</a></li>
+                        <li><a href="solutions.html">Solutions</a></li>
+                        <li><a href="about-us.html">About Us</a></li>
+                        <li><a href="downloads.html">Downloads</a></li>
+                        <li><a href="contact.html">Contact</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h3>Our Products</h3>
+                    <ul>
+                        <li><a href="#">Cutting Tools</a></li>
+                        <li><a href="#">Measuring Instruments</a></li>
+                        <li><a href="#">Industrial Machines</a></li>
+                        <li><a href="#">Safety Tools</a></li>
+                        <li><a href="#">Custom Engineering</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h3>Contact Info</h3>
+                    <ul>
+                        <li><i class="fas fa-map-marker-alt"></i> 123 Industrial Way, Tech City</li>
+                        <li><i class="fas fa-phone"></i> +766804589</li>
+                        <li><i class="fas fa-envelope"></i> locadigit@gmail.com</li>
+                        <li><i class="fas fa-clock"></i> Mon–Fri: 9AM–6PM</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>© 2025 Sigma Toolings — All Rights Reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- JS -->
+    <script>
+        // Mobile Menu Toggle
+        document.querySelector('.mobile-toggle').addEventListener('click',()=> {
+            document.querySelector('.nav-menu').classList.toggle('active');
+        });
+        
+        // Close menu on click
+        document.querySelectorAll('.nav-menu a').forEach(a=>{
+            a.addEventListener('click',()=>document.querySelector('.nav-menu').classList.remove('active'));
+        });
+
+        // Downloads Filter Functionality
+        const filterBtns = document.querySelectorAll('.filter-btn');
+        const downloadCards = document.querySelectorAll('.download-card');
+        
+        filterBtns.forEach(btn => {
+            btn.addEventListener('click', () => {
+                // Remove active class from all buttons
+                filterBtns.forEach(b => b.classList.remove('active'));
+                // Add active class to clicked button
+                btn.classList.add('active');
+                
+                const filter = btn.getAttribute('data-filter');
+                
+                downloadCards.forEach(card => {
+                    if (filter === 'all' || card.getAttribute('data-category') === filter) {
+                        card.style.display = 'block';
+                    } else {
+                        card.style.display = 'none';
+                    }
+                });
+            });
+        });
+
+        // Show only the Downloads page by default
+        document.addEventListener('DOMContentLoaded', function() {
+            // Get current page from URL or set default
+            const urlParams = new URLSearchParams(window.location.search);
+            const page = urlParams.get('page') || 'downloads';
+            
+            // Show the appropriate page
+            showPage(page);
+            
+            // Update navigation active state
+            updateNavActiveState(page);
+        });
+        
+        function showPage(page) {
+            // Hide all page content
+            document.querySelectorAll('.page-hero, .section').forEach(el => {
+                el.style.display = 'none';
+            });
+            
+            // Show the selected page
+            if (page === 'downloads') {
+                document.querySelectorAll('.page-hero, .downloads-section').forEach(el => {
+                    el.style.display = 'block';
+                });
+            } else if (page === 'news') {
+                document.querySelectorAll('.page-hero, .section').forEach((el, index) => {
+                    if (index === 1 || index === 2) el.style.display = 'block';
+                });
+            } else if (page === 'blogs') {
+                document.querySelectorAll('.page-hero, .blogs-section').forEach((el, index) => {
+                    if (index === 2 || index === 3) el.style.display = 'block';
+                });
+            }
+        }
+        
+        function updateNavActiveState(page) {
+            // Remove active class from all nav items
+            document.querySelectorAll('.nav-menu a').forEach(link => {
+                link.classList.remove('active');
+            });
+            
+            // Add active class to current page
+            if (page === 'downloads') {
+                document.querySelector('a[href="downloads.html"]').classList.add('active');
+            } else if (page === 'news') {
+                document.querySelector('a[href="news.html"]').classList.add('active');
+            } else if (page === 'blogs') {
+                document.querySelector('a[href="blogs.html"]').classList.add('active');
+            }
+        }
+    </script>
+</body>
+</html>

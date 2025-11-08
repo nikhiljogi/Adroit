@@ -1,0 +1,479 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sigma Toolings - Read More Functionality</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        /* === GLOBAL STYLES === */
+        *{margin:0;padding:0;box-sizing:border-box;font-family:'Segoe UI',Tahoma,Geneva,Verdana,sans-serif;}
+        :root{ --primary:#1a365d;--secondary:#2d6bc4;--accent:#e63946;--light:#f8f9fa;--dark:#212529;--gray:#6c757d;--transition:all .3s ease; }
+        body{line-height:1.6;color:var(--dark);background:#fff;overflow-x: hidden;}
+        a{text-decoration:none;color:inherit;}
+        ul{list-style:none;}
+        .container{width:90%;max-width:1200px;margin:0 auto;padding:0 15px;}
+        .btn{display:inline-block;padding:12px 30px;background:var(--secondary);color:white;border:none;border-radius:4px;font-weight:600;cursor:pointer;transition:var(--transition);text-transform:uppercase;font-size:.9rem;letter-spacing:1px;}
+        .btn:hover{background:var(--primary);transform:translateY(-3px);box-shadow:0 5px 15px rgba(0,0,0,.1);}
+        .btn-outline{background:transparent;border:2px solid var(--secondary);color:var(--secondary);}
+        .btn-outline:hover{background:var(--secondary);color:white;}
+        .section{padding:80px 0;}
+        .section-title{text-align:center;margin-bottom:50px;}
+        .section-title h2{font-size:2.5rem;color:var(--primary);margin-bottom:15px;position:relative;display:inline-block;}
+        .section-title h2::after{content:'';position:absolute;width:70px;height:3px;background:var(--accent);bottom:-10px;left:50%;transform:translateX(-50%);}
+        .section-title p{color:var(--gray);max-width:700px;margin:0 auto;}
+        
+        /* === READ MORE MODAL STYLES === */
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.7);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 2000;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s ease;
+        }
+        
+        .modal-overlay.active {
+            opacity: 1;
+            visibility: visible;
+        }
+        
+        .modal-content {
+            background: white;
+            border-radius: 10px;
+            width: 90%;
+            max-width: 800px;
+            max-height: 90vh;
+            overflow-y: auto;
+            transform: translateY(-50px);
+            transition: transform 0.3s ease;
+            position: relative;
+        }
+        
+        .modal-overlay.active .modal-content {
+            transform: translateY(0);
+        }
+        
+        .modal-header {
+            padding: 20px 30px;
+            border-bottom: 1px solid #eee;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: var(--primary);
+            color: white;
+            border-radius: 10px 10px 0 0;
+        }
+        
+        .modal-header h3 {
+            margin: 0;
+            font-size: 1.5rem;
+        }
+        
+        .close-modal {
+            background: none;
+            border: none;
+            color: white;
+            font-size: 1.5rem;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+        
+        .close-modal:hover {
+            color: var(--accent);
+        }
+        
+        .modal-body {
+            padding: 30px;
+        }
+        
+        .modal-image {
+            width: 100%;
+            height: 300px;
+            object-fit: cover;
+            border-radius: 8px;
+            margin-bottom: 20px;
+        }
+        
+        .modal-description {
+            margin-bottom: 20px;
+            line-height: 1.7;
+        }
+        
+        .modal-features {
+            margin-bottom: 25px;
+        }
+        
+        .modal-features h4 {
+            color: var(--primary);
+            margin-bottom: 10px;
+            font-size: 1.2rem;
+        }
+        
+        .modal-features ul {
+            list-style-type: disc;
+            margin-left: 20px;
+        }
+        
+        .modal-features li {
+            margin-bottom: 8px;
+        }
+        
+        .modal-actions {
+            display: flex;
+            gap: 15px;
+            flex-wrap: wrap;
+        }
+        
+        /* === INDUSTRIES SECTION === */
+        .industries-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:30px;margin-top:40px;}
+        .industry-card{background:white;border-radius:12px;overflow:hidden;box-shadow:0 8px 25px rgba(0,0,0,.1);transition:var(--transition);}
+        .industry-card:hover{transform:translateY(-10px);box-shadow:0 15px 30px rgba(0,0,0,.15);}
+        .industry-img{height:200px;overflow:hidden;}
+        .industry-img img{width:100%;height:100%;object-fit:cover;transition:var(--transition);}
+        .industry-card:hover .industry-img img{transform:scale(1.05);}
+        .industry-info{padding:25px;}
+        .industry-info h3{font-size:1.3rem;color:var(--primary);margin-bottom:10px;}
+        .industry-info p{color:var(--gray);margin-bottom:15px;font-size:.95rem;}
+        
+        /* === HEADER STYLES === */
+        header{background:white;box-shadow:0 2px 10px rgba(0,0,0,.1);position:fixed;width:100%;top:0;z-index:1000;}
+        .header-container{display:flex;justify-content:space-between;align-items:center;padding:12px 0;}
+        .site-logo{height:55px;width:auto;}
+        .nav-menu{display:flex;align-items:center;gap:25px;}
+        .nav-menu li{position:relative;}
+        .nav-menu a{font-weight:600;color:var(--dark);transition:var(--transition);padding:6px;}
+        .nav-menu a:hover{color:var(--secondary);}
+        .nav-menu a.active{color:var(--secondary);}
+        
+        /* === RESPONSIVE STYLES === */
+        @media(max-width:768px){
+            .modal-content {
+                width: 95%;
+            }
+            
+            .modal-header {
+                padding: 15px 20px;
+            }
+            
+            .modal-body {
+                padding: 20px;
+            }
+            
+            .modal-actions {
+                flex-direction: column;
+            }
+            
+            .modal-actions .btn {
+                width: 100%;
+                text-align: center;
+            }
+            
+            .nav-menu{
+                position:fixed;
+                top:75px;
+                left:-100%;
+                width:100%;
+                height:100vh;
+                background:white;
+                flex-direction:column;
+                padding-top:40px;
+                transition:.3s;
+                z-index: 999;
+            }
+            .nav-menu.active{left:0;}
+            .nav-menu li{margin-bottom:25px;}
+            .mobile-toggle{display:block;color:var(--primary);}
+        }
+    </style>
+</head>
+<body>
+    <!-- HEADER -->
+    <header>
+        <div class="container header-container">
+            <div class="logo">
+                <a href="index.html">
+                    <img src="https://via.placeholder.com/200x55/1a365d/ffffff?text=SIGMA+TOOLINGS" alt="Sigma Toolings Logo" class="site-logo">
+                </a>
+            </div>
+            <div class="mobile-toggle"><i class="fas fa-bars"></i></div>
+            <ul class="nav-menu">
+                <li><a href="index.html" class="active">Home</a></li>
+                <li><a href="about-us.html">About Us</a></li>
+                <li><a href="products.html">Products</a></li>
+                <li><a href="industries.html">Industries</a></li>
+                <li><a href="contact.html">Contact</a></li>
+            </ul>
+        </div>
+    </header>
+
+    <!-- MAIN CONTENT -->
+    <main style="margin-top: 80px;">
+        <section class="section" id="industries">
+            <div class="container">
+                <div class="section-title">
+                    <h2>Our Industries</h2>
+                    <p>600+ Customers, in 15 states - Reaching out to 80% of India's key manufacturing clusters</p>
+                </div>
+                <div class="industries-grid">
+                    <!-- Automotive Tooling Card -->
+                    <div class="industry-card">
+                        <div class="industry-img">
+                            <img src="https://images.unsplash.com/photo-1550745165-9bc0b252726f?ixlib=rb-4.0.3&auto=format&fit=crop&w=2070&q=80" alt="Automotive Tooling">
+                        </div>
+                        <div class="industry-info">
+                            <h3>Automotive Tooling</h3>
+                            <p>Precision tooling solutions for the automotive industry with enhanced efficiency and reliability. Our automotive tooling solutions help manufacturers achieve higher productivity and quality standards.</p>
+                            <button class="btn btn-outline read-more-btn" data-industry="automotive">READ MORE</button>
+                        </div>
+                    </div>
+                    
+                    <!-- Aerospace Components Tooling Card -->
+                    <div class="industry-card">
+                        <div class="industry-img">
+                            <img src="https://images.unsplash.com/photo-1548345680-f5475ea5df84?ixlib=rb-4.0.3&auto=format&fit=crop&w=2073&q=80" alt="Aerospace Components Tooling">
+                        </div>
+                        <div class="industry-info">
+                            <h3>Aerospace Components Tooling</h3>
+                            <p>High-precision tooling for aerospace components meeting stringent quality standards. We provide specialized solutions for the demanding aerospace industry.</p>
+                            <button class="btn btn-outline read-more-btn" data-industry="aerospace">READ MORE</button>
+                        </div>
+                    </div>
+                    
+                    <!-- Heavy Engineering Card -->
+                    <div class="industry-card">
+                        <div class="industry-img">
+                            <img src="https://images.unsplash.com/photo-1581094794329-c8112a89af12?ixlib=rb-4.0.3&auto=format&fit=crop&w=2070&q=80" alt="Heavy Engineering">
+                        </div>
+                        <div class="industry-info">
+                            <h3>Heavy Engineering</h3>
+                            <p>Robust tooling solutions for heavy engineering applications with enhanced durability. Our products withstand the toughest industrial environments.</p>
+                            <button class="btn btn-outline read-more-btn" data-industry="heavy">READ MORE</button>
+                        </div>
+                    </div>
+                    
+                    <!-- Tractor & Farm Equipment Card -->
+                    <div class="industry-card">
+                        <div class="industry-img">
+                            <img src="https://images.unsplash.com/photo-1578662996442-48f60103fc96?ixlib=rb-4.0.3&auto=format&fit=crop&w=2070&q=80" alt="Tractor & Farm Equipments Tooling">
+                        </div>
+                        <div class="industry-info">
+                            <h3>Tractor & Farm Equipments Tooling</h3>
+                            <p>Specialized tooling for agricultural machinery with enhanced performance and longevity. We help farmers and equipment manufacturers improve efficiency.</p>
+                            <button class="btn btn-outline read-more-btn" data-industry="agriculture">READ MORE</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- READ MORE MODALS -->
+    
+    <!-- Automotive Tooling Modal -->
+    <div class="modal-overlay" id="automotive-modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>Automotive Tooling Solutions</h3>
+                <button class="close-modal">&times;</button>
+            </div>
+            <div class="modal-body">
+                <img src="https://images.unsplash.com/photo-1550745165-9bc0b252726f?ixlib=rb-4.0.3&auto=format&fit=crop&w=2070&q=80" alt="Automotive Tooling" class="modal-image">
+                <div class="modal-description">
+                    <p>Sigma Toolings provides comprehensive automotive tooling solutions that enhance manufacturing efficiency and product quality. Our specialized tooling systems are designed to meet the rigorous demands of the automotive industry, helping manufacturers achieve higher productivity and precision.</p>
+                    <p>With over 15 years of experience serving leading automotive manufacturers, we understand the unique challenges of this sector and provide customized solutions that deliver measurable results.</p>
+                </div>
+                <div class="modal-features">
+                    <h4>Key Features:</h4>
+                    <ul>
+                        <li>High-precision boring and milling tools</li>
+                        <li>Customized solutions for engine components</li>
+                        <li>Advanced cutting tools for body panels</li>
+                        <li>Durable tooling for transmission systems</li>
+                        <li>Quality assurance with ISO 9001 certification</li>
+                    </ul>
+                </div>
+                <div class="modal-actions">
+                    <a href="contact.html" class="btn">Request a Quote</a>
+                    <a href="products.html" class="btn btn-outline">View Products</a>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Aerospace Components Tooling Modal -->
+    <div class="modal-overlay" id="aerospace-modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>Aerospace Components Tooling</h3>
+                <button class="close-modal">&times;</button>
+            </div>
+            <div class="modal-body">
+                <img src="https://images.unsplash.com/photo-1548345680-f5475ea5df84?ixlib=rb-4.0.3&auto=format&fit=crop&w=2073&q=80" alt="Aerospace Components Tooling" class="modal-image">
+                <div class="modal-description">
+                    <p>Our aerospace tooling solutions meet the stringent quality and precision requirements of the aerospace industry. We provide specialized tooling for critical components that demand the highest levels of accuracy and reliability.</p>
+                    <p>Sigma Toolings works with aerospace manufacturers to develop custom solutions that optimize production processes while maintaining compliance with industry standards and regulations.</p>
+                </div>
+                <div class="modal-features">
+                    <h4>Key Features:</h4>
+                    <ul>
+                        <li>Ultra-precision tooling for turbine components</li>
+                        <li>Specialized solutions for composite materials</li>
+                        <li>Tooling for airframe structural components</li>
+                        <li>High-temperature resistant materials</li>
+                        <li>Compliance with AS9100 quality standards</li>
+                    </ul>
+                </div>
+                <div class="modal-actions">
+                    <a href="contact.html" class="btn">Request a Quote</a>
+                    <a href="products.html" class="btn btn-outline">View Products</a>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Heavy Engineering Modal -->
+    <div class="modal-overlay" id="heavy-modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>Heavy Engineering Solutions</h3>
+                <button class="close-modal">&times;</button>
+            </div>
+            <div class="modal-body">
+                <img src="https://images.unsplash.com/photo-1581094794329-c8112a89af12?ixlib=rb-4.0.3&auto=format&fit=crop&w=2070&q=80" alt="Heavy Engineering" class="modal-image">
+                <div class="modal-description">
+                    <p>Sigma Toolings offers robust and durable tooling solutions designed for the demanding environments of heavy engineering applications. Our products are engineered to withstand extreme conditions while maintaining precision and performance.</p>
+                    <p>From construction equipment to industrial machinery, our tooling solutions help manufacturers improve efficiency, reduce downtime, and extend equipment lifespan.</p>
+                </div>
+                <div class="modal-features">
+                    <h4>Key Features:</h4>
+                    <ul>
+                        <li>Heavy-duty boring and milling tools</li>
+                        <li>Wear-resistant coatings for extended tool life</li>
+                        <li>Custom solutions for large-scale components</li>
+                        <li>Tooling for mining and construction equipment</li>
+                        <li>Enhanced durability for high-stress applications</li>
+                    </ul>
+                </div>
+                <div class="modal-actions">
+                    <a href="contact.html" class="btn">Request a Quote</a>
+                    <a href="products.html" class="btn btn-outline">View Products</a>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Agriculture Equipment Modal -->
+    <div class="modal-overlay" id="agriculture-modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>Tractor & Farm Equipment Tooling</h3>
+                <button class="close-modal">&times;</button>
+            </div>
+            <div class="modal-body">
+                <img src="https://images.unsplash.com/photo-1578662996442-48f60103fc96?ixlib=rb-4.0.3&auto=format&fit=crop&w=2070&q=80" alt="Tractor & Farm Equipments Tooling" class="modal-image">
+                <div class="modal-description">
+                    <p>Our specialized tooling solutions for agricultural machinery help manufacturers produce durable and efficient equipment that stands up to the rigors of farm use. We understand the unique requirements of agricultural equipment and provide tooling that enhances performance and longevity.</p>
+                    <p>Sigma Toolings works with leading agricultural equipment manufacturers to develop custom solutions that optimize production processes and improve product quality.</p>
+                </div>
+                <div class="modal-features">
+                    <h4>Key Features:</h4>
+                    <ul>
+                        <li>Specialized tooling for tractor components</li>
+                        <li>Durable solutions for harvesting equipment</li>
+                        <li>Tooling for tillage and planting machinery</li>
+                        <li>Corrosion-resistant materials</li>
+                        <li>Custom solutions for specific farm applications</li>
+                    </ul>
+                </div>
+                <div class="modal-actions">
+                    <a href="contact.html" class="btn">Request a Quote</a>
+                    <a href="products.html" class="btn btn-outline">View Products</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- FOOTER -->
+    <footer style="background: var(--dark); color: white; padding: 40px 0 20px; margin-top: 50px;">
+        <div class="container">
+            <div class="footer-content" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 40px; margin-bottom: 40px;">
+                <div class="footer-column">
+                    <h3 style="font-size: 1.3rem; margin-bottom: 20px; position: relative; padding-bottom: 10px;">Sigma Toolings</h3>
+                    <p>Leading the industry with precision engineering and innovative solutions.</p>
+                </div>
+                <div class="footer-column">
+                    <h3 style="font-size: 1.3rem; margin-bottom: 20px; position: relative; padding-bottom: 10px;">Contact Info</h3>
+                    <ul>
+                        <li><i class="fas fa-map-marker-alt"></i> 123 Industrial Way, Tech City</li>
+                        <li><i class="fas fa-phone"></i> +766804589</li>
+                        <li><i class="fas fa-envelope"></i> info@sigmatoolings.com</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom" style="text-align: center; padding-top: 20px; border-top: 1px solid rgba(255,255,255,.1); color: #b0b7c3; font-size: .9rem;">
+                <p>© 2025 Sigma Toolings — All Rights Reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- JAVASCRIPT -->
+    <script>
+        // Mobile Menu Toggle
+        document.querySelector('.mobile-toggle').addEventListener('click', () => {
+            document.querySelector('.nav-menu').classList.toggle('active');
+        });
+        
+        // Close menu on click
+        document.querySelectorAll('.nav-menu a').forEach(a => {
+            a.addEventListener('click', () => document.querySelector('.nav-menu').classList.remove('active'));
+        });
+
+        // Read More Functionality
+        document.querySelectorAll('.read-more-btn').forEach(button => {
+            button.addEventListener('click', () => {
+                const industry = button.getAttribute('data-industry');
+                const modal = document.getElementById(`${industry}-modal`);
+                modal.classList.add('active');
+                document.body.style.overflow = 'hidden'; // Prevent scrolling
+            });
+        });
+
+        // Close Modal Functionality
+        document.querySelectorAll('.close-modal').forEach(button => {
+            button.addEventListener('click', () => {
+                const modal = button.closest('.modal-overlay');
+                modal.classList.remove('active');
+                document.body.style.overflow = 'auto'; // Re-enable scrolling
+            });
+        });
+
+        // Close modal when clicking outside content
+        document.querySelectorAll('.modal-overlay').forEach(modal => {
+            modal.addEventListener('click', (e) => {
+                if (e.target === modal) {
+                    modal.classList.remove('active');
+                    document.body.style.overflow = 'auto'; // Re-enable scrolling
+                }
+            });
+        });
+
+        // Close modal with Escape key
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape') {
+                document.querySelectorAll('.modal-overlay').forEach(modal => {
+                    modal.classList.remove('active');
+                });
+                document.body.style.overflow = 'auto'; // Re-enable scrolling
+            }
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,297 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Videos - Sigma Toolings</title>
+<meta name="description" content="Watch Sigma Toolings precision machining videos: Cylinder Head Boring, Banjo Housing, Differential Case Tooling and more.">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+<style>
+/* === GLOBAL STYLES === */
+*{margin:0;padding:0;box-sizing:border-box;font-family:'Segoe UI',Tahoma,Geneva,Verdana,sans-serif;}
+:root{
+--primary:#1a365d;--secondary:#2d6bc4;--accent:#e63946;--light:#f8f9fa;--dark:#212529;--gray:#6c757d;--transition:all .3s ease;
+}
+body{line-height:1.6;color:var(--dark);background:#fff;}
+a{text-decoration:none;color:inherit;}
+ul{list-style:none;}
+.container{width:90%;max-width:1200px;margin:0 auto;padding:0 15px;}
+.btn{display:inline-block;padding:12px 30px;background:var(--secondary);color:white;border:none;border-radius:4px;font-weight:600;cursor:pointer;transition:var(--transition);text-transform:uppercase;font-size:.9rem;letter-spacing:1px;}
+.btn:hover{background:var(--primary);transform:translateY(-3px);box-shadow:0 5px 15px rgba(0,0,0,.1);}
+.section{padding:80px 0;}
+.section-title{text-align:center;margin-bottom:50px;}
+.section-title h2{font-size:2.5rem;color:var(--primary);margin-bottom:15px;position:relative;display:inline-block;}
+.section-title h2::after{content:'';position:absolute;width:70px;height:3px;background:var(--accent);bottom:-10px;left:50%;transform:translateX(-50%);}
+.section-title p{color:var(--gray);max-width:700px;margin:0 auto;}
+
+/* === HEADER / NAV MENU === */
+header{background:white;box-shadow:0 2px 10px rgba(0,0,0,.1);position:fixed;width:100%;top:0;z-index:1000;}
+.header-container{display:flex;justify-content:space-between;align-items:center;padding:12px 0;}
+
+.site-logo{height:55px;width:auto;}
+
+.nav-menu{display:flex;align-items:center;gap:25px;}
+.nav-menu li{position:relative;}
+.nav-menu a{font-weight:600;color:var(--dark);transition:var(--transition);padding:6px;}
+.nav-menu a:hover{color:var(--secondary);}
+.nav-menu a.active{color:var(--secondary);}
+
+/* Dropdown */
+.dropdown-menu{
+display:none;
+position:absolute;
+top:35px;
+left:0;
+background:white;
+box-shadow:0 4px 12px rgba(0,0,0,.1);
+padding:10px 0;
+border-radius:5px;
+width:200px;
+z-index:9999;
+}
+.dropdown-menu li a{padding:10px 15px;display:block;color:#000;}
+.dropdown-menu li a:hover{background:#f5f5f5;}
+
+.nav-menu li:hover > .dropdown-menu{display:block;}
+
+.mobile-toggle{display:none;font-size:1.6rem;cursor:pointer;}
+
+/* HERO */
+.hero{background:linear-gradient(rgba(26,54,93,.9),rgba(26,54,93,.9)),url('https://images.unsplash.com/photo-1621905252472-da7b6c123f40') center/cover no-repeat;color:white;padding:180px 0 100px;text-align:center;}
+.hero h1{font-size:3.5rem;margin-bottom:20px;}
+.hero p{font-size:1.2rem;max-width:700px;margin:0 auto 30px;}
+
+/* VIDEO CARDS */
+.video-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(340px,1fr));gap:30px;margin-top:40px;}
+.video-card{background:white;border-radius:12px;overflow:hidden;box-shadow:0 8px 25px rgba(0,0,0,.1);transition:var(--transition);cursor:pointer;}
+.video-card:hover{transform:translateY(-12px);box-shadow:0 20px 40px rgba(0,0,0,.15);}
+.thumb{position:relative;height:220px;background:#000;}
+.thumb img{width:100%;height:100%;object-fit:cover;}
+.play-icon{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);font-size:3.5rem;color:white;text-shadow:0 0 20px rgba(0,0,0,.7);font-weight:bold;}
+.video-info{padding:18px;}
+.video-info h3{font-size:1.2rem;margin-bottom:6px;color:var(--primary);}
+.video-info p{font-size:.95rem;color:var(--gray);}
+
+/* MODAL */
+.modal{display:none;position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,.9);z-index:2000;align-items:center;justify-content:center;padding:20px;}
+.modal-content{position:relative;width:90%;max-width:900px;background:#000;border-radius:12px;overflow:hidden;}
+.close-modal{position:absolute;top:15px;right:20px;color:white;font-size:2.5rem;cursor:pointer;}
+iframe{width:100%;height:506px;border:none;}
+
+/* FOOTER */
+footer{background:var(--dark);color:white;padding:70px 0 20px;}
+.footer-content{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:40px;margin-bottom:40px;}
+.footer-column h3{font-size:1.3rem;margin-bottom:20px;position:relative;padding-bottom:10px;}
+.footer-column h3::after{content:'';position:absolute;width:40px;height:2px;background:var(--secondary);bottom:0;left:0;}
+.footer-column ul li{margin-bottom:10px;}
+.footer-column ul li a{color:#b0b7c3;transition:.3s;}
+.footer-column ul li a:hover{color:white;}
+.social-icons{display:flex;gap:12px;margin-top:10px;}
+.social-icons a{display:flex;align-items:center;justify-content:center;width:38px;height:38px;background:rgba(255,255,255,.1);border-radius:50%;}
+.social-icons a:hover{background:var(--secondary);}
+.footer-bottom{text-align:center;padding-top:20px;border-top:1px solid rgba(255,255,255,.1);color:#b0b7c3;font-size:.9rem;}
+
+@media(max-width:768px){
+.nav-menu{
+position:fixed;top:75px;left:-100%;width:100%;height:100vh;background:white;flex-direction:column;padding-top:40px;transition:.3s;}
+.nav-menu.active{left:0;}
+.nav-menu li{margin-bottom:25px;}
+.mobile-toggle{display:block;color:var(--primary);}
+.dropdown-menu{position:relative;box-shadow:none;width:100%;}
+}
+</style>
+</head>
+
+<body>
+
+<!-- ✅ HEADER -->
+<header>
+<div class="container header-container">
+
+<div class="logo">
+<a href="index.html">
+<img src="logo.png" alt="Sigma Toolings Logo" class="site-logo">
+</a>
+</div>
+
+<div class="mobile-toggle"><i class="fas fa-bars"></i></div>
+
+<ul class="nav-menu">
+<li><a href="index.html">Home</a></li>
+
+<li>
+<a href="#">Company ▼</a>
+<ul class="dropdown-menu">
+<li><a href="about-us.html">About Us</a></li>
+<li><a href="team.html">Our Team</a></li>
+<li><a href="careers.html">Careers</a></li>
+<li><a href="contact.html">Contact</a></li>
+</ul>
+</li>
+
+<li>
+<a href="#">Products ▼</a>
+<ul class="dropdown-menu">
+<li><a href="product1.html">Product 1</a></li>
+<li><a href="product2.html">Product 2</a></li>
+<li><a href="product3.html">Product 3</a></li>
+</ul>
+</li>
+
+<li><a href="value-adds.html">Value-Adds</a></li>
+<li><a href="videos.html" class="active">Videos</a></li>
+<li><a href="downloads.html">Downloads</a></li>
+<li><a href="news.html">News</a></li>
+<li><a href="blogs.html">Blogs</a></li>
+</ul>
+
+</div>
+</header>
+
+<!-- ✅ HERO -->
+<section class="hero">
+<div class="container">
+<h1>Our Videos</h1>
+<p>Watch Sigma Toolings precision engineering in action</p>
+<a href="#videos" class="btn">Watch Now</a>
+</div>
+</section>
+
+<!-- ✅ VIDEO SECTION -->
+<section class="section" id="videos">
+<div class="container">
+<div class="section-title">
+<h2>Video Gallery</h2>
+<p>See our advanced tooling solutions performing live</p>
+</div>
+
+<div class="video-grid">
+
+<div class="video-card" onclick="openModal('https://www.youtube.com/embed/5qap5aOQPac')">
+<div class="thumb">
+<img src="https://img.youtube.com/vi/5qap5aOQPac/maxresdefault.jpg">
+<div class="play-icon">▶</div>
+</div>
+<div class="video-info">
+<h3>Cylinder Head Fine Boring Unit</h3>
+<p>High precision machining</p>
+</div>
+</div>
+
+<div class="video-card" onclick="openModal('https://www.youtube.com/embed/dQw4w9WgXcQ')">
+<div class="thumb">
+<img src="https://img.youtube.com/vi/dQw4w9WgXcQ/maxresdefault.jpg">
+<div class="play-icon">▶</div>
+</div>
+<div class="video-info">
+<h3>Banjo Housing Machining</h3>
+<p>65% faster cycle time</p>
+</div>
+</div>
+
+<div class="video-card" onclick="openModal('https://www.youtube.com/embed/9bZkp7q19f0')">
+<div class="thumb">
+<img src="https://img.youtube.com/vi/9bZkp7q19f0/maxresdefault.jpg">
+<div class="play-icon">▶</div>
+</div>
+<div class="video-info">
+<h3>Differential Case Tooling</h3>
+<p>Single setup machining</p>
+</div>
+</div>
+
+</div>
+</div>
+</section>
+
+<!-- ✅ VIDEO MODAL -->
+<div class="modal" id="videoModal" onclick="closeModal()">
+<div class="modal-content" onclick="event.stopPropagation()">
+<span class="close-modal" onclick="closeModal()">×</span>
+<iframe id="youtubePlayer" allowfullscreen></iframe>
+</div>
+</div>
+
+<!-- ✅ FOOTER -->
+<footer>
+<div class="container">
+<div class="footer-content">
+<div class="footer-column">
+<h3>Sigma Toolings</h3>
+<p>Leading the industry with precision engineering and innovative solutions.</p>
+<div class="social-icons">
+<a href="#"><i class="fab fa-facebook-f"></i></a>
+<a href="#"><i class="fab fa-twitter"></i></a>
+<a href="#"><i class="fab fa-linkedin-in"></i></a>
+<a href="#"><i class="fab fa-instagram"></i></a>
+</div>
+</div>
+
+<div class="footer-column">
+<h3>Quick Links</h3>
+<ul>
+<li><a href="index.html">Home</a></li>
+<li><a href="products.html">Products</a></li>
+<li><a href="solutions.html">Solutions</a></li>
+<li><a href="about-us.html">About Us</a></li>
+<li><a href="videos.html">Videos</a></li>
+<li><a href="contact.html">Contact</a></li>
+</ul>
+</div>
+
+<div class="footer-column">
+<h3>Our Products</h3>
+<ul>
+<li><a href="#">Cutting Tools</a></li>
+<li><a href="#">Measuring Instruments</a></li>
+<li><a href="#">Industrial Machines</a></li>
+<li><a href="#">Safety Tools</a></li>
+<li><a href="#">Custom Engineering</a></li>
+</ul>
+</div>
+
+<div class="footer-column">
+<h3>Contact Info</h3>
+<ul>
+<li><i class="fas fa-map-marker-alt"></i> 123 Industrial Way, Tech City</li>
+<li><i class="fas fa-phone"></i> +91-9876543210</li>
+<li><i class="fas fa-envelope"></i> info@sigmatoolings.com</li>
+<li><i class="fas fa-clock"></i> Mon–Fri: 9AM–6PM</li>
+</ul>
+</div>
+</div>
+
+<div class="footer-bottom">
+<p>© 2025 Sigma Toolings — All Rights Reserved.</p>
+</div>
+</div>
+</footer>
+
+<!-- ✅ JS -->
+<script>
+// Mobile Menu Toggle
+document.querySelector('.mobile-toggle').addEventListener('click',()=> {
+document.querySelector('.nav-menu').classList.toggle('active');
+});
+
+// Close menu on click
+document.querySelectorAll('.nav-menu a').forEach(a=>{
+a.addEventListener('click',()=>document.querySelector('.nav-menu').classList.remove('active'));
+});
+
+// Modal Scripts
+function openModal(videoId){
+document.getElementById('youtubePlayer').src = videoId + "?autoplay=1";
+document.getElementById('videoModal').style.display="flex";
+document.body.style.overflow='hidden';
+}
+function closeModal(){
+document.getElementById('videoModal').style.display="none";
+document.getElementById('youtubePlayer').src="";
+document.body.style.overflow='auto';
+}
+</script>
+
+</body>
+</html>
